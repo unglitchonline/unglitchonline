@@ -1,0 +1,74 @@
+{
+    "origin": ["#element# #image-art#", "#people# #image-art#", "#people#, pero al final de todo #element# #image-art#", "#celu#"],
+    
+    "element" : ["#a# + #a# #c# es amor eterno", "#a# + #a# #d# ser amor eterno", "#a# le rompió el corazón 💔 a #a#", "ojalá algún día #a# se dé cuenta que #a# es su alma gemela 💘"],
+    
+    "number": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"],
+    
+    "people" : ["#someone# estaba con #someone# en compañía de #pet# yendo a #building# y recordaron a #author# diciendo que #thing# es #thing#", "tú estabas con #someone# en compañía de #pet# yendo a #building# y recordaste a #author# diciendo que #thing# es #thing#"],
+    
+    "a" : ["Actinio Ac, 89", "Aluminio Al, 13", "Americio Am, 95", "Antimonio Sb, 51", "Argón Ar, 18", "Arsénico As, 33", "Ástato At, 85", "Azufre S, 16", "Bario Ba, 56", "Berilio Be, 4", "Berkelio Bk, 97", "Bismuto Bi, 83", "Bohrio Bh, 107", "Boro B, 5", "Bromo Br, 35", "Cadmio Cd, 48", "Calcio Ca, 20", "Californio Cf, 98", "Carbono C, 6", "Cerio Ce, 58", "Cesio Cs, 55", "Cloro Cl, 17", "Cobalto Co, 27", "Cobre Cu, 29", "Copernicium NC, 112", "Cromo Cr, 24", "Curio Cm, 96", "Darmstadio Ds, 110", "Disprosio Dy, 66", "Dubnio Db, 105", "Einstenio Es, 99", "Erbio Er, 68", "Escandio Sc, 21", "Estaño Sn, 50", "Estroncio Sr, 38", "Europio Eu, 63", "Fermio Fm, 100", "Flerovium Fl, 114", "Fluor F, 9", "Fósforo P, 15", "Francio Fr, 87", "Gadolinio Gd, 64", "Galio Ga, 31", "Germanio Ge, 32", "Hafnio Hf, 72", "Hassio Hs, 108", "Helio He, 2", "Hidrógeno H, 1", "Hierro Fe, 26", "Holmio Ho, 67", "Indio In, 49", "Iodo I, 53", "Iridio Ir, 77", "Iterbio Yb, 70", "Itrio Y, 39", "Kryptón Kr, 36", "Lantano La, 57", "Lawrencio Lr, 103", "Litio Li, 3", "Livermorium Lv, 116", "Lutecio Lu, 71", "Magnesio Mg, 12", "Manganeso Mn, 25", "Meitnerio Mt, 109", "Mendelevio Md, 101", "Mercurio Hg, 80", "Molibdeno Mo, 42", "Moscovium Mc, 115", "Neodimio Nd, 60", "Neón Ne, 10", "Neptunio Np, 93", "Nihonium Nh, 113", "Niobio Nb, 41", "Níquel Ni, 28", "Nitrógeno N, 7", "Nobelio No, 102", "Oganesson Og, 118", "Oro Au, 79", "Osmio Os, 76", "Oxígeno O, 8", "Paladio Pd, 46", "Plata Ag, 47", "Platino Pt, 78", "Plomo Pb, 82", "Plutonio Pu, 94", "Polonio Po, 84", "Potasio K, 19", "Praseodimio Pr, 59", "Promecio Pm, 61", "Protactinio Pa, 91", "Radio Ra, 88", "Radón Rn, 86", "Renio Re, 75", "Rodio Rh, 45", "Roentgenium Rg, 111", "Rubidio Rb, 37", "Rutenio Ru, 44", "Rutherfordio Rf, 104", "Samario Sm, 62", "Seaborgio Sg, 106", "Selenio Se, 34", "Sílice Si, 14", "Sodio Na, 11", "Talio Tl, 81", "Tantalio Ta, 73", "Tecnecio Tc, 43", "Teluro Te, 52", "Tennessine Ts, 117", "Terbio Tb, 65", "Titanio Ti, 22", "Torio Th, 90", "Tulio Tm, 69", "Uranio U, 92", "Vanadio V, 23", "Wolframio W, 74", "Xenón Xe, 54", "Zinc Zn, 30", "Zirconio Zr, 40"],
+    
+    "c" : [ "sí 🥰", "no 😭"],
+    
+    "d" : ["podría 🌚🌝", "no podría 👎"],
+    
+    "someone" :["👤", "👥", "👶", "👧", "🧒", "👦", "👩", "🧑", "👨", "👩‍🦱", "👨‍🦱", "👩‍🦰", "👨‍🦰", "👱‍♀️", "👱", "👱‍♂️", "👩‍🦳", "👨‍🦳", "👩‍🦲", "🧑‍🦲", "👨‍🦲", "🧔", "👵", "🧓", "👴", "👲", "👳‍♀️", "👳", "👳‍♂️", "🧕", "👼", "👸", "🤴", "👰", "🤵‍♀️", "🤵", "🤵‍♂️", "🧎‍♀️", "🧎", "🧎‍♂️", "🧍‍♀️", "🧍", "🧍‍♂️", "🚶‍♀️", "🚶", "🚶‍♂️", "👩‍🦯", "🧑‍🦯", "👨‍🦯", "🏃‍♀️", "🏃", "🏃‍♂️", "👩‍🦼", "👨‍🦼", "👩‍🦽", "👨‍🦽", "💃", "🕺", "⛷", "🏂", "🏋️‍♀️", "🏋", "🏋️‍♂️", "🤺", "🤼‍♀️", "🤼", "🤼‍♂️", "🤸‍♀️", "🤸", "🤸‍♂️", "⛹️‍♀️", "⛹", "⛹️‍♂️", "🤾‍♀️", "🤾", "🤾‍♂️", "🧗‍♀️", "🧗", "🧗‍♂️", "🏌️‍♀️", "🏌", "🏌️‍♂️", "🧘‍♀️", "🧘", "🧘‍♂️", "🧖‍♀️", "🧖", "🧖‍♂️", "🏄‍♀️", "🏄", "🏄‍♂️", "🏊‍♀️", "🏊", "🏊‍♂️", "🤽‍♀️", "🤽", "🤽‍♂️", "🚣‍♀️", "🚣", "🚣‍♂️", "🏇", "🚴‍♀️", "🚴", "🚴‍♂️", "🚵‍♀️", "🚵", "🚵‍♂️", "🤹‍♀️", "🤹", "🤹‍♂️", "👮‍♀️", "👮", "👮‍♂️", "👩‍🚒", "👨‍🚒", "👷‍♀️", "👷", "👷‍♂️", "👩‍🏭", "👨‍🏭", "👩‍🔧", "👨‍🔧", "👩‍🌾", "👨‍🌾", "👩‍🎤", "👨‍🎨", "👩‍🏫", "👩‍🎓", "👨‍🎓", "👩‍💼", "👨‍💼", "👨‍💻", "👩‍⚕️", "👨‍⚕️", "👩‍⚖️", "👨‍⚖️", "👩‍✈️", "👨‍✈️", "💂‍♀️", "💂", "💂‍♂️", "🕵", "🤶", "🎅", "🕴", "🦸‍♀️", "🦸", "🦸‍♂️", "🦹‍♀️", "🦹", "🦹‍♂️", "🧙", "🧙‍♂️", "🧝‍♀️", "🧝", "🧝‍♂️", "🧚‍♀️", "🧚", "🧚‍♂️", "🧞", "🧞‍♂️", "🧜‍♀️", "🧜", "🧜‍♂️", "🧛", "🧟‍♀️", "🧟", "🧟‍♂️", "👯", "yo"],
+    
+    "pet" :["🐶", "🐱", "🐭", "🐹", "🐰", "🐻", "🧸", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷", "🐽", "🐸", "🐵", "🙈", "🙉", "🙊", "🐒", "🦍", "🦧", "🐔", "🐧", "🐦", "🐤", "🐣", "🐥", "🐺", "🦊", "🦝", "🐗", "🐴", "🦓", "🦒", "🦌", "🦘", "🦥", "🦦", "🦄", "🐝", "🐛", "🦋", "🐌", "🐞", "🐜", "🦗", "🕷", "🕸", "🦂", "🦟", "🦠", "🐢", "🐍", "🦎", "🐙", "🦑", "🦞", "🦀", "🦐", "🦪", "🐠", "🐟", "🐡", "🐬", "🦈", "🐳", "🐋", "🐊", "🐆", "🐅", "🐃", "🐂", "🐄", "🐪", "🐫", "🦙", "🐘", "🦏", "🦛", "🐐", "🐏", "🐑", "🐎", "🐖", "🦇", "🐓", "🦃", "🕊", "🦅", "🦆", "🦢", "🦉", "🦩", "🦚", "🦜", "🐕", "🦮", "🐕‍🦺", "🐩", "🐈", "🐇", "🐀", "🐁", "🐿", "🦨", "🦡", "🦔", "🐉", "🐲", "🦕", "🦖", "🌵", "🌲", "🌳", "🌴", "🌱", "🌿", "☘", "🍀", "🎍", "🎋", "🍃", "🍂", "🍁", "🌾", "🌺", "🌻", "🌹", "🥀", "🌷", "🌼", "🌸", "💐", "🍄", "🌰", "🐚", "🌚", "🌝", "🌛", "🌜", "☄", "🪐", "🌞", "☃", "⛄", "🌬", "🌈"],
+    
+    "building" :["⛩", "🕋", "🕍", "🛕", "🕌", "⛪", "🏛", "💒", "🏩", "🏫", "🏪", "🏨", "🏦", "🏥", "🏤", "🏣", "🏬", "🏢", "🏡", "🗽", "🏟", "🏯", "🏰", "🏘", "🎆", "🎇", "🌠", "🌌", "🌉", "🌃", "🏙", "🌆", "🌇", "🏝", "🏖", "🏜", "🌄", "🌅", "🛤", "🛣", "🏞", "⛺", "🏕", "🌋", "🗻", "🏔", "⛰", "🎑", "🏭", "🌁", "🏗", "🎠", "🎢", "🎡"],
+    
+    "author" :["Cosio d'Arroscia", "Asger Jorn", "Attila Kotanyi", "Michèle Bernstein", "Raoul Vaneigem", "Ralph Rumney", "Guy Debord", "György Lukács", "Rosa Luxemburgo", "Virginia Barratt", "Diann Bauer", "Mez Breeze", "Shu Lea Cheang", "Linda Dement", "Marthe Van Dessel", "Valie Djordjevic", "Lucca Fraser", "Girl Geek Dinners", "Marina Gržinić", "Helen Hester", "Amy Ireland", "Verena Kuni", "Laboria Cuboniks", "Nathalie Magnan", "Ana Martínez-Collado", "Diana McCarty", "Old Boys Network", "Julianne Pierce", "Sadie Plant", "Purple Noise", "Patricia Reed", "Francesca da Rimini", "Anne Roth", "Cornelia Sollfrank", "SubRosa", "TransHACKfeminist! camp", "VNS Matrix", "Yvonne Volkart", "Peter Ablinger", "Milan Adamčiak", "Miguel Álvarez-Fernández", "Maryanne Amacher", "Laurie Anderson", "Audio Gruppe", "Audio Scene '79", "Sam Auinger", "AUT", "André Avelãs", "Younes Baba-Ali", "Natasha Barrett", "Baschet Brothers", "Dennis Báthory-Kitsz", "Justin Bennett", "Harry Bertoia", "Myriam Bleau", "René Block", "Ursula Block", "Fari Bradley", "Tania Candiani", "Janet Cardiff", "Kabir Carter", "Daniela Cascella", "André Castro", "Raquel Castro", "Budhaditya Chattopadhyay", "Roz Cheney", "Lin Chiwei", "City Sonic", "Nicolas Collins", "Robert Curgenven", "Alvin Curran", "Peter Cusack", "Paul DeMarinis", "Lloyd Dunn", "Lina Džuverović", "E/static", "Echo City", "Espen Sommer Eide", "Eleonora Oreggia", "Ephemeral Sustainability", "Extrapool", "Bill Fontana", "Carlo Fossati", "Anna Friz", "Ellen Fullman", "Marco Fusinato", "Bernhard Gál", "Christian Galarreta", "Raviv Ganchrow", "Richard Garet", "Generation Z", "Sanne Krogh Groth", "Heidi Grundmann", "Jonáš Gruska", "Milan Grygar", "John Grzinich", "Yolande Harris", "Hanna Hartman", "Felix Hess", "Roy Lichtenstein"], 
+    
+    "thing" :["un libro robado", "la escuela católica", "una estrella", "la galaxia estrellada", "la compilación de palabras", "el conjunto de teclados", "un instrumento de sonido", "el experimento de V. Frankenstein", "la curaduría comunitaria", "una experiencia musical", "la teoría fluxus", "una videollamada de tres minutos", "el caset perdido", "la biografía de Marx", "la revista de fotografía", "la página web que no funciona", "un libro en .epub", "un libro en .pdf", "un archivo .wav", "la pantalla del celular", "la pantalla de la televisión", "la radio del abuelo", "como la cocina que la madre odiaba", "el alma humana", "un sonido de 500 Hz", "la piñata de diciembre", "una catastrofe ambiental", "el partido de los viernes", "el mouse de la computadora", "la toalla tirada", "el comentarista famoso", "mentira colectiva", "radiación pura", "experiencia que no vale la pena", "remedio casero", "un desperdicio de dinero", "la oportunidad que todxs deberían tener", "como el dulce que nadie tomó de la cesta", "el delirio de google", "una foto de instagram", "un parque lleno de patos", "la libret en blanco", "un .gif que no se mueve en la página impresa"],
+    
+    "image-art": ["\n#imageURL#\n"],
+    
+    "imageURL" :[
+    "{img https://i.giphy.com/media/26gsn66taf1GgYHfi/giphy.gif}",
+    "{img https://i.giphy.com/media/26ybvc5GgyFUKLsJ2/giphy.gif}",
+    "{img https://i.giphy.com/media/unNNL53sfFIzbSBU3h/giphy.gif}",
+    "{img https://www.ryanseslow.com/wp-content/uploads/2021/04/Access-Access.gif}",
+    "{img https://media1.giphy.com/media/3rgXBr7edSfYpU4DHW/giphy.gif?cid=790b76115db086a069336e949e36e6675f2fcba8bf58ae54&rid=giphy.gif&ct=g}",
+    "{img https://i.giphy.com/media/KIPVubXUwkWTC/giphy.gif}",
+    "{img https://64.media.tumblr.com/tumblr_m1iuyqcHGg1qdezf9o1_500.gif}",
+    "{img https://64.media.tumblr.com/d898c4d423dfe44a36dcad26c8a88bcf/tumblr_or0uvzi0nH1tjhgrfo1_1280.gif}",
+    "{img https://64.media.tumblr.com/d2125b07fcdc9e5b41f456bc0bc84fd3/tumblr_opht7ePmVf1tjhgrfo1_500.gif}",
+    "{img https://64.media.tumblr.com/d9d6666abd204691cb64e033fa2d4e66/tumblr_opiymtZ8zn1tjhgrfo1_500.gif}",
+    "{img https://media2.giphy.com/media/kPfuCRO04fAiqrHrTV/giphy.gif?cid=790b7611116b90c4c99303dbe5d45eb7bd69dc75bc627997&rid=giphy.gif&ct=g}",
+    "{img https://64.media.tumblr.com/a977cb3c69e82c5e0ee5768862d29cfd/78ff132fe7545c7b-36/s1280x1920/a3e6f6f872b8f340fd4a7cc580af9cd2a3a00e6e.gif}",
+    "{img https://64.media.tumblr.com/b86d5b8815668a0b796ab92d18defaa7/7342e2d9ee088fbd-73/s1280x1920/f7db46df7d514be7623c60feeef18f593a61a71d.gif}",
+    "{img https://64.media.tumblr.com/4aa1c06ab7a53fb71dd6255407ab6854/8a74dc4d824a0676-c1/s1280x1920/46c75a863a4ce7444c724cb8a2d6316a72cb6878.gif}",
+    "{img https://pbs.twimg.com/media/E1RabZcWEAIokLC?format=jpg&name=900x900}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/bitacor00fondo.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/bitacora00cool.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/bitacora1fondo.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/6.jpg}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/18.png}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/bitacora2fondo.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/13.png}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/bitacora3fondo.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/bitacora3cool.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/surfing.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/culturafondo.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/coolcultura-inicio.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/brooklyn.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/roomconfusesme.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/new-miguelangel.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/tired.gif}",
+    "{img https://abigailfuentesp.github.io/abigailfuentesp/docs/img/makeuponmyface.gif}"
+    ],
+    
+    "celu": ["#virus_warning#\n◜▔▔▔▔◝\n|███████|\n|███████|\n|███████|\n|██..#someone#..██|\n|███████|\n|███████|\n|███████|\n◟▁▁▁▁◞"],
+    
+    "hours": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+    
+    "day_night": [" am", " pm"],
+    
+    "time": ["#hours##day_night#"],
+    
+    "security": ["██████████ 100%", "█████████░ 90%", "████████░░ 80%", "███████░░░ 70%","██████░░░░ 60%", "█████░░░░░ 50%","████░░░░░░ 40%", "███░░░░░░░ 30%", "██░░░░░░░░ 20%", "█░░░░░░░░░ 10%", "░░░░░░░░░░ 0%"],
+    
+    "virus_warning": ["Un virus ha invadido tu dispositivo, la maldad se ve así:", "MALWARE DETECTADO. \n Recuerda actualizar tu antivirus", "Al navegar en internet, tus datos son públicos.", "No uses contraseñas menores a 15 carácteres en tus cuentas", "biri biri bam bam", "¡Warning! \n #number# infections found", "Dormiste a las #time# y encuentras el siguiente msj en la pantalla:", "Virus detected.\nTu sistema operativo no podrá recuperarse.\nDale un respiro a tu dispositivo.", "Please install antivirus software and update your computer.", "Tu crush no te ha respondido, deja ya de checar el celular.", "¡Cierra ya todas tus aplicaciones y reinicia tu dispositivo!", "Infection list:", "Activando protección a tu corazón.\nRecuerda que la amenaza luce así:", "The safe procedure could not be located in the .dll file", "Security level: #security#"]
+    }

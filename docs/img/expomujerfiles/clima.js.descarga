@@ -1,0 +1,50 @@
+function getWeather(){
+	var clase="";
+		$.ajax({
+			url: "https://api.openweathermap.org/data/2.5/weather?q=Leon,MX&appid=89e8764de5718f05a8fcbe066706f8a7",
+			type: "GET",
+			data: "",
+			dataType: "json",
+			success:function(data){
+				
+				//$('#icono').html("<img src='http://openweathermap.org/img/w/" + data.weather[0].icon+ ".png'>");
+				var temp=data.main.temp-273.15
+				var icono = data.weather[0].icon;
+				var dn=icono.slice(-1);
+				var tipo=data.weather[0].main.toLowerCase();
+				
+				switch (tipo){
+					case "clear": 
+						 clase=(dn=="d")?'wi-day-sunny':'wi-night-clear';
+						break;
+					case "clouds": 
+						 clase=(dn=="d")?'wi-day-cloudy':'wi-night-alt-cloudy';
+						break;
+					case "rain": 
+						 clase=(dn=="d")?'wi-day-rain-mix':'wi-night-alt-rain';
+						break;
+					case "drizzle": 
+						 clase=(dn=="d")?'drizzle sun':'wi-night-alt-rain-mix';
+						break;
+					case "thunderstorm": 
+						 clase=(dn=="d")?'wi-day-showers':'wi-night-showers';
+						break;
+					case "fog": 
+						 clase=(dn=="d")?'wi-day-fog':'wi-night-fog';
+						break;
+					case "partlysunny": 
+						 clase=(dn=="d")?'wi-wu-partlysunny':'wi-wu-partlysunny';
+						break;
+						
+					case "default": 						
+						 clase='thermometer';
+						break;
+					
+				}
+				$('.temperatura').html(Math.round(data.main.temp-273.15) + "&deg; C");
+				$('#icon-clima').addClass('weather-icons ' + clase + " edo-tiem");
+			}	
+		 });
+	}
+
+	

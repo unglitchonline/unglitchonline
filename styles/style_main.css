@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+body {
+      font-family: 'Fira Mono', monospace;
+      color: black;
+      text-align: center;
+      cursor:crosshair;
+      background-size: cover;
+}
+span {
+      /* background-image: url("https://media1.giphy.com/media/xTiTnBDM8bHWQHCOxW/giphy.gif?cid=ecf05e47lbdbghp81q3jsiw5yluqj1saazkt5ctgl4xxmgpt&rid=giphy.gif"); */
+      background-color: #FBE36E;
+}
+h1, h2, h3 {
+      text-align: center;
+}
+p {
+      font-size:medium;
+      text-align: center;
+      color: black;
+}
+a:link, a:visited {
+      color: black;
+      cursor:crosshair;
+      text-decoration: none;
+}
+a:hover, a:active {
+      color: black;
+      background-color: #FB6ECC;
+      cursor:crosshair;
+      text-decoration:line-through;
+}
+#container {
+      width: 100%;
+}
+span#namezzz {
+      float:left;
+      color:white;
+}
+#generated {
+      display:block;
+      margin:0 auto;
+      text-align:center;
+      font-size: 150%;
+      width: 100%;
+      color:white;
+      margin-top: 200px;
+      margin-bottom: 200px;
+      position:static;
+      background-image: url("https://media1.giphy.com/media/xTiTnBDM8bHWQHCOxW/giphy.gif?cid=ecf05e47lbdbghp81q3jsiw5yluqj1saazkt5ctgl4xxmgpt&rid=giphy.gif");
+      background-position: center;
+      background-size: cover;
+      
+}
+#remember {
+      display:block;
+      margin:0 auto;
+      text-align:center;
+      font-size: 150%;
+      width: 100%;
+      color:white;
+      margin-top: 200px;
+      margin-bottom: 200px;
+      position:static;
+      background-image: url("https://media1.giphy.com/media/xTiTnBDM8bHWQHCOxW/giphy.gif?cid=ecf05e47lbdbghp81q3jsiw5yluqj1saazkt5ctgl4xxmgpt&rid=giphy.gif");
+      background-position: center;
+      background-size: cover;
+}
+button {
+      font-family: 'Fira Mono', monospace;
+      display: block; position:static;
+      margin: 50px auto 50px auto;
+      padding: 10px 25px;
+      font-size: 20px;
+      background: white;
+      border:none;
+      cursor:crosshair;
+}
+button:hover {
+      font-family: 'Fira Mono', monospace;
+      background-color:  #FB6ECC;
+      cursor:crosshair;
+}
+button:focus {
+      outline:none;
+}
