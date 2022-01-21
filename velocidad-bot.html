@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html" charset="UFT-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>🌩️ abby</title>
+        <link href="styles/style_main.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" media="only screen and (max-width: 480px)" href="stylemovil.css" >
+        <link rel="shortcut icon" href="docs/img/icon.png">
+    </head>
+    <body>
+        <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="unglitchonline" data-description="Support me on Buy me a coffee!" data-message="" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+        <style>
+            body {background-color: white;}
+        </style>
+        <br>
+        <a href="index.html"><img src="docs/img/2.gif" width="150px"></a>
+        <br>
+        <p><span>velocidad bot</span></p>
+        <!-- bot -->
+        <div id="generated">velocidad bot</div>
+        <button type="button" onclick="generateName()">click</button>
+        <script>
+            var number = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"];
+            var sino = ["puedes", "no puedes"];
+            var lujo = ["comer papas con queso", "navegar en tu teléfono", "comer avena", "recrear un drama coreano", "escuchar kpop", "dormir la siesta", "terminar la tesis", "escribir un rootkit", "comer helado", "escribir un poema", "rediseñar tu feed de instagram", "stalkear a tu ex", "venerar tu señal de WiFi", "llamar a tu mamá", "llamar a tu papá", "llamar a tu hermana", "llamar a tu hermano", "procrastinar", "ver la TV", "ordenar con uber eats", "checar el clima", "rediseñar tu escritorio", "leer la biografía de plat", "adoptar un michi", "convertirte en tu otro yo", "revelar tus secretos", "aprender las propiedades de los elementos", "pagar netflix", "pagar amazon", "pagar hbo", "tuitear", "tomarte una selfie", "corroborar tu cuenta de banco", "enamorarte", "enamorarte de nuevo", "ponerte en modo avión", "comprarte un par de pantuflas", "cambiar de shampoo", "cortarte el cabello", "perder las las llaves", "maratonear en tu cama todo el día", "buscar otro trabajo", "pedir perdón", "hacer memes", "reenviar memes", "borrar memes", "limpiar tu bandeja de entrada", "deshacerte de tu teléfono", "entender a Freud", "mascar chicle", "jugar minecraft", "instalar los sims", "preparar risotto", "descargar las pinturas de Roy Lichtenstein"];
+            function generateName() {
+                document.getElementById("generated").style.color = "white";
+                var numberWnum = Math.floor(Math.random() * number.length);
+                var sinoWnum = Math.floor(Math.random() * sino.length);
+                var lujoWnum = Math.floor(Math.random() * lujo.length);
+                // formato del bot:
+                var named = "la velocidad de día de hoy esta programada para acelerarse en un " + number[numberWnum] + "% " + sino[sinoWnum] + " darte el lujo de " + lujo[lujoWnum];
+                document.getElementById("generated").innerHTML = named;
+        }
+        </script>
+    </body>
+</html>

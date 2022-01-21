@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+body {
+      font-family: 'Fira Mono', monospace;
+      text-align: center;
+}
+h1, h2, h3 {
+    text-align: left;
+}
+p{
+      font-size:xx-large;
+      text-align:center;
+      color: black;
+}
+a:link, a:visited {
+      color: black;
+      font-size: 100%;
+      line-height: 105%;
+      max-width: 90%;
+      left: 30%;
+}
+a:hover, a:active {
+      color: black;
+      background-color: lightgray;
+      animation: pulse .06s 0.02s infinite steps(13, end);
+      font-size: 1vmin; 
+      max-width: 90%;
+      left: 30%;
+      line-height: 105%;
+}
