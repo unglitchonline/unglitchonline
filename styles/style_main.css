@@ -5,18 +5,16 @@ body {
       color: black;
       text-align: center;
       cursor:crosshair;
-      background-size: cover;
 }
 span {
       /* background-image: url("https://media1.giphy.com/media/xTiTnBDM8bHWQHCOxW/giphy.gif?cid=ecf05e47lbdbghp81q3jsiw5yluqj1saazkt5ctgl4xxmgpt&rid=giphy.gif"); */
-      background-color: #FBE36E;
+      /* background-color: #FBE36E; */
 }
 h1, h2, h3 {
       text-align: center;
 }
 p {
       font-size:medium;
-      text-align: center;
       color: black;
 }
 a:link, a:visited {
