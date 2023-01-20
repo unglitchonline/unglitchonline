@@ -23,8 +23,8 @@ a:link, a:visited {
       text-decoration: none;
 }
 a:hover, a:active {
-      color: black;
-      background-color: #FB6ECC;
+      color: whitesmoke;
+      background-image: url("https://media4.giphy.com/media/WaKtCcDZ16zPq/giphy.gif?cid=ecf05e47yki8r09ltewz2vyderewbstyiybem5oot9l1r7b3&rid=giphy.gif");
       cursor:crosshair;
       text-decoration:line-through;
       text
