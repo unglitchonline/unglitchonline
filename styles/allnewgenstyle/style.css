@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
+        body{
+            text-align: center;
+            background-color: black;
+            color: white;
+        }
+        h1, h2{
+            font-family: 'Press Start 2P', cursive;
+        }
+        h3, h4, p{
+            font-family: 'Share Tech Mono', monospace;
+        }
+        a:link, a:visited {
+            color: rgb(255, 237, 81);
+            text-decoration: none;
+        }
+        a:active, a:hover {
+            color: rgb(255, 237, 81);
+            text-decoration-line: underline overline;
+            text-decoration-style:double;
+            text-decoration-color: rgb(255, 237, 81);
+        }
+        #container {
+            width: 100%;
+        }
+        span#namezzz {
+            float:left;
+            color:white;
+        }
+        #generated {
+            font-family: 'Share Tech Mono', monospace;
+            display:block;
+            margin:0 auto;
+            text-align:center;
+            font-size: 150%;
+            width: 100%;
+            color:white;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            position:static;
+            background-image: url("https://media1.giphy.com/media/xTiTnBDM8bHWQHCOxW/giphy.gif?cid=ecf05e47lbdbghp81q3jsiw5yluqj1saazkt5ctgl4xxmgpt&rid=giphy.gif");
+            background-position: center;
+            background-size: cover;
+        }
+        button {
+            font-family: 'Share Tech Mono', monospace;
+            display: block; position:static;
+            margin: 50px auto 50px auto;
+            padding: 10px 25px;
+            font-size: 20px;
+            background: white;
+            border:none;
+        }
+        button:hover {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: rgb(81, 99, 255);
+        }
+        button:focus {
+            outline:none;
+        }
