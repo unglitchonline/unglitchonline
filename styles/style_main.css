@@ -2,40 +2,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 body {
       font-family: 'Fira Mono', monospace;
-      color: black;
+      color: whitesmoke;
       text-align: center;
-      cursor:crosshair;
+      cursor: url("docs/img/pointer.png"), pointer;
 }
 span {
-      /* background-image: url("https://media1.giphy.com/media/xTiTnBDM8bHWQHCOxW/giphy.gif?cid=ecf05e47lbdbghp81q3jsiw5yluqj1saazkt5ctgl4xxmgpt&rid=giphy.gif"); */
-      /* background-color: #FBE36E; */
 }
+
 h1, h2, h3 {
       text-align: center;
 }
+
 p {
       font-size:medium;
-      color: black;
+      color: whitesmoke;
 }
+
 a:link, a:visited {
-      color: black;
+      color: white;
       cursor:crosshair;
       text-decoration: none;
 }
+
 a:hover, a:active {
-      color: whitesmoke;
+      color: white;
       background-image: url("https://media4.giphy.com/media/WaKtCcDZ16zPq/giphy.gif?cid=ecf05e47yki8r09ltewz2vyderewbstyiybem5oot9l1r7b3&rid=giphy.gif");
-      cursor:crosshair;
       text-decoration:line-through;
-      text
+      padding: 2px 8px 0;
+      font-size: x-large;
 }
+
 #container {
       width: 100%;
 }
+
 span#namezzz {
       float:left;
       color:white;
 }
+
 #generated {
       display:block;
       margin:0 auto;
@@ -48,9 +53,9 @@ span#namezzz {
       position:static;
       background-image: url("https://media1.giphy.com/media/xTiTnBDM8bHWQHCOxW/giphy.gif?cid=ecf05e47lbdbghp81q3jsiw5yluqj1saazkt5ctgl4xxmgpt&rid=giphy.gif");
       background-position: center;
-      background-size: cover;
-      
+      background-size: cover;  
 }
+
 #remember {
       display:block;
       margin:0 auto;
@@ -65,6 +70,7 @@ span#namezzz {
       background-position: center;
       background-size: cover;
 }
+
 button {
       font-family: 'Fira Mono', monospace;
       display: block; position:static;
@@ -73,13 +79,13 @@ button {
       font-size: 20px;
       background: white;
       border:none;
-      cursor:crosshair;
 }
+
 button:hover {
       font-family: 'Fira Mono', monospace;
       background-color:  #FB6ECC;
-      cursor:crosshair;
 }
+
 button:focus {
       outline:none;
 }
