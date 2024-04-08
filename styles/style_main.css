@@ -4,7 +4,7 @@ body {
       font-family: 'Fira Mono', monospace;
       color: whitesmoke;
       text-align: center;
-      cursor: url("docs/img/pointer.png"), pointer;
+      cursor:crosshair;
 }
 span {
 }
@@ -26,10 +26,10 @@ a:link, a:visited {
 
 a:hover, a:active {
       color: white;
-      background-image: url("https://media4.giphy.com/media/WaKtCcDZ16zPq/giphy.gif?cid=ecf05e47yki8r09ltewz2vyderewbstyiybem5oot9l1r7b3&rid=giphy.gif");
+      /* background-image: url("https://media4.giphy.com/media/WaKtCcDZ16zPq/giphy.gif?cid=ecf05e47yki8r09ltewz2vyderewbstyiybem5oot9l1r7b3&rid=giphy.gif"); */
       text-decoration:line-through;
-      padding: 2px 8px 0;
-      font-size: x-large;
+      padding: 2px 10px 0;
+      font-size:250%
 }
 
 #container {
