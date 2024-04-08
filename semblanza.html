@@ -8,7 +8,28 @@
         <link rel="shortcut icon" href="docs/img/af.png">
         <style>
             body {
-                background-color: black;
+                background: linear-gradient(100deg, #ea698b, #ffd6ff, #d55d92, #c05299, #e7c6ff, #ac46a1, #973aa8, #822faf, #c05299, #6d23b6, #6411ad, #dc93f6, #571089, #973aa8, #47126b);
+        background-size: 2600% 2600%;
+        background-position: 200%
+        background-attachment:
+        -webkit-animation: AnimationName 30s ease infinite;
+        -moz-animation: AnimationName 30s ease infinite;
+        animation: AnimationName 30s ease infinite;
+      }
+      @-webkit-keyframes AnimationName {
+        0%{background-position:0% 37%}
+        50%{background-position:100% 64%}
+        100%{background-position:0% 37%}
+      }
+      @-moz-keyframes AnimationName {
+        0%{background-position:0% 37%}
+        50%{background-position:100% 64%}
+        100%{background-position:0% 37%}
+      }
+      @keyframes AnimationName {
+        0%{background-position:0% 37%}
+        50%{background-position:100% 64%}
+        100%{background-position:0% 37%}
                 text-align: center;
             }
             table {
