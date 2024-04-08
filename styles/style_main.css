@@ -22,6 +22,7 @@ a:link, a:visited {
       color: white;
       cursor:crosshair;
       text-decoration: none;
+      /* text-align: center; */
 }
 
 a:hover, a:active {
