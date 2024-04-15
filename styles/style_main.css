@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Inconsolata:wght@200..900&display=swap');
 body {
-      font-family: 'Fira Mono', monospace;
+      font-family: 'Anonymous Pro', monospace;
       color: whitesmoke;
       text-align: center;
       cursor:crosshair;
@@ -26,11 +25,12 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
+      font-family: 'Inconsolata', monospace;
       color: white;
       /* background-image: url("https://media4.giphy.com/media/WaKtCcDZ16zPq/giphy.gif?cid=ecf05e47yki8r09ltewz2vyderewbstyiybem5oot9l1r7b3&rid=giphy.gif"); */
-      text-decoration:line-through;
-      padding: 2px 10px 0;
-      font-size:250%
+      text-decoration:none;
+      /* padding: 2px 10px 0; */
+      font-size:150%
 }
 
 #container {
