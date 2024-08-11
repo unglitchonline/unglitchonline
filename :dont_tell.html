@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="abigailfuentes">
+        <title>index</title>
+        <link href="styles.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="img/8.png">
+        <style type="text/css">
+            body {
+                font-family: Arial, sans-serif;
+                background-image: url(img/4.gif);
+                background-size: cover;
+                background-attachment: fixed;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                color: white;
+            }
+            input, button {
+                padding: 10px;
+                margin: 5px 0;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .entry {
+                background-color: #f9f9f9;
+                padding: 10px;
+                margin: 5px 0;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+            }
+            .popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1000;
+                border: 2px solid #000;
+                padding: 10px;
+                background-color: #fff;
+            }
+            .popup img {
+                max-width: 100%;
+                height: auto;
+            }
+            .popup-close {
+                cursor: pointer;
+                position: absolute;
+                top: 5%;
+                right: 10px;
+                font-size: 18px;
+            }
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0%;
+                left: 0%;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="overlay" class="overlay"></div>
+        <div id="popup" class="popup">
+            <span id="popup-close" class="popup-close">&times;</span>
+            <img id="popup-image" src="" alt="Imagen de Pop-up">
+        </div>
+        <script>
+        const images = [
+                '',
+                'https://via.placeholder.com/400x300.png?text=Imagen+2',
+                'https://via.placeholder.com/400x300.png?text=Imagen+3'
+            ];
+    
+            let currentIndex = 0;
+    
+            function showPopup() {
+                const popup = document.getElementById('popup');
+                const overlay = document.getElementById('overlay');
+                const popupImage = document.getElementById('popup-image');
+    
+                popupImage.src = images[currentIndex];
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+    
+                currentIndex = (currentIndex + 1) % images.length;
+            }
+    
+            function hidePopup() {
+                document.getElementById('popup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            }
+    
+            document.getElementById('popup-close').addEventListener('click', hidePopup);
+            document.getElementById('overlay').addEventListener('click', hidePopup);
+    
+            // Muestra una imagen cada 5 segundos
+            setInterval(showPopup, 5000);
+        </script>
+        <h2>a<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>veces<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>el<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>peso<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>de<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>la<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>cotidianeidad
+            <br>es<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>demasiada<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>que<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>la<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>lavadora
+            <br>se<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>rehúsa<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>a<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>funcionar</h2>
+        <p>las mujeres en mi familia lavan</p>
+        <p>y barren</p>
+        <p>trapean el piso</p>
+        <p>y a veces tienen tiempo para soñar</p>
+        <p>poco para escribir </p>
+        <p>pero nunca para ser</p>
+        <p>la ropa sucia se mezcla con charlas de educación sexual</p>
+        <p>y el día de sacudir el librero en una clase de cómo cocer arroz</p>
+        <p>las mujeres en mi familia lavan</p>
+        <p>y barren</p>
+        <p>pero nunca sueñan</p>
+        <p>se pasan años de juventud planeando</p>
+        <p>y barriendo</p>
+        <p>y susurrando</p>
+        <p>planes que incluyen hombres violentos</p>
+        <p>junto a sus cuerpos</p>
+        <p>por las noches</p>
+        <p>acostados </p>
+        <p>se querían tomar medidas extremas</p>
+        <p>para pasar por debajo del mantel todas las marcas moradas</p>
+        <p>y los rasguños accidentales</p>
+        <p>las mujeres en mi familia lavan</p>
+        <p>y barren</p>
+        <p>y aprenden de bases y maquillaje</p>
+        <p>para cubrir ojos morados</p>
+        <p>asustadas de dejar tonos más claros sobre la piel enrojecida</p>
+        <input type="text" id="entryInput" placeholder="espacio anónimo, comparte tu historia..." />
+        <button onclick="addEntry()">guardar</button>
+        <button onclick="clearEntries()">eliminar entradas</button>
+        <div id="entriesContainer"></div>
+        <script>
+        function loadEntries() {
+            const entries = JSON.parse(localStorage.getItem('entries')) || [];
+            const entriesContainer = document.getElementById('entriesContainer');
+            entriesContainer.innerHTML = '';
+            entries.forEach((entry, index) => {
+                const entryDiv = document.createElement('div');
+                entryDiv.className = 'entry';
+                entryDiv.textContent = `${index + 1}. ${entry}`;
+                entriesContainer.appendChild(entryDiv);
+            });
+        }
+        function addEntry() {
+            const entryInput = document.getElementById('entryInput');
+            const newEntry = entryInput.value.trim();
+            if (newEntry) {
+                const entries = JSON.parse(localStorage.getItem('entries')) || [];
+                entries.push(newEntry);
+                localStorage.setItem('entries', JSON.stringify(entries));
+                entryInput.value = '';
+                loadEntries();
+            }
+        }
+        function clearEntries() {
+            localStorage.removeItem('entries');
+            loadEntries();
+        }
+        window.onload = loadEntries;
+        </script>
+    </body>
+</html>
