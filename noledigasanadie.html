@@ -5,12 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="abigailfuentes">
         <title>index</title>
-        <link href="styles.css" rel="stylesheet" type="text/css">
         <link rel="shortcut icon" href="img/8.png">
         <style type="text/css">
             body {
                 font-family: Arial, sans-serif;
-                background-image: url(img/4.gif);
+                background-image: url(docs/img/dont_tell4.gif);
                 background-size: cover;
                 background-attachment: fixed;
                 max-width: 600px;
@@ -73,39 +72,31 @@
         </div>
         <script>
         const images = [
-                '',
-                'https://via.placeholder.com/400x300.png?text=Imagen+2',
-                'https://via.placeholder.com/400x300.png?text=Imagen+3'
-            ];
-    
-            let currentIndex = 0;
-    
-            function showPopup() {
-                const popup = document.getElementById('popup');
-                const overlay = document.getElementById('overlay');
-                const popupImage = document.getElementById('popup-image');
-    
-                popupImage.src = images[currentIndex];
-                popup.style.display = 'block';
-                overlay.style.display = 'block';
-    
-                currentIndex = (currentIndex + 1) % images.length;
-            }
-    
-            function hidePopup() {
-                document.getElementById('popup').style.display = 'none';
-                document.getElementById('overlay').style.display = 'none';
-            }
-    
-            document.getElementById('popup-close').addEventListener('click', hidePopup);
-            document.getElementById('overlay').addEventListener('click', hidePopup);
-    
-            // Muestra una imagen cada 5 segundos
-            setInterval(showPopup, 5000);
-        </script>
-        <h2>a<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>veces<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>el<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>peso<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>de<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>la<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>cotidianeidad
-            <br>es<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>demasiada<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>que<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>la<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>lavadora
-            <br>se<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>rehúsa<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>a<span style="background-image: url(img/9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>funcionar</h2>
+            '',
+            '',
+            '',
+        ];
+        let currentIndex = 0;
+        function showPopup() {
+            const popup = document.getElementById('popup');
+            const overlay = document.getElementById('overlay');
+            const popupImage = document.getElementById('popup-image');
+            popupImage.src = images[currentIndex];
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+            currentIndex = (currentIndex + 1) % images.length;
+        }
+        function hidePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+        document.getElementById('popup-close').addEventListener('click', hidePopup);
+        document.getElementById('overlay').addEventListener('click', hidePopup);
+        // Muestra una imagen cada 5 segundos
+        setInterval(showPopup, 5000); </script>
+        <h2>a<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>veces<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>el<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>peso<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>de<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>la<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>cotidianeidad
+            <br>es<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>demasiada<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>que<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>la<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>lavadora
+            <br>se<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>rehúsa<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>a<span style="background-image: url(docs/img/dont_tell9.gif); background-size: cover;">&nbsp;&nbsp;&nbsp;&nbsp;</span>funcionar</h2>
         <p>las mujeres en mi familia lavan</p>
         <p>y barren</p>
         <p>trapean el piso</p>
