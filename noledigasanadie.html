@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="abigailfuentes">
         <title>index</title>
-        <link rel="shortcut icon" href="img/8.png">
+        <link rel="shortcut icon" href="docs/img/dont_tell8.png">
         <style type="text/css">
             body {
                 font-family: Arial, sans-serif;
@@ -24,11 +24,11 @@
                 box-sizing: border-box;
             }
             .entry {
-                background-color: #f9f9f9;
-                padding: 10px;
-                margin: 5px 0;
-                border-radius: 5px;
-                border: 1px solid #ddd;
+                /* background-color: #f9f9f9; */
+                /* padding: 10px; */
+                /* margin: 5px 0; */
+                /* border-radius: 5px; */
+                /* border: 1px solid #ddd; */
             }
             .popup {
                 display: none;
@@ -72,9 +72,9 @@
         </div>
         <script>
         const images = [
-            '',
-            '',
-            '',
+            'https://unglitchonline.xyz/docs/img/dont_tell10.png',
+            'https://unglitchonline.xyz/docs/img/dont_tell11.png',
+            'https://unglitchonline.xyz/docs/img/dont_tell12.png',
         ];
         let currentIndex = 0;
         function showPopup() {
@@ -125,7 +125,6 @@
         <p>asustadas de dejar tonos más claros sobre la piel enrojecida</p>
         <input type="text" id="entryInput" placeholder="espacio anónimo, comparte tu historia..." />
         <button onclick="addEntry()">guardar</button>
-        <button onclick="clearEntries()">eliminar entradas</button>
         <div id="entriesContainer"></div>
         <script>
         function loadEntries() {
@@ -156,5 +155,6 @@
         }
         window.onload = loadEntries;
         </script>
+        <button onclick="clearEntries()">eliminar entradas</button>
     </body>
 </html>
