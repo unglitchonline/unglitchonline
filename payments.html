@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="unglitchonline">
+    <title>/payments</title>
+    <link rel="shortcut icon" href="docs/img/af.png">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Anonymous Pro', monospace;
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #ea698b, #ffd6ff, #d55d92, #c05299, #e7c6ff, #ac46a1, #973aa8, #822faf, #c05299, #6d23b6, #6411ad, #dc93f6, #571089, #973aa8, #47126b);
+            background-size: 2600% 2600%;
+            animation: gradientBG 30s ease infinite;
+            text-align: center;
+            line-height: 1.6;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5rem;
+            color: rgba(0, 0, 0, 0.6);
+        }
+        .info-container {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+            text-align: left;
+            margin: 20px auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        strong {
+            font-weight: bold;
+            color: #ffd6ff;
+        }
+        span {
+            font-family: 'Fira Mono', monospace;
+            font-size: 1.1rem;
+        }
+        button {
+            background-color: #6d23b6;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ea698b;
+        }
+        button:focus {
+            outline: none;
+        }
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            color: #ffd6ff;
+            font-size: 1rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Información para Pagos por SPEI</h1>
+    <div class="info-container">
+        <p><strong>Institución:</strong> <span id="banco">STP</span></p>
+        <button onclick="copiarTexto('banco')">Copiar</button>
+        <p><strong>Nombre:</strong> <span id="nombre">Nadia Abigail Fuentes Pompa</span></p>
+        <button onclick="copiarTexto('nombre')">Copiar</button>
+        <p><strong>CLABE:</strong> <span id="clabe">646016206808683075</span></p>
+        <button onclick="copiarTexto('clabe')">Copiar</button>
+    </div>
+    <div id="mensajeExito" class="success-message"></div>
+
+    <script>
+        function copiarTexto(id) {
+            const texto = document.getElementById(id).innerText;
+            const textarea = document.createElement("textarea");
+            textarea.value = texto;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+
+            const mensajeExito = document.getElementById("mensajeExito");
+            mensajeExito.style.display = "block";
+            mensajeExito.innerText = `¡"${texto}" copiado al portapapeles!`;
+            setTimeout(() => {
+                mensajeExito.style.display = "none";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
