@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardar y Mostrar Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #contenido-guardado {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guardar y Mostrar Datos</h1>
+
+    <!-- Entrada de datos -->
+    <label for="entrada-datos">Ingresa algo:</label>
+    <input type="text" id="entrada-datos" placeholder="Escribe aquí...">
+    <button onclick="guardarYMostrar()">Guardar</button>
+
+    <!-- Área para mostrar el contenido guardado -->
+    <div id="contenido-guardado">
+        <strong>Contenido guardado:</strong>
+        <p id="mostrar-datos"></p>
+    </div>
+
+    <script>
+        function guardarYMostrar() {
+            // Obtener el valor del campo de entrada
+            const entrada = document.getElementById("entrada-datos").value;
+
+            // Mostrar el valor en el área de contenido guardado
+            document.getElementById("mostrar-datos").textContent = entrada;
+
+            // Limpiar el campo de entrada después de guardar
+            document.getElementById("entrada-datos").value = "";
+        }
+    </script>
+
+</body>
+</html>
