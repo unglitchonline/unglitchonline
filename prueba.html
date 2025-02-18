@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardar y Mostrar Datos</title>
+    <title>Guardar y Mostrar Datos Persistentes</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,7 +19,7 @@
 </head>
 <body>
 
-    <h1>Guardar y Mostrar Datos</h1>
+    <h1>Guardar y Mostrar Datos Persistentes</h1>
 
     <!-- Entrada de datos -->
     <label for="entrada-datos">Ingresa algo:</label>
@@ -33,16 +33,29 @@
     </div>
 
     <script>
+        // Función para guardar y mostrar los datos
         function guardarYMostrar() {
             // Obtener el valor del campo de entrada
             const entrada = document.getElementById("entrada-datos").value;
 
-            // Mostrar el valor en el área de contenido guardado
-            document.getElementById("mostrar-datos").textContent = entrada;
+            // Guardar el valor en localStorage
+            localStorage.setItem("datoGuardado", entrada);
 
-            // Limpiar el campo de entrada después de guardar
-            document.getElementById("entrada-datos").value = "";
+            // Mostrar el valor en el área de contenido guardado
+            mostrarDatosGuardados();
         }
+
+        // Función para mostrar los datos guardados
+        function mostrarDatosGuardados() {
+            // Obtener el dato guardado de localStorage
+            const datoGuardado = localStorage.getItem("datoGuardado");
+
+            // Mostrar el dato en el área correspondiente
+            document.getElementById("mostrar-datos").textContent = datoGuardado || "No hay datos guardados.";
+        }
+
+        // Mostrar los datos guardados al cargar la página
+        window.onload = mostrarDatosGuardados;
     </script>
 
 </body>
