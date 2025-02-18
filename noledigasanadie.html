@@ -1,101 +1,108 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="content-type" content="text/html" charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="abigailfuentes">
-        <title>/no le digas a nadie</title>
-        <link rel="shortcut icon" href="docs/img/af.png">
-        <style type="text/css">
-            body {
-                font-family: Arial, sans-serif;
-                background-image: url(docs/img/dont_tell4.gif);
-                background-size: cover;
-                background-attachment: fixed;
-                max-width: 600px;
-                margin: 0 auto;
-                padding: 20px;
-                color: white;
-            }
-            input, button {
-                padding: 10px;
-                margin: 5px 0;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .entry {
-                /* background-color: #f9f9f9; */
-                /* padding: 10px; */
-                /* margin: 5px 0; */
-                /* border-radius: 5px; */
-                /* border: 1px solid #ddd; */
-            }
-            .popup {
-                display: none;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 1000;
-                border: 2px solid #000;
-                padding: 10px;
-                background-color: #fff;
-            }
-            .popup img {
-                max-width: 100%;
-                height: auto;
-            }
-            .popup-close {
-                cursor: pointer;
-                position: absolute;
-                top: 5%;
-                right: 10px;
-                font-size: 18px;
-            }
-            .overlay {
-                display: none;
-                position: fixed;
-                top: 0%;
-                left: 0%;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-            }
-        </style>
-    </head>
-    <body>
-        <audio src="docs/sound/poema_para_mi_abuela.mp3" preload="auto" autoplay controls loop></audio>
+<html lang="es">
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="abigailfuentes">
+    <title>/no le digas a nadie</title>
+    <link rel="shortcut icon" href="docs/img/af.png">
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(docs/img/dont_tell4.gif);
+            background-size: cover;
+            background-attachment: fixed;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            color: white;
+        }
+        #contenido-guardado {
+            margin-top: 20px;
+            color: black;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        .registro {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            border: 2px solid #000;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .popup img {
+            max-width: 100%;
+            height: auto;
+        }
+        .popup-close {
+            cursor: pointer;
+            position: absolute;
+            top: 5%;
+            right: 10px;
+            font-size: 18px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <audio src="docs/sound/poema_para_mi_abuela.mp3" preload="auto" autoplay controls loop></audio>
         <div id="overlay" class="overlay"></div>
         <div id="popup" class="popup">
             <span id="popup-close" class="popup-close">&times;</span>
             <img id="popup-image" src="" alt="Imagen de Pop-up">
         </div>
         <script>
-        const images = [
-            'https://unglitchonline.xyz/docs/img/dont_tell10.png',
-            'https://unglitchonline.xyz/docs/img/dont_tell11.png',
-            'https://unglitchonline.xyz/docs/img/dont_tell12.png',
-            'https://unglitchonline.xyz/docs/img/dont_tell13.png',
-            'https://unglitchonline.xyz/docs/img/dont_tell14.png',
-        ];
-        let currentIndex = 0;
-        function showPopup() {
-            const popup = document.getElementById('popup');
-            const overlay = document.getElementById('overlay');
-            const popupImage = document.getElementById('popup-image');
-            popupImage.src = images[currentIndex];
-            popup.style.display = 'block';
-            overlay.style.display = 'block';
-            currentIndex = (currentIndex + 1) % images.length;
-        }
-        function hidePopup() {
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
-        document.getElementById('popup-close').addEventListener('click', hidePopup);
-        document.getElementById('overlay').addEventListener('click', hidePopup);
-        setInterval(showPopup, 30000); </script>
+            const images = [
+                'https://unglitchonline.xyz/docs/img/dont_tell10.png',
+                'https://unglitchonline.xyz/docs/img/dont_tell11.png',
+                'https://unglitchonline.xyz/docs/img/dont_tell12.png',
+                'https://unglitchonline.xyz/docs/img/dont_tell13.png',
+                'https://unglitchonline.xyz/docs/img/dont_tell14.png',
+            ];
+            let currentIndex = 0;
+            function showPopup() {
+                const popup = document.getElementById('popup');
+                const overlay = document.getElementById('overlay');
+                const popupImage = document.getElementById('popup-image');
+                popupImage.src = images[currentIndex];
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+                currentIndex = (currentIndex + 1) % images.length;
+            }
+            function hidePopup() {
+                document.getElementById('popup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            }
+            document.getElementById('popup-close').addEventListener('click', hidePopup);
+            document.getElementById('overlay').addEventListener('click', hidePopup);
+            setInterval(showPopup, 30000);
+            
+        </script>
         <h2>a veces el peso de la cotidianeidad es demasiada que la lavadora se rehúsa a funcionar</h2>
         <p>las mujeres en mi familia lavan</p>
         <p>y barren</p>
@@ -122,39 +129,63 @@
         <p>y barren</p>
         <p>y aprenden de bases y maquillaje</p>
         <p>para cubrir ojos morados</p>
-        <p>asustadas de dejar tonos más claros sobre la piel enrojecida</p>
-        <input type="text" id="entryInput" placeholder="espacio anónimo, comparte tu historia..." />
-        <button onclick="addEntry()">guardar</button>
-        <div id="entriesContainer"></div>
-        <script>
-        function loadEntries() {
-            const entries = JSON.parse(localStorage.getItem('entries')) || [];
-            const entriesContainer = document.getElementById('entriesContainer');
-            entriesContainer.innerHTML = '';
-            entries.forEach((entry, index) => {
-                const entryDiv = document.createElement('div');
-                entryDiv.className = 'entry';
-                entryDiv.textContent = `${index + 1}. ${entry}`;
-                entriesContainer.appendChild(entryDiv);
-            });
+        <p>asustadas de dejar tonos más claros sobre la piel enrojecida</p><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <!-- Entrada de datos -->
+    <label for="entrada-datos">espacio anónimo, comparte tu historia...</label>
+    <input type="text" id="entrada-datos" placeholder="espacio anónimo, comparte tu historia...">
+    <button onclick="guardarYMostrar()">guardar</button>
+
+    <!-- Área para mostrar el contenido guardado -->
+    <div id="contenido-guardado">
+        <strong>Registros guardados:</strong>
+        <div id="mostrar-datos"></div>
+    </div>
+    <script>
+        // Función para guardar y mostrar los datos
+        function guardarYMostrar() {
+            // Obtener el valor del campo de entrada
+            const entrada = document.getElementById("entrada-datos").value;
+
+            // Obtener los registros guardados de localStorage
+            let registros = JSON.parse(localStorage.getItem("registros")) || [];
+
+            // Agregar el nuevo registro al array
+            registros.push(entrada);
+
+            // Guardar el array actualizado en localStorage
+            localStorage.setItem("registros", JSON.stringify(registros));
+
+            // Mostrar los registros en pantalla
+            mostrarDatosGuardados();
+
+            // Limpiar el campo de entrada
+            document.getElementById("entrada-datos").value = "";
         }
-        function addEntry() {
-            const entryInput = document.getElementById('entryInput');
-            const newEntry = entryInput.value.trim();
-            if (newEntry) {
-                const entries = JSON.parse(localStorage.getItem('entries')) || [];
-                entries.push(newEntry);
-                localStorage.setItem('entries', JSON.stringify(entries));
-                entryInput.value = '';
-                loadEntries();
+
+        // Función para mostrar los datos guardados
+        function mostrarDatosGuardados() {
+            // Obtener los registros guardados de localStorage
+            const registros = JSON.parse(localStorage.getItem("registros")) || [];
+
+            // Mostrar los registros en el área correspondiente
+            const mostrarDatos = document.getElementById("mostrar-datos");
+            mostrarDatos.innerHTML = ""; // Limpiar el contenido anterior
+
+            if (registros.length === 0) {
+                mostrarDatos.innerHTML = "<p>No hay registros guardados.</p>";
+            } else {
+                registros.forEach((registro, index) => {
+                    const registroElement = document.createElement("div");
+                    registroElement.className = "registro";
+                    registroElement.innerHTML = `<strong>Registro ${index + 1}:</strong> ${registro}`;
+                    mostrarDatos.appendChild(registroElement);
+                });
             }
         }
-        function clearEntries() {
-            localStorage.removeItem('entries');
-            loadEntries();
-        }
-        window.onload = loadEntries;
-        </script>
-        <button onclick="clearEntries()">eliminar entradas</button>
-    </body>
+
+        // Mostrar los registros guardados al cargar la página
+        window.onload = mostrarDatosGuardados;
+    </script>
+
+</body>
 </html>
