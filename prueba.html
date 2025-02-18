@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardar y Mostrar Datos Persistentes</title>
+    <title>Guardar y Mostrar Todos los Registros</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,11 +15,16 @@
             border: 1px solid #ccc;
             background-color: #f9f9f9;
         }
+        .registro {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Guardar y Mostrar Datos Persistentes</h1>
+    <h1>Guardar y Mostrar Todos los Registros</h1>
 
     <!-- Entrada de datos -->
     <label for="entrada-datos">Ingresa algo:</label>
@@ -28,8 +33,8 @@
 
     <!-- Área para mostrar el contenido guardado -->
     <div id="contenido-guardado">
-        <strong>Contenido guardado:</strong>
-        <p id="mostrar-datos"></p>
+        <strong>Registros guardados:</strong>
+        <div id="mostrar-datos"></div>
     </div>
 
     <script>
@@ -38,23 +43,44 @@
             // Obtener el valor del campo de entrada
             const entrada = document.getElementById("entrada-datos").value;
 
-            // Guardar el valor en localStorage
-            localStorage.setItem("datoGuardado", entrada);
+            // Obtener los registros guardados de localStorage
+            let registros = JSON.parse(localStorage.getItem("registros")) || [];
 
-            // Mostrar el valor en el área de contenido guardado
+            // Agregar el nuevo registro al array
+            registros.push(entrada);
+
+            // Guardar el array actualizado en localStorage
+            localStorage.setItem("registros", JSON.stringify(registros));
+
+            // Mostrar los registros en pantalla
             mostrarDatosGuardados();
+
+            // Limpiar el campo de entrada
+            document.getElementById("entrada-datos").value = "";
         }
 
         // Función para mostrar los datos guardados
         function mostrarDatosGuardados() {
-            // Obtener el dato guardado de localStorage
-            const datoGuardado = localStorage.getItem("datoGuardado");
+            // Obtener los registros guardados de localStorage
+            const registros = JSON.parse(localStorage.getItem("registros")) || [];
 
-            // Mostrar el dato en el área correspondiente
-            document.getElementById("mostrar-datos").textContent = datoGuardado || "No hay datos guardados.";
+            // Mostrar los registros en el área correspondiente
+            const mostrarDatos = document.getElementById("mostrar-datos");
+            mostrarDatos.innerHTML = ""; // Limpiar el contenido anterior
+
+            if (registros.length === 0) {
+                mostrarDatos.innerHTML = "<p>No hay registros guardados.</p>";
+            } else {
+                registros.forEach((registro, index) => {
+                    const registroElement = document.createElement("div");
+                    registroElement.className = "registro";
+                    registroElement.innerHTML = `<strong>Registro ${index + 1}:</strong> ${registro}`;
+                    mostrarDatos.appendChild(registroElement);
+                });
+            }
         }
 
-        // Mostrar los datos guardados al cargar la página
+        // Mostrar los registros guardados al cargar la página
         window.onload = mostrarDatosGuardados;
     </script>
 
