@@ -10,6 +10,10 @@
         h3, h4, p{
             font-family: 'Share Tech Mono', monospace;
         }
+
+        span{
+            
+        }
         a:link, a:visited {
             color: rgb(255, 237, 81);
             text-decoration: none;
