@@ -12,33 +12,46 @@
         text-align: left;
       }
       body{
+        margin: 0%;
         text-align: left;
-        background: linear-gradient(100deg, #ea698b, #ffd6ff, #d55d92, #c05299, #e7c6ff, #ac46a1, #973aa8, #822faf, #c05299, #6d23b6, #6411ad, #dc93f6, #571089, #973aa8, #47126b);
-        background-size: 2600% 2600%;
-        background-position: 200%
-        background-attachment:
-        -webkit-animation: AnimationName 30s ease infinite;
-        -moz-animation: AnimationName 30s ease infinite;
-        animation: AnimationName 30s ease infinite;
       }
-      @-webkit-keyframes AnimationName {
-        0%{background-position:0% 37%}
-        50%{background-position:100% 64%}
-        100%{background-position:0% 37%}
-      }
-      @-moz-keyframes AnimationName {
-        0%{background-position:0% 37%}
-        50%{background-position:100% 64%}
-        100%{background-position:0% 37%}
-      }
-      @keyframes AnimationName {
-        0%{background-position:0% 37%}
-        50%{background-position:100% 64%}
-        100%{background-position:0% 37%}
-      }
+      .header {
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fbc2eb, #ff9a9e);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+.header-content {
+    padding: 0 20px;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
     </style>
   </head>
   <body>
+    <header class="header">
+      <div class="header-content">
+          <span id="typing-text"></span>
+      </div>
+  </header>
+  <script src="script/encabezado.js"></script>
     <h1>&nbsp;&nbsp;🌩️</h1>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;gestión cultural ~ creativa de datos</p>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:abigailfuentes@codic-e.org">[e-mail]</a> <a href="https://www.tiktok.com/@unglitchonline">[tt]</a> <a href="https://bsky.app/profile/unglitchonline.bsky.social">[bsky]</a> <a href="yo.html">[yo]</a></p>
