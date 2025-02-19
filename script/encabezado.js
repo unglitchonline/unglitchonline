@@ -10,8 +10,7 @@ const texts = [
     "alfabetizados en el mundo digital-ahora estaban interconectados globalmente a través de una tubería de datos",
     "las fantasías en torno a la eternidad de lo tecnológico fueron confrontadas con la sencilla factibilidad de una lista creciente de lo efímero. Las máquinas sí pueden morir",
     "los medios son espacios de acción para construir ensayos al servicio de la combinación de lo separado",
-    "tendencias hacia la estandarización",
-    ""
+    "tendencias hacia la estandarización"
 ];
 let index = 0;
 let charIndex = 0;
