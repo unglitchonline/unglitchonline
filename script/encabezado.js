@@ -4,11 +4,11 @@ const texts = [
     "toda historia registrada presupone un futuro lector",
     "i miss my frinds that i pretend i dont need",
     "----------------",
-    "Quiero saber cómo ayudar a construir relatos en marcha antes que historias cerradas",
+    "quiero saber cómo ayudar a construir relatos en marcha antes que historias cerradas",
     "dispositivos de refugio",
     "contextos históricos en que el conocimiento sobre los animales y la ecología se convierte en estrategias discursivas para constructos tecnológicos",
-    "alfabetizados en el mundo digital-ahora estaban interconectados globalmente a través de una tubería de datos",
-    "las fantasías en torno a la eternidad de lo tecnológico fueron confrontadas con la sencilla factibilidad de una lista creciente de lo efímero. Las máquinas sí pueden morir",
+    "alfabetizados en el mundo digital ahora estaban interconectados globalmente a través de una tubería de datos",
+    "las fantasías en torno a la eternidad de lo tecnológico fueron confrontadas con la sencilla factibilidad de una lista creciente de lo efímero. las máquinas sí pueden morir.",
     "los medios son espacios de acción para construir ensayos al servicio de la combinación de lo separado",
     "tendencias hacia la estandarización"
 ];
