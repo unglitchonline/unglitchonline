@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros Compartidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #contenido-guardado {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        .registro {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Registros Compartidos</h1>
+
+    <!-- Entrada de datos -->
+    <label for="entrada-datos">Ingresa algo:</label>
+    <input type="text" id="entrada-datos" placeholder="Escribe aquí...">
+    <button onclick="guardarYMostrar()">Guardar</button>
+
+    <!-- Área para mostrar el contenido guardado -->
+    <div id="contenido-guardado">
+        <strong>Registros guardados:</strong>
+        <div id="mostrar-datos"></div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyD2jgfbX-7S3TVlmjWyJXfygMQY5XCMcBY",
+            authDomain: "no-le-digas-a-nadie.firebaseapp.com",
+            projectId: "no-le-digas-a-nadie",
+            storageBucket: "no-le-digas-a-nadie.firebasestorage.app",
+            messagingSenderId: "1098183964417",
+            appId: "1:1098183964417:web:0c50027cf7b763407c8d00"
+  };
+  const app = initializeApp(firebaseConfig);
+  
+  async function guardarYMostrar() {
+    const entrada = document.getElementById("entrada-datos").value;
+    await db.collection("registros").add({
+        texto: entrada,
+        fecha: new Date().toLocaleString()
+    });
+    mostrarDatosGuardados();
+    document.getElementById("entrada-datos").value = "";
+}
+
+function mostrarDatosGuardados() {
+    const mostrarDatos = document.getElementById("mostrar-datos");
+    mostrarDatos.innerHTML = "";
+    db.collection("registros")
+    .orderBy("fecha", "desc")
+    .onSnapshot((querySnapshot) => {
+        if (querySnapshot.empty) {
+            mostrarDatos.innerHTML = "<p>No hay registros guardados.</p>";
+        } else {
+            querySnapshot.forEach((doc) => {
+                const registros = doc.data();
+                const registrosElement = document.createElement("div");
+                registrosElement.className = "registros";
+                registrosElement.innerHTML = `
+                <strong>${registros.fecha}:</strong> ${registros.texto}
+                `;
+                mostrarDatos.appendChild(registrosElement);
+            });
+        }
+    });
+}
+
+window.onload = mostrarDatosGuardados;
+
+
+    </script>
+
+</body>
+</html>
