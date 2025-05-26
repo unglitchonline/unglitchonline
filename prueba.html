@@ -1,90 +1,152 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registros Compartidos</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        #contenido-guardado {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-        }
-        .registro {
-            margin-bottom: 10px;
-            padding: 5px;
-            border-bottom: 1px solid #ddd;
-        }
-    </style>
+  <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Abigail Fuentes">
+  <title>Cotizador de Servicios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      max-width: 750px;
+      margin:1rem;
+      padding: 2%;
+    }
+    fieldset {
+      margin-bottom: 2%;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    legend {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      border-radius: 10px;
+      margin: 0.5rem 0;
+    }
+    .totales, .acciones {
+      margin-top: 2rem;
+    }
+    .acciones button,
+    .acciones input[type="email"],
+    .acciones input[type="tel"] {
+      width: 100%;
+      height: 30px;
+      font-size: 14px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Registros Compartidos</h1>
+  <h2>Cotizador de Servicios</h2>
 
-    <!-- Entrada de datos -->
-    <label for="entrada-datos">Ingresa algo:</label>
-    <input type="text" id="entrada-datos" placeholder="Escribe aquí...">
-    <button onclick="guardarYMostrar()">Guardar</button>
+  <form id="cotizadorForm">
+    <fieldset>
+      <legend>Estrategias de Redes</legend>
+      <label><input type="checkbox" name="servicio" value="3410" data-nombre="Instagram"> Instagram - $3410</label>
+      <label><input type="checkbox" name="servicio" value="6470" data-nombre="Instagram + TikTok"> Instagram + TikTok - $6470</label>
+      <label><input type="checkbox" name="servicio" value="8170" data-nombre="Estrategia de video avanzada"> Estrategia de video avanzada - $8170</label>
+    </fieldset>
 
-    <!-- Área para mostrar el contenido guardado -->
-    <div id="contenido-guardado">
-        <strong>Registros guardados:</strong>
-        <div id="mostrar-datos"></div>
+    <fieldset>
+      <legend>Desarrollo Web</legend>
+      <label><input type="checkbox" name="servicio" value="4400" data-nombre="Landing Page"> Landing Page - $4400</label>
+      <label><input type="checkbox" name="servicio" value="7580" data-nombre="Sitio Web Informativo"> Sitio Web Informativo - $7580</label>
+      <label><input type="checkbox" name="servicio" value="13400" data-nombre="Sitio Web + Tienda"> Sitio Web + Tienda en línea - $13400</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Consultorías</legend>
+      <label><input type="checkbox" name="servicio" value="6200" data-nombre="Desarrollo de Marca"> Desarrollo de Marca - $6200</label>
+      <label><input type="checkbox" name="servicio" value="4570" data-nombre="Estrategia de Crecimiento"> Estrategia de Crecimiento - $4570</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Servicios Adicionales</legend>
+      <label><input type="checkbox" name="servicio" value="2500" data-nombre="Redacción Web y Redes"> Redacción Web y Redes Sociales - $2500</label>
+      <label><input type="checkbox" name="servicio" value="7540" data-nombre="Posicionamiento SEO"> Posicionamiento SEO - $7540</label>
+      <label><input type="checkbox" name="servicio" value="14300" data-nombre="Filtros Interactivos"> Filtros Interactivos para Redes - $14300</label>
+    </fieldset>
+
+    <label>
+      <input type="checkbox" id="descuento"> Soy un proyecto cultural (aplica 25% de descuento)
+    </label>
+
+    <div class="totales">
+      <p><strong>Total: $<span id="total">0.00</span> MXN</strong></p>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-        const firebaseConfig = {
-            apiKey: "AIzaSyD2jgfbX-7S3TVlmjWyJXfygMQY5XCMcBY",
-            authDomain: "no-le-digas-a-nadie.firebaseapp.com",
-            projectId: "no-le-digas-a-nadie",
-            storageBucket: "no-le-digas-a-nadie.firebasestorage.app",
-            messagingSenderId: "1098183964417",
-            appId: "1:1098183964417:web:0c50027cf7b763407c8d00"
-  };
-  const app = initializeApp(firebaseConfig);
-  
-  async function guardarYMostrar() {
-    const entrada = document.getElementById("entrada-datos").value;
-    await db.collection("registros").add({
-        texto: entrada,
-        fecha: new Date().toLocaleString()
-    });
-    mostrarDatosGuardados();
-    document.getElementById("entrada-datos").value = "";
-}
+    <div class="acciones">
+      <button type="button" onclick="enviarCotizacionAdmin()">¿Te interesa esta cotización? ¡Envíanosla por WhatsApp para comenzar!</button><br><br>
+      
+      <input type="email" id="correoCliente" placeholder="Tu correo electrónico">
+      <button type="button" onclick="enviarPorCorreo()">Envíala a tu correo</button><br><br>
+      <input type="tel" id="whatsOtro" placeholder="Número de WhatsApp">
+      <button type="button" onclick="enviarAWhatsappAjeno()">Envíala por WhatsApp a ti o alguien más</button>
+    </div>
+  </form>
 
-function mostrarDatosGuardados() {
-    const mostrarDatos = document.getElementById("mostrar-datos");
-    mostrarDatos.innerHTML = "";
-    db.collection("registros")
-    .orderBy("fecha", "desc")
-    .onSnapshot((querySnapshot) => {
-        if (querySnapshot.empty) {
-            mostrarDatos.innerHTML = "<p>No hay registros guardados.</p>";
-        } else {
-            querySnapshot.forEach((doc) => {
-                const registros = doc.data();
-                const registrosElement = document.createElement("div");
-                registrosElement.className = "registros";
-                registrosElement.innerHTML = `
-                <strong>${registros.fecha}:</strong> ${registros.texto}
-                `;
-                mostrarDatos.appendChild(registrosElement);
-            });
+  <script>
+    const checkboxes = document.querySelectorAll('input[name="servicio"]');
+    const totalSpan = document.getElementById("total");
+
+    checkboxes.forEach(cb => cb.addEventListener("change", calcularTotal));
+    document.getElementById("descuento").addEventListener("change", calcularTotal);
+
+    function calcularTotal() {
+      let total = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) total += parseFloat(cb.value);
+      });
+      if (document.getElementById("descuento").checked) {
+        total *= 0.75;
+      }
+      totalSpan.textContent = total.toFixed(2);
+    }
+
+    function obtenerResumen() {
+      let resumen = "Hola, esta es mi cotización:%0A";
+      let total = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          resumen += `• ${cb.dataset.nombre} - $${cb.value}%0A`;
+          total += parseFloat(cb.value);
         }
-    });
-}
+      });
+      if (document.getElementById("descuento").checked) {
+        resumen += "%0A%0A Descuento aplicado: 25%";
+        total *= 0.75;
+      }
+      resumen += `%0A%0A Total: $${total.toFixed(2)} MXN`;
+      return resumen;
+    }
 
-window.onload = mostrarDatosGuardados;
+    function enviarCotizacionAdmin() {
+      const resumen = obtenerResumen();
+      window.open(`https://wa.me/523325791621?text=${resumen}`, "_blank");
+    }
 
+    function enviarPorCorreo() {
+      const correo = document.getElementById("correoCliente").value.trim();
+      if (!correo) return alert("Por favor ingresa un correo válido.");
+      const resumen = decodeURIComponent(obtenerResumen()).replace(/%0A/g, '\n');
+      const mailtoLink = `mailto:${correo}?subject=Cotización de servicios&body=${encodeURIComponent(resumen)}`;
+      window.location.href = mailtoLink;
+    }
 
-    </script>
-
+    function enviarAWhatsappAjeno() {
+      const telefono = document.getElementById("whatsOtro").value.trim();
+      if (telefono.length < 10) return alert("Ingresa un número de WhatsApp válido.");
+      const resumen = obtenerResumen();
+      window.open(`https://wa.me/52${telefono}?text=${resumen}`, "_blank");
+    }
+  </script>
 </body>
 </html>
