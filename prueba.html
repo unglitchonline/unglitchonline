@@ -134,24 +134,21 @@
     }
 
     function enviarPorCorreo() {
-  const correo = document.getElementById("correoCliente").value.trim();
-  if (!correo) return alert("Por favor ingresa un correo válido.");
-  const resumen = decodeURIComponent(obtenerResumen()).replace(/%0A/g, '\n');
-  const mailtoLink = `mailto:${correo}?subject=Cotización de servicios&body=${encodeURIComponent(resumen)}`;
-
-  // Intentar abrir directamente
-  try {
-    window.location.href = mailtoLink;
-  } catch (e) {
-    // Mostrar enlace alternativo
-    const enlace = document.getElementById("enlaceCorreo");
-    enlace.href = mailtoLink;
-    enlace.style.display = "block";
-    enlace.textContent = "Haz clic aquí si no se abrió tu app de correo";
-  }
-}
-
-
+      const correo = document.getElementById("correoCliente").value.trim();
+      if (!correo) return alert("Por favor ingresa un correo válido.");
+      const resumen = decodeURIComponent(obtenerResumen()).replace(/%0A/g, '\n');
+      const mailtoLink = `mailto:${correo}?subject=Cotización de servicios&body=${encodeURIComponent(resumen)}`;
+      // Intentar abrir directamente
+      try {
+        window.location.href = mailtoLink;
+      } catch (e) {
+        // Mostrar enlace alternativo
+        const enlace = document.getElementById("enlaceCorreo");
+        enlace.href = mailtoLink;
+        enlace.style.display = "block";
+        enlace.textContent = "Haz clic aquí si no se abrió tu app de correo";
+      }
+    }
     function enviarAWhatsappAjeno() {
       const telefono = document.getElementById("whatsOtro").value.trim();
       if (telefono.length < 10) return alert("Ingresa un número de WhatsApp válido.");
