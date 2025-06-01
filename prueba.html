@@ -5,49 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Abigail Fuentes">
   <title>Cotizador de Servicios</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Quicksand', sans-serif;
-      max-width: 750px;
-      margin:1rem;
-      padding: 2%;
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+  body {
+    font-family: "Playfair Display", serif;
+    max-width: 100%;
+    margin: 0;
+    padding: 2%;
+  }
+
+  fieldset {
+    margin-bottom: 2%;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  legend {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  label {
+    display: block;
+    border-radius: 10px;
+    margin: 0.5rem 0;
+  }
+
+  .totales {
+    margin-top: 2rem;
+  }
+
+  .acciones {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .accion-control {
+    height: 60px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    text-align: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .acciones input[type="email"],
+  .acciones input[type="tel"] {
+    background-color: whitesmoke;
+    color: black;
+  }
+
+  .acciones button {
+    background-color: #57590E;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .acciones button:hover {
+    background-color: #593622;
+  }
+
+  /* Responsive para móviles */
+  @media (max-width: 768px) {
+    .accion-control {
+      width: 80%;
     }
-    fieldset {
-      margin-bottom: 2%;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
-    legend {
-      font-weight: bold;
-    }
-    label {
-      display: block;
-      border-radius: 10px;
-      margin: 0.5rem 0;
-    }
-    .totales, .acciones {
-      margin-top: 2rem;
-    }
-    .acciones button,
-    .acciones input[type="email"],
-    .acciones input[type="tel"] {
-      color: black;
-      width: 100%;
-      height: 60px;
-      font-size: 14px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      margin-bottom: 1rem;
-      box-sizing: border-box;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-
-  <h2>Cotizador de Servicios</h2>
-
   <form id="cotizadorForm">
     <fieldset>
       <legend>Estrategias de Redes</legend>
@@ -85,12 +123,12 @@
     </div>
 
     <div class="acciones">
-      <button type="button" onclick="enviarCotizacionAdmin()">¡Envíanos tu cotización por WhatsApp para comenzar!</button><br><br>
+      <button type="button" onclick="enviarCotizacionAdmin()" class="accion-control">¡Envíanos tu cotización por WhatsApp para comenzar!</button><br><br>
       
-      <input type="email" id="correoCliente" placeholder="Tu correo electrónico">
-      <button type="button" onclick="enviarPorCorreo()">Envíala a tu correo</button><br><br>
-      <input type="tel" id="whatsOtro" placeholder="Número de WhatsApp">
-      <button type="button" onclick="enviarAWhatsappAjeno()">Envíala por WhatsApp a ti o alguien más</button>
+      <input type="email" id="correoCliente" class="accion-control" placeholder="Tu correo electrónico">
+      <button type="button" class="accion-control" onclick="enviarPorCorreo()">Envíala a tu correo</button><br><br>
+      <input type="tel" class="accion-control" id="whatsOtro" placeholder="Número de WhatsApp">
+      <button type="button" class="accion-control" onclick="enviarAWhatsappAjeno()">Envíala por WhatsApp a ti o alguien más</button>
     </div>
   </form>
 
@@ -113,7 +151,7 @@
     }
 
     function obtenerResumen() {
-      let resumen = "Hola, esta es mi cotización:%0A";
+      let resumen = "Hola, me interesan estos servicios:%0A";
       let total = 0;
       checkboxes.forEach(cb => {
         if (cb.checked) {
