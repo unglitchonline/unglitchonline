@@ -116,7 +116,7 @@
     }
 
     /* fade edges */
-    .track-outer::before,
+    /* .track-outer::before,
     .track-outer::after {
       content: '';
       position: absolute;
@@ -127,7 +127,7 @@
       pointer-events: none;
     }
     .track-outer::before { left: 0;  background: linear-gradient(to right, var(--cream), transparent); }
-    .track-outer::after  { right: 0; background: linear-gradient(to left,  var(--cream), transparent); }
+    .track-outer::after  { right: 0; background: linear-gradient(to left,  var(--cream), transparent); } */
 
     .track {
       display: flex;
@@ -278,7 +278,7 @@
       color: rgba(255,255,255,0.9);
     }
 
-    .etapa-badge {
+    /* .etapa-badge {
       display: inline-block;
       padding: 3px 10px;
       border-radius: 100px;
@@ -298,10 +298,10 @@
       background: rgba(130, 185, 140, 0.22);
       border: 1px solid rgba(130, 185, 140, 0.45);
       color: #8ec99b;
-    }
+    } */
 
     /* ── Progress dots ── */
-    .dots {
+    /* .dots {
       display: flex;
       gap: 8px;
       justify-content: center;
@@ -320,7 +320,7 @@
     .dot.active {
       background: var(--ink);
       transform: scale(1.4);
-    }
+    } */
 
     /* placeholder images using CSS gradients */
     .photo-1 { background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?w=640&q=80'); }
@@ -337,24 +337,6 @@
 
 <section class="section">
   <!-- Header -->
-  <div class="section-header">
-    <div class="label-group">
-      <span class="eyebrow">Nuestros Clientes</span>
-      <h2 class="heading">Descubre cada proyecto, <em>hábitats conscientes</em> hechos realidad.</h2>
-    </div>
-    <div class="nav-arrows">
-      <button class="arrow-btn" id="prevBtn" aria-label="Anterior">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 18 9 12 15 6"/>
-        </svg>
-      </button>
-      <button class="arrow-btn" id="nextBtn" aria-label="Siguiente">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 18 15 12 9 6"/>
-        </svg>
-      </button>
-    </div>
-  </div>
 
   <!-- Track -->
   <div class="track-outer">
@@ -374,7 +356,7 @@
             <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Desarrollo residencial escalable</span></div>
             <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
             <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular repetible</span></div>
-            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-desarrollo">En desarrollo</span></span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val">En desarrollo</span></div>
           </div>
         </div>
       </div>
@@ -510,7 +492,7 @@
   </div><!-- /track-outer -->
 
   <!-- Dots -->
-  <div class="dots" id="dots"></div>
+  <!-- <div class="dots" id="dots"></div> -->
 
 </section>
 
