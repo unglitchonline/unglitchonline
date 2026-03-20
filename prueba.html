@@ -1,199 +1,563 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta http-equiv="content-type" content="text/html" charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Abigail Fuentes">
-  <title>Cotizador de Servicios</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestros Clientes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
   <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: "Playfair Display", serif;
-    max-width: 100%;
-    margin: 0;
-    padding: 2%;
-  }
-
-  fieldset {
-    margin-bottom: 2%;
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  legend {
-    font-weight: bold;
-    font-size: 18px;
-  }
-
-  label {
-    display: block;
-    border-radius: 10px;
-    margin: 0.5rem 0;
-  }
-
-  .totales {
-    margin-top: 2rem;
-  }
-
-  .acciones {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .accion-control {
-    height: 60px;
-    font-size: 14px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-    text-align: center;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .acciones input[type="email"],
-  .acciones input[type="tel"] {
-    background-color: whitesmoke;
-    color: black;
-  }
-
-  .acciones button {
-    background-color: #57590E;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .acciones button:hover {
-    background-color: #593622;
-  }
-
-  /* Responsive para móviles */
-  @media (max-width: 768px) {
-    .accion-control {
-      width: 80%;
+    :root {
+      --cream:    #f5f2ed;
+      --sand:     #e8e2d9;
+      --taupe:    #c8bfb0;
+      --warm:     #9e9185;
+      --ink:      #2a2520;
+      --muted:    #6b6259;
+      --accent:   #8b7355;
+      --card-r:   28px;
+      --badge-r:  100px;
     }
-  }
-</style>
+
+    body {
+      background: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 0;
+    }
+
+    /* ── Section wrapper ── */
+    .section {
+      width: 100%;
+      max-width: 1600px;
+      padding: 0 56px;
+    }
+
+    /* ── Header ── */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 52px;
+      gap: 24px;
+    }
+
+    .label-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm);
+    }
+
+    .heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--ink);
+      max-width: 640px;
+    }
+
+    .heading em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* nav arrows */
+    .nav-arrows {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+      padding-bottom: 6px;
+    }
+
+    .arrow-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--taupe);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+
+    .arrow-btn:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--cream);
+    }
+
+    .arrow-btn svg { width: 16px; height: 16px; }
+
+    /* ── Track ── */
+    .track-outer {
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* fade edges */
+    .track-outer::before,
+    .track-outer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 60px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .track-outer::before { left: 0;  background: linear-gradient(to right, var(--cream), transparent); }
+    .track-outer::after  { right: 0; background: linear-gradient(to left,  var(--cream), transparent); }
+
+    .track {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative;
+      flex-shrink: 0;
+      width: 320px;
+      height: 440px;
+      border-radius: var(--card-r);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    /* photo layer */
+    .card-photo {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* dimmed overlay + info (hidden by default) */
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(35, 30, 25, 0.70);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px 28px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover .card-overlay { opacity: 1; }
+    .card:hover .card-photo   { transform: scale(1.04); }
+
+    /* number badge */
+    .card-num {
+      position: absolute;
+      top: 22px;
+      left: 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.55);
+      z-index: 1;
+    }
+
+    /* status pill (bottom-right on photo state) */
+    .card-status {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      padding: 6px 14px;
+      border-radius: var(--badge-r);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.25);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .card:hover .card-status { opacity: 0; }
+
+    /* card title on photo state */
+    .card-title-photo {
+      position: absolute;
+      bottom: 60px;
+      left: 24px;
+      right: 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.25;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .card:hover .card-title-photo { opacity: 0; }
+
+    /* overlay content */
+    .overlay-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .overlay-desc {
+      font-size: 11.5px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .overlay-divider {
+      width: 28px;
+      height: 1px;
+      background: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
+    }
+
+    .overlay-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .meta-key {
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      min-width: 68px;
+    }
+
+    .meta-val {
+      font-size: 11.5px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .etapa-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .etapa-desarrollo {
+      background: rgba(183, 151, 101, 0.28);
+      border: 1px solid rgba(183, 151, 101, 0.55);
+      color: #d4ae76;
+    }
+
+    .etapa-ejecutado {
+      background: rgba(130, 185, 140, 0.22);
+      border: 1px solid rgba(130, 185, 140, 0.45);
+      color: #8ec99b;
+    }
+
+    /* ── Progress dots ── */
+    .dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--taupe);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .dot.active {
+      background: var(--ink);
+      transform: scale(1.4);
+    }
+
+    /* placeholder images using CSS gradients */
+    .photo-1 { background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?w=640&q=80'); }
+    .photo-2 { background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=640&q=80'); }
+    .photo-3 { background-image: url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=640&q=80'); }
+    .photo-4 { background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=640&q=80'); }
+    .photo-5 { background-image: url('https://images.unsplash.com/photo-1600607686527-6fb886090705?w=640&q=80'); }
+    .photo-6 { background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=640&q=80'); }
+    .photo-7 { background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=640&q=80'); }
+    .photo-8 { background-image: url('https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=640&q=80'); }
+  </style>
 </head>
 <body>
-  <form id="cotizadorForm">
-    <fieldset>
-      <legend>Estrategias de Redes</legend>
-      <label><input type="checkbox" name="servicio" value="3410" data-nombre="Instagram"> Instagram - $3410</label>
-      <label><input type="checkbox" name="servicio" value="6470" data-nombre="Instagram + TikTok"> Instagram + TikTok - $6470</label>
-      <label><input type="checkbox" name="servicio" value="8170" data-nombre="Estrategia de video avanzada"> Estrategia de video avanzada - $8170</label>
-    </fieldset>
 
-    <fieldset>
-      <legend>Desarrollo Web</legend>
-      <label><input type="checkbox" name="servicio" value="4400" data-nombre="Landing Page"> Landing Page - $4400</label>
-      <label><input type="checkbox" name="servicio" value="7580" data-nombre="Sitio Web Informativo"> Sitio Web Informativo - $7580</label>
-      <label><input type="checkbox" name="servicio" value="13400" data-nombre="Sitio Web + Tienda"> Sitio Web + Tienda en línea - $13400</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>Consultorías</legend>
-      <label><input type="checkbox" name="servicio" value="6200" data-nombre="Desarrollo de Marca"> Desarrollo de Marca - $6200</label>
-      <label><input type="checkbox" name="servicio" value="4570" data-nombre="Estrategia de Crecimiento"> Estrategia de Crecimiento - $4570</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>Servicios Adicionales</legend>
-      <label><input type="checkbox" name="servicio" value="2500" data-nombre="Redacción Web y Redes"> Redacción Web y Redes Sociales - $2500</label>
-      <label><input type="checkbox" name="servicio" value="7540" data-nombre="Posicionamiento SEO"> Posicionamiento SEO - $7540</label>
-      <label><input type="checkbox" name="servicio" value="14300" data-nombre="Filtros Interactivos"> Filtros Interactivos para Redes - $14300</label>
-    </fieldset>
-
-    <label>
-      <input type="checkbox" id="descuento"> Soy un proyecto cultural (aplica 25% de descuento)
-    </label>
-
-    <div class="totales">
-      <p><strong>Total: $<span id="total">0.00</span> MXN</strong></p>
+<section class="section">
+  <!-- Header -->
+  <div class="section-header">
+    <div class="label-group">
+      <span class="eyebrow">Nuestros Clientes</span>
+      <h2 class="heading">Descubre cada proyecto, <em>hábitats conscientes</em> hechos realidad.</h2>
     </div>
-
-    <div class="acciones">
-      <button type="button" onclick="enviarCotizacionAdmin()" class="accion-control">¡Envíanos tu cotización por WhatsApp para comenzar!</button><br><br>
-      
-      <input type="email" id="correoCliente" class="accion-control" placeholder="Tu correo electrónico">
-      <button type="button" class="accion-control" onclick="enviarPorCorreo()">Envíala a tu correo</button><br><br>
-      <input type="tel" class="accion-control" id="whatsOtro" placeholder="Número de WhatsApp">
-      <button type="button" class="accion-control" onclick="enviarAWhatsappAjeno()">Envíala por WhatsApp a ti o alguien más</button>
+    <div class="nav-arrows">
+      <button class="arrow-btn" id="prevBtn" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <button class="arrow-btn" id="nextBtn" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
     </div>
-  </form>
+  </div>
 
-  <script>
-    const checkboxes = document.querySelectorAll('input[name="servicio"]');
-    const totalSpan = document.getElementById("total");
+  <!-- Track -->
+  <div class="track-outer">
+    <div class="track" id="track">
 
-    checkboxes.forEach(cb => cb.addEventListener("change", calcularTotal));
-    document.getElementById("descuento").addEventListener("change", calcularTotal);
+      <!-- 01 Casa Viñedos SMA -->
+      <div class="card">
+        <div class="card-photo photo-1"></div>
+        <span class="card-num">/01</span>
+        <span class="card-title-photo">Casa Viñedos SMA</span>
+        <span class="card-status">En desarrollo</span>
+        <div class="card-overlay">
+          <div class="overlay-title">Casa Viñedos SMA</div>
+          <div class="overlay-desc">Conjunto habitacional concebido como sistema modular. Cada unidad preserva su identidad dentro de un todo armónico.</div>
+          <div class="overlay-divider"></div>
+          <div class="overlay-meta">
+            <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Desarrollo residencial escalable</span></div>
+            <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
+            <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular repetible</span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-desarrollo">En desarrollo</span></span></div>
+          </div>
+        </div>
+      </div>
 
-    function calcularTotal() {
-      let total = 0;
-      checkboxes.forEach(cb => {
-        if (cb.checked) total += parseFloat(cb.value);
-      });
-      if (document.getElementById("descuento").checked) {
-        total *= 0.75;
-      }
-      totalSpan.textContent = total.toFixed(2);
-    }
+      <!-- 02 Casa Beckhart SMA -->
+      <div class="card">
+        <div class="card-photo photo-2"></div>
+        <span class="card-num">/02</span>
+        <span class="card-title-photo">Casa Beckhart SMA</span>
+        <span class="card-status">Ejecutado</span>
+        <div class="card-overlay">
+          <div class="overlay-title">Casa Beckhart SMA</div>
+          <div class="overlay-desc">Vivienda flexible y adaptable, con construcción eficiente y ordenada. La repetición genera identidad.</div>
+          <div class="overlay-divider"></div>
+          <div class="overlay-meta">
+            <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Residencial (Unifamiliar)</span></div>
+            <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
+            <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular repetible</span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-ejecutado">Ejecutado</span></span></div>
+          </div>
+        </div>
+      </div>
 
-    function obtenerResumen() {
-      let resumen = "Hola, me interesan estos servicios:%0A";
-      let total = 0;
-      checkboxes.forEach(cb => {
-        if (cb.checked) {
-          resumen += `• ${cb.dataset.nombre} - $${cb.value}%0A`;
-          total += parseFloat(cb.value);
-        }
-      });
-      if (document.getElementById("descuento").checked) {
-        resumen += "%0A%0A Descuento aplicado: 25%";
-        total *= 0.75;
-      }
-      resumen += `%0A%0A Total: $${total.toFixed(2)} MXN`;
-      return resumen;
-    }
+      <!-- 03 Casa Pásaret -->
+      <div class="card">
+        <div class="card-photo photo-3"></div>
+        <span class="card-num">/03</span>
+        <span class="card-title-photo">Casa Pásaret</span>
+        <span class="card-status">Ejecutado</span>
+        <div class="card-overlay">
+          <div class="overlay-title">Casa Pásaret Sangre de Cristo</div>
+          <div class="overlay-desc">Arquitectura contenida; precisión técnica y detalle artesanal donde el espacio es protagonista.</div>
+          <div class="overlay-divider"></div>
+          <div class="overlay-meta">
+            <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Residencial (Unifamiliar)</span></div>
+            <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
+            <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular + Artesanal Controlado</span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-ejecutado">Ejecutado</span></span></div>
+          </div>
+        </div>
+      </div>
 
-    function enviarCotizacionAdmin() {
-      const resumen = obtenerResumen();
-      window.open(`https://wa.me/523325791621?text=${resumen}`, "_blank");
-    }
+      <!-- 04 Mantarraya Todos Santos -->
+      <div class="card">
+        <div class="card-photo photo-4"></div>
+        <span class="card-num">/04</span>
+        <span class="card-title-photo">Mantarraya Todos Santos</span>
+        <span class="card-status">Próximamente</span>
+        <div class="card-overlay">
+          <div class="overlay-title">Mantarraya Todos Santos</div>
+          <div class="overlay-desc">Información próximamente disponible.</div>
+          <div class="overlay-divider"></div>
+          <div class="overlay-meta">
+            <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
+          </div>
+        </div>
+      </div>
 
-    function enviarPorCorreo() {
-      const correo = document.getElementById("correoCliente").value.trim();
-      if (!correo) return alert("Por favor ingresa un correo válido.");
-      const resumen = decodeURIComponent(obtenerResumen()).replace(/%0A/g, '\n');
-      const mailtoLink = `mailto:${correo}?subject=Cotización de servicios&body=${encodeURIComponent(resumen)}`;
-      // Intentar abrir directamente
-      try {
-        window.location.href = mailtoLink;
-      } catch (e) {
-        // Mostrar enlace alternativo
-        const enlace = document.getElementById("enlaceCorreo");
-        enlace.href = mailtoLink;
-        enlace.style.display = "block";
-        enlace.textContent = "Haz clic aquí si no se abrió tu app de correo";
-      }
-    }
-    function enviarAWhatsappAjeno() {
-      const telefono = document.getElementById("whatsOtro").value.trim();
-      if (telefono.length < 10) return alert("Ingresa un número de WhatsApp válido.");
-      const resumen = obtenerResumen();
-      window.open(`https://wa.me/52${telefono}?text=${resumen}`, "_blank");
-    }
-  </script>
+      <!-- 05 Pabellón Mauricio Rocha -->
+      <div class="card">
+        <div class="card-photo photo-5"></div>
+        <span class="card-num">/05</span>
+        <span class="card-title-photo">Pabellón Mauricio Rocha</span>
+        <span class="card-status">Próximamente</span>
+        <div class="card-overlay">
+          <div class="overlay-title">Pabellón Mauricio Rocha</div>
+          <div class="overlay-desc">Información próximamente disponible.</div>
+          <div class="overlay-divider"></div>
+          <div class="overlay-meta">
+            <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 Palo Blanco Villas Resort -->
+      <div class="card">
+        <div class="card-photo photo-6"></div>
+        <span class="card-num">/06</span>
+        <span class="card-title-photo">Palo Blanco Villas Resort</span>
+        <span class="card-status">Ejecutado</span>
+        <div class="card-overlay">
+          <div class="overlay-title">Palo Blanco Villas Resort</div>
+          <div class="overlay-desc">Centro residencial enfocado en el bienestar. Arquitectura y paisaje convergen en una experiencia de calma y conexión.</div>
+          <div class="overlay-divider"></div>
+          <div class="overlay-meta">
+            <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Wellness Residencial (Uso Mixto)</span></div>
+            <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
+            <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Racionalizado</span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-ejecutado">Ejecutado</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 07 Casa Manana -->
+      <div class="card">
+        <div class="card-photo photo-7"></div>
+        <span class="card-num">/07</span>
+        <span class="card-title-photo">Casa Manana</span>
+        <span class="card-status">Ejecutado</span>
+        <div class="card-overlay">
+          <div class="overlay-title">Casa Manana</div>
+          <div class="overlay-desc">Vivienda contemporánea que sintetiza claridad arquitectónica, eficiencia y adaptabilidad. Diseñada para habitar el entorno.</div>
+          <div class="overlay-divider"></div>
+          <div class="overlay-meta">
+            <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Residencial (Unifamiliar)</span></div>
+            <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
+            <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular Híbrido</span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-ejecutado">Ejecutado</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 08 Casa Aurora -->
+      <div class="card">
+        <div class="card-photo photo-8"></div>
+        <span class="card-num">/08</span>
+        <span class="card-title-photo">Casa Aurora</span>
+        <span class="card-status">Ejecutado</span>
+        <div class="card-overlay">
+          <div class="overlay-title">Casa Aurora</div>
+          <div class="overlay-desc">Arquitectura clara que privilegia luz, proporción y estructura. Cada elemento justifica su presencia.</div>
+          <div class="overlay-divider"></div>
+          <div class="overlay-meta">
+            <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Residencial (Unifamiliar)</span></div>
+            <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
+            <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular racionalizado</span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-ejecutado">Ejecutado</span></span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /track -->
+  </div><!-- /track-outer -->
+
+  <!-- Dots -->
+  <div class="dots" id="dots"></div>
+
+</section>
+
+<script>
+  const track    = document.getElementById('track');
+  const prevBtn  = document.getElementById('prevBtn');
+  const nextBtn  = document.getElementById('nextBtn');
+  const dotsEl   = document.getElementById('dots');
+  const cards    = Array.from(track.querySelectorAll('.card'));
+  const GAP      = 20;
+  const CARD_W   = 320;
+  const STEP     = CARD_W + GAP;
+
+  let current = 0;
+
+  // build dots
+  cards.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', `Ir al proyecto ${i + 1}`);
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  function maxIndex() {
+    const visible = Math.floor((track.parentElement.offsetWidth) / STEP);
+    return Math.max(0, cards.length - visible);
+  }
+
+  function goTo(idx) {
+    current = Math.max(0, Math.min(idx, maxIndex()));
+    track.style.transform = `translateX(-${current * STEP}px)`;
+    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  // drag/swipe
+  let startX = 0, dragging = false;
+  track.addEventListener('mousedown',  e => { dragging = true; startX = e.clientX; });
+  track.addEventListener('mousemove',  e => { if (!dragging) return; e.preventDefault(); });
+  track.addEventListener('mouseup',    e => { if (!dragging) return; dragging = false; const dx = e.clientX - startX; if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1)); });
+  track.addEventListener('mouseleave', () => { dragging = false; });
+
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   e => { const dx = e.changedTouches[0].clientX - startX; if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1)); });
+</script>
 </body>
 </html>
