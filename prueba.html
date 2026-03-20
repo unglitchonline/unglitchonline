@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta http-equiv="content-type" content="text/html" charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="unglitchonline">
-  <title>clientes</title>
-  <!-- <link href="style.css" rel="stylesheet" type="text/css"> -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestros Clientes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -14,15 +12,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:    #f5f2ed;
-      --sand:     #e8e2d9;
-      --taupe:    #c8bfb0;
-      --warm:     #9e9185;
-      --ink:      #2a2520;
-      --muted:    #6b6259;
-      --accent:   #8b7355;
-      --card-r:   28px;
-      --badge-r:  100px;
+      --cream:   #f5f2ed;
+      --sand:    #e8e2d9;
+      --taupe:   #c8bfb0;
+      --warm:    #9e9185;
+      --ink:     #2a2520;
+      --muted:   #6b6259;
+      --accent:  #8b7355;
+      --card-r:  28px;
     }
 
     body {
@@ -43,98 +40,16 @@
       padding: 0 56px;
     }
 
-    /* ── Header ── */
-    .section-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 52px;
-      gap: 24px;
-    }
-
-    .label-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--warm);
-    }
-
-    .heading {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(36px, 4vw, 58px);
-      font-weight: 300;
-      line-height: 1.1;
-      color: var(--ink);
-      max-width: 640px;
-    }
-
-    .heading em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    /* nav arrows */
-    .nav-arrows {
-      display: flex;
-      gap: 10px;
-      flex-shrink: 0;
-      padding-bottom: 6px;
-    }
-
-    .arrow-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: 1.5px solid var(--taupe);
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink);
-      transition: background 0.25s, border-color 0.25s, color 0.25s;
-    }
-
-    .arrow-btn:hover {
-      background: var(--ink);
-      border-color: var(--ink);
-      color: var(--cream);
-    }
-
-    .arrow-btn svg { width: 16px; height: 16px; }
-
     /* ── Track ── */
-    /* .track-outer {
+    .track-outer {
       overflow: hidden;
       position: relative;
-    } */
-
-    /* fade edges */
-    /* .track-outer::before,
-    .track-outer::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 60px;
-      z-index: 2;
-      pointer-events: none;
-    } */
-    /* .track-outer::before { left: 0;  background: linear-gradient(to right, var(--cream), transparent); }
-    .track-outer::after  { right: 0; background: linear-gradient(to left,  var(--cream), transparent); } */
+    }
 
     .track {
       display: flex;
       gap: 20px;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       will-change: transform;
     }
 
@@ -158,7 +73,7 @@
       transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    /* dimmed overlay + info (hidden by default) */
+    /* overlay (hidden by default) */
     .card-overlay {
       position: absolute;
       inset: 0;
@@ -171,31 +86,30 @@
       padding: 32px 28px;
       opacity: 0;
       transition: opacity 0.4s ease;
+      pointer-events: none;
     }
 
-    .card:hover .card-overlay { opacity: 1; }
-    .card:hover .card-photo   { transform: scale(1.04); }
+    /* Desktop hover */
+    @media (hover: hover) {
+      .card:hover .card-overlay      { opacity: 1; pointer-events: auto; }
+      .card:hover .card-photo        { transform: scale(1.04); }
+      .card:hover .card-title-photo  { opacity: 0; }
+      .card:hover .card-status       { opacity: 0; }
+    }
 
-    /* number badge */
-    /* .card-num {
-      position: absolute;
-      top: 22px;
-      left: 24px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      color: rgba(255,255,255,0.55);
-      z-index: 1;
-    } */
+    /* Mobile tap — toggled via JS */
+    .card.tapped .card-overlay      { opacity: 1; pointer-events: auto; }
+    .card.tapped .card-photo        { transform: scale(1.04); }
+    .card.tapped .card-title-photo  { opacity: 0; }
+    .card.tapped .card-status       { opacity: 0; }
 
-    /* status pill (bottom-right on photo state) */
+    /* status pill */
     .card-status {
       position: absolute;
       bottom: 24px;
       right: 24px;
       padding: 6px 14px;
-      border-radius: var(--badge-r);
+      border-radius: 100px;
       background: rgba(255,255,255,0.18);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
@@ -204,12 +118,10 @@
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #fff;
+      color: var(--ink);
       transition: opacity 0.4s ease;
       z-index: 1;
     }
-
-    .card:hover .card-status { opacity: 0; }
 
     /* card title on photo state */
     .card-title-photo {
@@ -225,8 +137,6 @@
       transition: opacity 0.4s ease;
       z-index: 1;
     }
-
-    .card:hover .card-title-photo { opacity: 0; }
 
     /* overlay content */
     .overlay-title {
@@ -280,51 +190,37 @@
       color: rgba(255,255,255,0.9);
     }
 
-    /* .etapa-badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 100px;
-      font-size: 9.5px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .etapa-desarrollo {
-      background: rgba(183, 151, 101, 0.28);
-      border: 1px solid rgba(183, 151, 101, 0.55);
-      color: #d4ae76;
-    }
-
-    .etapa-ejecutado {
-      background: rgba(130, 185, 140, 0.22);
-      border: 1px solid rgba(130, 185, 140, 0.45);
-      color: #8ec99b;
-    } */
-
-    /* ── Progress dots ── */
-    /* .dots {
+    /* ── Nav arrows ── */
+    .nav-arrows {
       display: flex;
-      gap: 8px;
       justify-content: center;
-      margin-top: 40px;
+      gap: 12px;
+      margin-top: 32px;
     }
 
-    .dot {
-      width: 6px;
-      height: 6px;
+    .arrow-btn {
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: var(--taupe);
+      border: 1.5px solid var(--taupe);
+      background: transparent;
       cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
     }
 
-    .dot.active {
+    .arrow-btn:hover {
       background: var(--ink);
-      transform: scale(1.4);
-    } */
+      border-color: var(--ink);
+      color: var(--cream);
+    }
 
-    /* placeholder images using CSS gradients */
+    .arrow-btn svg { width: 16px; height: 16px; }
+
+    /* ── Placeholder images ── */
     .photo-1 { background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?w=640&q=80'); }
     .photo-2 { background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=640&q=80'); }
     .photo-3 { background-image: url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=640&q=80'); }
@@ -333,40 +229,28 @@
     .photo-6 { background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=640&q=80'); }
     .photo-7 { background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=640&q=80'); }
     .photo-8 { background-image: url('https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=640&q=80'); }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      body { padding: 40px 0; }
+      .section { padding: 0 24px; }
+      .card {
+        width: calc(100vw - 48px);
+        height: 480px;
+      }
+    }
   </style>
 </head>
 <body>
 
 <section class="section">
 
-  <!-- Header -->
-  <div class="section-header">
-    <div class="label-group">
-      <span class="eyebrow"></span>
-      
-    </div>
-    <div class="nav-arrows">
-      <button class="arrow-btn" id="prevBtn" aria-label="Anterior">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 18 9 12 15 6"/>
-        </svg>
-      </button>
-      <button class="arrow-btn" id="nextBtn" aria-label="Siguiente">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 18 15 12 9 6"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- Track -->
-  <div class="track-outer">
+  <div class="track-outer" id="trackOuter">
     <div class="track" id="track">
 
       <!-- 01 Casa Viñedos SMA -->
       <div class="card">
         <div class="card-photo photo-1"></div>
-        <span class="card-num">/01</span>
         <span class="card-title-photo">Casa Viñedos SMA</span>
         <span class="card-status">En desarrollo</span>
         <div class="card-overlay">
@@ -377,7 +261,7 @@
             <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Desarrollo residencial escalable</span></div>
             <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
             <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular repetible</span></div>
-            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-desarrollo">En desarrollo</span></span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val">En desarrollo</span></div>
           </div>
         </div>
       </div>
@@ -385,7 +269,6 @@
       <!-- 02 Casa Beckhart SMA -->
       <div class="card">
         <div class="card-photo photo-2"></div>
-        <span class="card-num">/02</span>
         <span class="card-title-photo">Casa Beckhart SMA</span>
         <span class="card-status">Ejecutado</span>
         <div class="card-overlay">
@@ -396,7 +279,7 @@
             <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Residencial (Unifamiliar)</span></div>
             <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
             <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular repetible</span></div>
-            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-ejecutado">Ejecutado</span></span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val">Ejecutado</span></div>
           </div>
         </div>
       </div>
@@ -404,8 +287,7 @@
       <!-- 03 Casa Pásaret -->
       <div class="card">
         <div class="card-photo photo-3"></div>
-        <span class="card-num">/03</span>
-        <span class="card-title-photo">Casa Pásaret</span>
+        <span class="card-title-photo">Casa Pásaret Sangre de Cristo</span>
         <span class="card-status">Ejecutado</span>
         <div class="card-overlay">
           <div class="overlay-title">Casa Pásaret Sangre de Cristo</div>
@@ -415,7 +297,7 @@
             <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Residencial (Unifamiliar)</span></div>
             <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
             <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular + Artesanal Controlado</span></div>
-            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-ejecutado">Ejecutado</span></span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val">Ejecutado</span></div>
           </div>
         </div>
       </div>
@@ -423,7 +305,6 @@
       <!-- 04 Mantarraya Todos Santos -->
       <div class="card">
         <div class="card-photo photo-4"></div>
-        <span class="card-num">/04</span>
         <span class="card-title-photo">Mantarraya Todos Santos</span>
         <span class="card-status">Próximamente</span>
         <div class="card-overlay">
@@ -439,7 +320,6 @@
       <!-- 05 Pabellón Mauricio Rocha -->
       <div class="card">
         <div class="card-photo photo-5"></div>
-        <span class="card-num">/05</span>
         <span class="card-title-photo">Pabellón Mauricio Rocha</span>
         <span class="card-status">Próximamente</span>
         <div class="card-overlay">
@@ -455,7 +335,6 @@
       <!-- 06 Palo Blanco Villas Resort -->
       <div class="card">
         <div class="card-photo photo-6"></div>
-        <span class="card-num">/06</span>
         <span class="card-title-photo">Palo Blanco Villas Resort</span>
         <span class="card-status">Ejecutado</span>
         <div class="card-overlay">
@@ -466,7 +345,7 @@
             <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Wellness Residencial (Uso Mixto)</span></div>
             <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
             <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Racionalizado</span></div>
-            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-ejecutado">Ejecutado</span></span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val">Ejecutado</span></div>
           </div>
         </div>
       </div>
@@ -474,7 +353,6 @@
       <!-- 07 Casa Manana -->
       <div class="card">
         <div class="card-photo photo-7"></div>
-        <span class="card-num">/07</span>
         <span class="card-title-photo">Casa Manana</span>
         <span class="card-status">Ejecutado</span>
         <div class="card-overlay">
@@ -485,7 +363,7 @@
             <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Residencial (Unifamiliar)</span></div>
             <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
             <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular Híbrido</span></div>
-            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-ejecutado">Ejecutado</span></span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val">Ejecutado</span></div>
           </div>
         </div>
       </div>
@@ -493,7 +371,6 @@
       <!-- 08 Casa Aurora -->
       <div class="card">
         <div class="card-photo photo-8"></div>
-        <span class="card-num">/08</span>
         <span class="card-title-photo">Casa Aurora</span>
         <span class="card-status">Ejecutado</span>
         <div class="card-overlay">
@@ -504,7 +381,7 @@
             <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Residencial (Unifamiliar)</span></div>
             <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
             <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular racionalizado</span></div>
-            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-ejecutado">Ejecutado</span></span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val">Ejecutado</span></div>
           </div>
         </div>
       </div>
@@ -512,55 +389,111 @@
     </div><!-- /track -->
   </div><!-- /track-outer -->
 
-  <!-- Dots -->
-  <!-- <div class="dots" id="dots"></div> -->
+  <!-- Nav arrows -->
+  <div class="nav-arrows">
+    <button class="arrow-btn" id="prevBtn" aria-label="Anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <button class="arrow-btn" id="nextBtn" aria-label="Siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+  </div>
 
 </section>
 
 <script>
-  const track    = document.getElementById('track');
-  const prevBtn  = document.getElementById('prevBtn');
-  const nextBtn  = document.getElementById('nextBtn');
-  const dotsEl   = document.getElementById('dots');
-  const cards    = Array.from(track.querySelectorAll('.card'));
-  const GAP      = 20;
-  const CARD_W   = 320;
-  const STEP     = CARD_W + GAP;
+  const track   = document.getElementById('track');
+  const outer   = document.getElementById('trackOuter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const cards   = Array.from(track.querySelectorAll('.card'));
+  const GAP     = 20;
+  const CARD_D  = 320; // desktop fixed width
+  let current   = 0;
 
-  let current = 0;
+  /* ── Is touch/mobile device? ── */
+  const isTouch = () => window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-  // build dots
-  cards.forEach((_, i) => {
-    const d = document.createElement('button');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', `Ir al proyecto ${i + 1}`);
-    d.addEventListener('click', () => goTo(i));
-    dotsEl.appendChild(d);
-  });
+  /* ── Dynamic card width ── */
+  function cardW() {
+    return isTouch() ? outer.offsetWidth : CARD_D;
+  }
 
-  function maxIndex() {
-    const visible = Math.floor((track.parentElement.offsetWidth) / STEP);
+  function stepSize() { return cardW() + GAP; }
+
+  function maxIdx() {
+    if (isTouch()) return cards.length - 1; // one card at a time
+    const visible = Math.floor((outer.offsetWidth + GAP) / stepSize());
     return Math.max(0, cards.length - visible);
   }
 
   function goTo(idx) {
-    current = Math.max(0, Math.min(idx, maxIndex()));
-    track.style.transform = `translateX(-${current * STEP}px)`;
-    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    current = Math.max(0, Math.min(idx, maxIdx()));
+    track.style.transform = `translateX(-${current * stepSize()}px)`;
   }
 
   prevBtn.addEventListener('click', () => goTo(current - 1));
   nextBtn.addEventListener('click', () => goTo(current + 1));
 
-  // drag/swipe
-  let startX = 0, dragging = false;
-  track.addEventListener('mousedown',  e => { dragging = true; startX = e.clientX; });
-  track.addEventListener('mousemove',  e => { if (!dragging) return; e.preventDefault(); });
-  track.addEventListener('mouseup',    e => { if (!dragging) return; dragging = false; const dx = e.clientX - startX; if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1)); });
-  track.addEventListener('mouseleave', () => { dragging = false; });
+  window.addEventListener('resize', () => goTo(Math.min(current, maxIdx())));
 
-  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-  track.addEventListener('touchend',   e => { const dx = e.changedTouches[0].clientX - startX; if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1)); });
+  /* ── Desktop: drag to swipe ── */
+  let dragX = 0, dragging = false;
+
+  track.addEventListener('mousedown', e => {
+    if (isTouch()) return;
+    dragging = true;
+    dragX = e.clientX;
+    track.style.transition = 'none';
+  });
+
+  document.addEventListener('mouseup', e => {
+    if (!dragging) return;
+    dragging = false;
+    track.style.transition = '';
+    const dx = e.clientX - dragX;
+    goTo(current + (Math.abs(dx) > 40 ? (dx < 0 ? 1 : -1) : 0));
+  });
+
+  /* ── Mobile: swipe navigates, tap toggles overlay ── */
+  let touchX0 = 0, touchY0 = 0, moved = false;
+
+  track.addEventListener('touchstart', e => {
+    touchX0 = e.touches[0].clientX;
+    touchY0 = e.touches[0].clientY;
+    moved   = false;
+  }, { passive: true });
+
+  track.addEventListener('touchmove', e => {
+    const dx = Math.abs(e.touches[0].clientX - touchX0);
+    const dy = Math.abs(e.touches[0].clientY - touchY0);
+    if (dx > 6 || dy > 6) moved = true;
+  }, { passive: true });
+
+  track.addEventListener('touchend', e => {
+    if (!isTouch()) return;
+    const dx = e.changedTouches[0].clientX - touchX0;
+
+    if (moved && Math.abs(dx) > 40) {
+      /* swipe → navigate, always dismiss overlay first */
+      cards.forEach(c => c.classList.remove('tapped'));
+      goTo(current + (dx < 0 ? 1 : -1));
+    } else if (!moved) {
+      /* tap → toggle overlay only on the currently visible card */
+      const tappedCard = e.target.closest('.card');
+      if (!tappedCard) return;
+      const tappedIdx = cards.indexOf(tappedCard);
+      if (tappedIdx !== current) return; // guard: only allow on focused card
+
+      const alreadyOpen = tappedCard.classList.contains('tapped');
+      cards.forEach(c => c.classList.remove('tapped'));
+      if (!alreadyOpen) tappedCard.classList.add('tapped');
+    }
+  });
 </script>
 </body>
 </html>
