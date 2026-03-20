@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nuestros Clientes</title>
+  <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="unglitchonline">
+  <title>clientes</title>
+  <!-- <link href="style.css" rel="stylesheet" type="text/css"> -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -110,10 +112,10 @@
     .arrow-btn svg { width: 16px; height: 16px; }
 
     /* ── Track ── */
-    .track-outer {
+    /* .track-outer {
       overflow: hidden;
       position: relative;
-    }
+    } */
 
     /* fade edges */
     /* .track-outer::before,
@@ -125,8 +127,8 @@
       width: 60px;
       z-index: 2;
       pointer-events: none;
-    }
-    .track-outer::before { left: 0;  background: linear-gradient(to right, var(--cream), transparent); }
+    } */
+    /* .track-outer::before { left: 0;  background: linear-gradient(to right, var(--cream), transparent); }
     .track-outer::after  { right: 0; background: linear-gradient(to left,  var(--cream), transparent); } */
 
     .track {
@@ -175,7 +177,7 @@
     .card:hover .card-photo   { transform: scale(1.04); }
 
     /* number badge */
-    .card-num {
+    /* .card-num {
       position: absolute;
       top: 22px;
       left: 24px;
@@ -185,7 +187,7 @@
       letter-spacing: 0.15em;
       color: rgba(255,255,255,0.55);
       z-index: 1;
-    }
+    } */
 
     /* status pill (bottom-right on photo state) */
     .card-status {
@@ -336,10 +338,12 @@
 <body>
 
 <section class="section">
+
   <!-- Header -->
   <div class="section-header">
     <div class="label-group">
-      <span class="eyebrow"></span>
+      <span class="eyebrow">Nuestros Clientes</span>
+      <h2 class="heading">Descubre cada proyecto, <em>hábitats conscientes</em> hechos realidad.</h2>
     </div>
     <div class="nav-arrows">
       <button class="arrow-btn" id="prevBtn" aria-label="Anterior">
@@ -373,7 +377,7 @@
             <div class="meta-row"><span class="meta-key">Tipo</span><span class="meta-val">Desarrollo residencial escalable</span></div>
             <div class="meta-row"><span class="meta-key">Ubicación</span><span class="meta-val">México</span></div>
             <div class="meta-row"><span class="meta-key">Sistema</span><span class="meta-val">Modular repetible</span></div>
-            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val">En desarrollo</span></div>
+            <div class="meta-row"><span class="meta-key">Etapa</span><span class="meta-val"><span class="etapa-badge etapa-desarrollo">En desarrollo</span></span></div>
           </div>
         </div>
       </div>
