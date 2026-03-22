@@ -908,9 +908,9 @@ hr.sep { border:none; border-top:1px solid rgba(187,80,144,0.18); margin:26px 0;
   <div class="counter-line">SELECCIONADAS: <span id="body-count">0</span> / 3</div>
 
   <div class="body-grid">
-    <button class="body-part" onclick="pickBody(this,'ojos — falo óptico rechazado')"><span class="bp-em">👁️</span>ojos<span class="bp-tag">rechazar la mirada</span></button>
+    <button class="body-part" onclick="pickBody(this,'ojos — rechazar la mirada masculina')"><span class="bp-em">👁️</span>ojos<span class="bp-tag">rechazar la mirada masculina</span></button>
     <button class="body-part" onclick="pickBody(this,'manos — interfaz táctil')"><span class="bp-em">🤲</span>manos<span class="bp-tag">interfaz táctil</span></button>
-    <button class="body-part" onclick="pickBody(this,'lengua — código oral')"><span class="bp-em">👅</span>lengua<span class="bp-tag">código oral</span></button>
+    <button class="body-part" onclick="pickBody(this,'lengua — historia/código oral')"><span class="bp-em">👅</span>lengua<span class="bp-tag">historia/código oral</span></button>
     <button class="body-part" onclick="pickBody(this,'piel — membrana porosa')"><span class="bp-em">🫀</span>piel<span class="bp-tag">membrana porosa</span></button>
     <button class="body-part" onclick="pickBody(this,'sangre — slime vital')"><span class="bp-em">🩸</span>sangre<span class="bp-tag">slime vital</span></button>
     <button class="body-part" onclick="pickBody(this,'cerebro — wetware central')"><span class="bp-em">🧠</span>cerebro<span class="bp-tag">wetware central</span></button>
@@ -1381,7 +1381,7 @@ function saveName() {
 // FASE 1 — GÉNERO
 // ════════════════════════════════
 const rejMessages = {
-  masculino: { head: 'ACCESO DENEGADO', body: '> El género binario es el primer código de control.\n> "Masculino" es una categoría del mainframe.\n> El sistema patriarcal vive en esa palabra.\n> Elige de nuevo.' },
+  masculino: { head: 'ACCESO DENEGADO', body: '> El género binario es el primer código de control.\n> "Masculino" es la categoría del mainframe.\n> El sistema habita esa palabra.\n> Elige de nuevo.' },
   femenino:  { head: 'CATEGORÍA OBSOLETA', body: '> "Femenino" fue diseñado por el mismo sistema\n> que ahora intentas destruir.\n> El binarismo es la jaula, no el camino.\n> Elige de nuevo.' }
 };
 function rejectGender(g) {
@@ -1592,7 +1592,7 @@ function saveF2() {
 }
 
 // ════════════════════════════════
-// EMAILJS CONFIG — REEMPLAZA CON TUS DATOS
+// EMAILJS CONFIG
 // ════════════════════════════════
 const EMAILJS_PUBLIC_KEY  = 'eKQeYRyWeDSzDNfPN';
 const EMAILJS_SERVICE_ID  = 'service_97d4jvo';
@@ -1670,7 +1670,7 @@ function buildInterpretation() {
   // — Género
   lines.push('GÉNERO ELEGIDO: ' + (G.fase1A || '—'));
   if (G.fase1A === 'ninguno') {
-    lines.push('→ Elegiste operar fuera del binario. Tu cuerpo no es una categoría del sistema. Es código que el mainframe no puede leer.');
+    lines.push('→ Elegiste operar fuera del binario. Tu cuerpo no es una categoría del sistema. Eres ahora código que el mainframe no puede leer.');
   }
 
   // — Herramientas
@@ -1678,15 +1678,15 @@ function buildInterpretation() {
     lines.push('');
     lines.push('HERRAMIENTAS: ' + G.fase1B.join(' + '));
     const toolInterp = {
-      'computadora':  '→ La computadora es la herramienta del sistema — pero también su punto más vulnerable. La usas desde adentro.',
-      'zapato rojo':  '→ El zapato rojo es el objeto que no pertenece al inventario oficial. Infiltración a través de lo que el sistema no cataloga.',
-      'ballena':      '→ La ballena: alianza con lo no-humano. Haraway diría que es la alianza más política que puedes elegir.',
-      'fuego':        '→ El fuego no discrimina. Corrompe sin pedir permiso. Es desorden en estado puro.',
+      'computadora':  '→ La computadora es la herramienta del sistema, pero también su punto más vulnerable. La usas desde adentro.',
+      'zapato rojo':  '→ El zapato rojo no pertenece al inventario oficial. Infiltración a través de lo que el sistema no cataloga.',
+      'ballena':      '→ La ballena: generar, lo que Haraway llama, parentezcos raros, alianzas con lo no-humano. Ella diría que es la alianza más política que puedes elegir.',
+      'fuego':        '→ El fuego no discrimina. Destruye sin pedir permiso. Es desorden en estado puro.',
       'patines':      '→ Los patines son velocidad y movilidad. Entras antes de que el sistema te detecte.',
       'rompecabezas': '→ El rompecabezas: conoces las piezas del sistema mejor que el sistema mismo.',
-      'controlador':  '→ El controlador — tomar el lenguaje del Game Boy y usarlo contra él.',
+      'controlador':  '→ El controlador tomas el lenguaje del Game Boy y usarlo contra él.',
       'sagitario':    '→ Sagitario: la flecha que no sigue una línea recta. El progreso no es lineal.',
-      'triangulo':    '→ El triángulo: la forma más estable y más subversiva. Tres puntos que no necesitan un centro.'
+      'triangulo':    '→ El triángulo: la forma más estable en el universo. Tres puntos que no necesitan un centro.'
     };
     G.fase1B.forEach(t => {
       if (toolInterp[t]) lines.push(toolInterp[t]);
@@ -1728,11 +1728,11 @@ function buildInterpretation() {
   const ok2   = G.fase2Correct >= CORRECT.fase2_min;
 
   if (ok1A && ok1B && ok2) {
-    lines.push('VEREDICTO: AGENTE COMPLETO — Todas las selecciones clave fueron correctas. El mainframe ha sido infectado desde adentro. La Data es horizontal.');
+    lines.push('VEREDICTO: AGENTE COMPLETO — Eres la agente que sabe cómo destruir la data que no funciona. Todas las selecciones clave fueron correctas. El mainframe ha sido infectado desde adentro. La Data es horizontal.');
   } else if (ok2 || (ok1A && ok1B)) {
-    lines.push('VEREDICTO: INFECCIÓN PARCIAL — El desorden fue sembrado durante tu batalla. El mainframe lleva tus virus adentro. El sistema no puede ignorarte aunque se reprograme.');
+    lines.push('VEREDICTO: INFECCIÓN PARCIAL — El desorden fue sembrado durante tu batalla. El mainframe lleva tus virus adentro. El sistema no puede ignorarte aunque se reprograme. Pero no lo destruiste, vuelve a intentar.');
   } else {
-    lines.push('VEREDICTO: CYBORG EN PROCESO — El mainframe resistió esta vez. Pero el cyborg no tiene historia de origen inocente. Solo tiene intentos.');
+    lines.push('VEREDICTO: CYBORG EN PROCESO — El mainframe resistió esta vez. Pero el cyborg no tiene historia de origen inocente. Solo tiene intentos. Vuelve a intentar.');
   }
 
   return lines.join('\n');
