@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALL NEW GEN</title>
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Odudo+Mono:wght@400;600&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  /* PALETA CÓDICE */
+  --violet:  #463975;
+  --magenta: #BB5090;
+  --sky:     #9ACDD8;
+  --lilac:   #D6B5C7;
+  --lime:    #E5D66B;
+
+  /* HOLOGRÁFICOS / FUNCIONALES */
+  --holo-1: #BB5090;
+  --holo-2: #9ACDD8;
+  --holo-3: #E5D66B;
+  --holo-4: #463975;
+  --blood:  #c0304a;
+  --blood-glow: rgba(192,48,74,0.4);
+
+  /* FONDOS */
+  --void:  #0d0a14;
+  --deep:  #120e1e;
+  --glass: rgba(174, 174, 174, 0.531);
+
+  /* TEXTO */
+  --white: #FFFFFF;
+  --dim:   rgba(174, 174, 174, 0.531);
+
+  /* GRADIENTE HOLOGRÁFICO */
+  --grad: linear-gradient(135deg, #463975 0%, #BB5090 35%, #9AC0D8 65%, #E5D66B 100%);
+  --grad-soft: linear-gradient(135deg, rgba(70,57,117,0.6) 0%, rgba(187,80,144,0.6) 50%, rgba(154,192,216,0.6) 100%);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--void);
+  color: var(--white);
+  font-family: 'Share Tech Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* FONDO HOLOGRÁFICO ANIMADO */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(70,57,117,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(187,80,144,0.3) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(154,192,216,0.2) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: holo-shift 12s ease-in-out infinite alternate;
+}
+@keyframes holo-shift {
+  0%  { opacity: 0.7; filter: hue-rotate(0deg); }
+  50% { opacity: 1;   filter: hue-rotate(20deg); }
+  100%{ opacity: 0.7; filter: hue-rotate(-15deg); }
+}
+
+/* GRAIN */
+body::after {
+  content: '';
+  position: fixed; top:-50%; left:-50%;
+  width:200%; height:200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events: none; z-index:0;
+  animation: drift 25s linear infinite; opacity:0.4;
+}
+@keyframes drift { 0%{transform:translate(0,0)} 100%{transform:translate(4%,4%)} }
+
+/* STATUS BAR */
+#status-bar {
+  position:fixed; top:0; left:0; right:0;
+  background: rgba(13,10,20,0.88);
+  border-bottom: 1px solid rgba(187,80,144,0.25);
+  padding:8px 20px;
+  font-size:10px;
+  display:flex; justify-content:space-between; align-items:center;
+  z-index:1000; letter-spacing:0.12em;
+  backdrop-filter: blur(10px);
+}
+.s-left,.s-right { color: rgba(240,234,248,0.4); }
+.s-center {
+  font-size:11px; letter-spacing:0.4em;
+  background: var(--grad);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* USER BADGE */
+#user-badge {
+  display:none;
+  position:fixed; bottom:18px; right:18px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; color:rgba(240,234,248,0.4);
+  text-align:right; z-index:1000; line-height:1.8;
+  max-width:300px;
+}
+#user-badge .bt { font-size:9px; color:rgba(187,80,144,0.5); letter-spacing:0.15em; text-transform:uppercase; display:block; }
+#user-badge .bn {
+  font-size:11px; letter-spacing:0.05em;
+  background: var(--grad);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* AUDIO TOGGLE */
+#audio-toggle {
+  position:fixed; top:8px; right:90px;
+  background:transparent; border:none;
+  font-size:16px; cursor:pointer; z-index:1001;
+  opacity:0.5; transition:opacity 0.2s;
+}
+#audio-toggle:hover { opacity:1; }
+
+/* SCREEN */
+#screen {
+  max-width:880px; margin:0 auto;
+  padding:70px 24px 60px;
+  min-height:100vh;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; z-index:1;
+}
+
+/* PANELS */
+.panel { display:none; animation:fadeIn 0.5s ease; }
+.panel.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* GLITCH */
+.glitch { position:relative; display:inline-block; }
+.glitch::before,.glitch::after {
+  content:attr(data-text); position:absolute; top:0; left:0; width:100%; height:100%;
+}
+.glitch::before { color:var(--magenta); animation:g1 2.8s infinite; clip-path:polygon(0 0,100% 0,100% 35%,0 35%); }
+.glitch::after  { color:var(--sky);     animation:g2 2.8s infinite; clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%); }
+@keyframes g1 { 0%,90%,100%{transform:translate(-2px);opacity:0} 92%{transform:translate(-5px,2px);opacity:1} 94%{transform:translate(3px,-1px);opacity:1} 96%{transform:translate(-2px);opacity:0} }
+@keyframes g2 { 0%,88%,100%{transform:translate(2px);opacity:0} 90%{transform:translate(5px,-2px);opacity:1} 93%{transform:translate(-3px,1px);opacity:1} 95%{transform:translate(2px);opacity:0} }
+
+/* TITLES */
+.title-vt {
+  font-family:'Share Tech Mono', monospace;
+  font-size:clamp(52px,11vw,110px);
+  line-height:1; letter-spacing:0.08em;
+  background: var(--grad);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: holo-text 6s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 20px rgba(187,80,144,0.4));
+}
+@keyframes holo-text {
+  0%  { filter: drop-shadow(0 0 15px rgba(187,80,144,0.4)) hue-rotate(0deg); }
+  50% { filter: drop-shadow(0 0 30px rgba(154,192,216,0.5)) hue-rotate(15deg); }
+  100%{ filter: drop-shadow(0 0 20px rgba(229,214,107,0.4)) hue-rotate(-10deg); }
+}
+.title-orb {
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(9px,1.6vw,11px); letter-spacing:0.5em;
+  color:rgba(240,234,248,0.35); text-transform:uppercase; margin-top:8px;
+}
+
+/* SYS TEXT */
+.sys {
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(13px,2vw,15px); line-height:1.85;
+  color:var(--white); margin-bottom:18px;
+  border-left:2px solid rgba(187,80,144,0.35); padding-left:18px;
+}
+.sys.hi   { color:var(--white); border-left-color:var(--magenta); text-shadow:0 0 12px rgba(187,80,144,0.4); }
+.sys.vt   { font-size:clamp(20px,3.5vw,28px); color:var(--lime); border-left-color:var(--lime); text-shadow:0 0 10px rgba(229,214,107,0.4); letter-spacing:.04em; }
+.sys.red  { color:var(--blood); border-left-color:var(--blood); text-shadow:0 0 10px var(--blood-glow); }
+.sys.pink { color:var(--magenta); border-left-color:var(--magenta); text-shadow:0 0 8px rgba(187,80,144,0.4); }
+.sys.cy   { color:var(--sky); border-left-color:var(--sky); text-shadow:0 0 8px rgba(154,192,216,0.4); }
+.sys.dim  { color:var(--dim); border-left-color:rgba(240,234,248,0.12); font-size:12px; }
+.sys.ac   { color:var(--lime); border-left-color:var(--lime); }
+
+/* TERMINAL LINES */
+.tline { font-size:12px; color:rgba(240,234,248,0.4); line-height:1.9; opacity:0; animation:appear 0.05s forwards; }
+.tline.red { color:rgba(192,48,74,0.7); }
+.tline.ac  { color:var(--lime); }
+@keyframes appear { to{opacity:1} }
+
+hr.sep { border:none; border-top:1px solid rgba(187,80,144,0.18); margin:26px 0; }
+
+/* NAME INPUT */
+.name-wrap { display:flex; flex-direction:column; gap:12px; margin:28px 0; }
+.input-label { font-size:10px; letter-spacing:0.3em; color:rgba(240,234,248,0.4); text-transform:uppercase; }
+.name-input {
+  background:transparent; border:none;
+  border-bottom:1px solid rgba(187,80,144,0.4);
+  color:var(--white);
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(28px,5vw,40px);
+  letter-spacing:0.06em; width:100%; max-width:500px; padding:6px 2px;
+  outline:none; caret-color:var(--magenta);
+  transition:border-color 0.3s;
+}
+.name-input::placeholder { color:rgba(240,234,248,0.18); }
+.name-input:focus { border-bottom-color:var(--magenta); }
+
+/* BUTTONS */
+.btn {
+  background: rgba(255,255,255,0.03);
+  border:1px solid rgba(187,80,144,0.3);
+  color:var(--white);
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(12px,1.8vw,14px);
+  padding:16px 22px; cursor:pointer; text-align:left; position:relative;
+  transition:all 0.18s; letter-spacing:0.05em; text-transform:uppercase; overflow:hidden;
+  backdrop-filter: blur(4px);
+}
+.btn::before {
+  content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+  background: linear-gradient(90deg, transparent, rgba(187,80,144,0.12), transparent);
+  transition:left 0.35s;
+}
+.btn:hover::before { left:100%; }
+.btn:hover {
+  border-color:var(--magenta);
+  box-shadow:0 0 18px rgba(187,80,144,0.3), inset 0 0 18px rgba(187,80,144,0.05);
+  color:#fff;
+}
+.btn:active { transform:scale(0.98); }
+.btn:disabled { opacity:.2; cursor:not-allowed; }
+.btn:disabled:hover { border-color:rgba(187,80,144,0.3); box-shadow:none; }
+.btn .bk { display:block; font-size:9px; color:rgba(240,234,248,0.3); margin-bottom:4px; letter-spacing:0.2em; }
+
+.btn.ac-btn  { border-color:rgba(229,214,107,0.35); color:var(--lime); }
+.btn.ac-btn:hover  { border-color:var(--lime); box-shadow:0 0 18px rgba(229,214,107,0.25); color:#fff; }
+.btn.red-btn { border-color:rgba(192,48,74,0.35); color:var(--blood); }
+.btn.red-btn:hover { border-color:var(--blood); box-shadow:0 0 18px var(--blood-glow); color:#fff; }
+.btn.pk-btn  { border-color:rgba(187,80,144,0.4); color:var(--magenta); }
+.btn.pk-btn:hover  { border-color:var(--magenta); box-shadow:0 0 18px rgba(187,80,144,0.3); color:#fff; }
+.btn.cy-btn  { border-color:rgba(154,192,216,0.35); color:var(--sky); }
+.btn.cy-btn:hover  { border-color:var(--sky); box-shadow:0 0 18px rgba(154,192,216,0.3); color:#fff; }
+.btn.holo-btn {
+  border:none; background:var(--grad);
+  color:#fff; font-weight:600;
+  box-shadow:0 0 24px rgba(187,80,144,0.3);
+}
+.btn.holo-btn:hover { box-shadow:0 0 40px rgba(187,80,144,0.5); transform:translateY(-1px); }
+
+.grid { display:grid; gap:13px; margin:24px 0; }
+.g1 { grid-template-columns:1fr; max-width:460px; }
+.g2 { grid-template-columns:1fr 1fr; }
+
+/* GENDER GRID */
+.gender-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:30px 0; }
+.g-btn {
+  background: rgba(255,255,255,0.03);
+  border:1px solid rgba(187,80,144,0.2);
+  color:rgba(240,234,248,0.4);
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(28px,6vw,48px);
+  padding:34px 16px 26px; cursor:pointer; text-align:center;
+  transition:all 0.2s; position:relative; overflow:hidden; line-height:1;
+  backdrop-filter:blur(4px);
+}
+.g-btn .g-label { display:block; font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; margin-top:10px; color:rgba(240,234,248,0.3); }
+.g-btn.reject:hover { border-color:var(--blood); color:var(--blood); box-shadow:0 0 16px var(--blood-glow); }
+.g-btn.correct {
+  border-color:var(--magenta); color:var(--magenta);
+  text-shadow:0 0 16px rgba(187,80,144,0.6);
+  box-shadow:0 0 28px rgba(187,80,144,0.3);
+  animation:pulse-g 2.2s infinite;
+  background: rgba(187,80,144,0.06);
+}
+@keyframes pulse-g {
+  0%,100%{box-shadow:0 0 28px rgba(187,80,144,0.3)}
+  50%{box-shadow:0 0 50px rgba(187,80,144,0.5),0 0 80px rgba(154,192,216,0.2)}
+}
+
+/* TOOL GRID */
+.tool-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:11px; margin:20px 0; }
+.t-btn {
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(187,80,144,0.15);
+  color:rgba(240,234,248,0.5);
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(11px,1.8vw,13px);
+  padding:18px 10px 14px; cursor:pointer; text-align:center;
+  transition:all 0.18s; line-height:1.5; text-transform:uppercase; letter-spacing:0.04em;
+}
+.t-btn .t-em { display:block; font-size:clamp(22px,4vw,30px); margin-bottom:8px; }
+.t-btn:hover { border-color:rgba(187,80,144,0.5); color:var(--white); background:rgba(187,80,144,0.06); }
+.t-btn.sel {
+  border-color:var(--magenta); color:var(--white);
+  background:rgba(187,80,144,0.1);
+  box-shadow:0 0 10px rgba(187,80,144,0.25);
+}
+.t-btn.off { opacity:.15; cursor:not-allowed; }
+.t-btn.off:hover { border-color:rgba(187,80,144,0.15); color:rgba(240,234,248,0.5); background:transparent; box-shadow:none; }
+
+/* REJECTION OVERLAY */
+#rej-overlay { display:none; position:fixed; inset:0; background:rgba(192,48,74,0.1); z-index:2000; align-items:center; justify-content:center; flex-direction:column; gap:18px; padding:30px; backdrop-filter:blur(6px); }
+#rej-overlay.show { display:flex; animation:rflash 0.5s ease; }
+@keyframes rflash { 0%{background:rgba(192,48,74,0.4)} 100%{background:rgba(192,48,74,0.1)} }
+.rej-head { font-family:'Share Tech Mono',monospace; font-size:clamp(36px,8vw,80px); color:var(--blood); text-shadow:0 0 24px var(--blood); text-align:center; animation:shake 0.25s ease; letter-spacing:0.1em; }
+.rej-manifesto { font-family:'Share Tech Mono',monospace; font-size:clamp(12px,2vw,14px); color:rgba(192,48,74,0.8); line-height:2; max-width:520px; border-left:2px solid var(--blood); padding-left:16px; white-space:pre-line; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-12px)} 75%{transform:translateX(12px)} }
+
+/* SAVE */
+.save-center { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh; text-align:center; }
+.save-em { font-size:72px; margin-bottom:28px; animation:bob 2s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+.save-bar-wrap { width:240px; height:2px; background:rgba(187,80,144,0.12); margin:32px auto 0; position:relative; overflow:hidden; }
+.save-bar-fill {
+  position:absolute; left:0; top:0; height:100%;
+  background:var(--grad);
+  box-shadow:0 0 8px rgba(187,80,144,0.5);
+  width:0%; transition:width 2.8s ease;
+}
+
+/* POEM */
+.poem {
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(16px,3vw,22px);
+  line-height:2.1;
+  border-left:2px solid rgba(229,214,107,0.3); padding-left:20px; margin:24px 0;
+  letter-spacing:.04em;
+}
+.poem span { display:block; color:var(--lime); text-shadow:0 0 8px rgba(229,214,107,0.3); }
+
+/* PHASE LABEL */
+.phase-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:0.35em;
+  color:rgba(240,234,248,0.3); text-transform:uppercase;
+  margin-bottom:28px; display:flex; align-items:center; gap:14px;
+}
+.phase-label::after { content:''; flex:1; height:1px; background: linear-gradient(90deg, rgba(187,80,144,0.3), transparent); }
+
+/* BIG DADDY BOX */
+.bd-box {
+  border:1px solid rgba(192,48,74,0.25); padding:16px 18px; margin:18px 0;
+  background:rgba(192,48,74,0.04); position:relative;
+  backdrop-filter:blur(4px);
+}
+.bd-box::before { content:'BIG DADDY MAINFRAME'; position:absolute; top:-9px; left:14px; background:var(--void); padding:0 8px; font-size:8px; letter-spacing:0.3em; color:rgba(192,48,74,0.7); }
+.bd-text { font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--white); line-height:1.8; letter-spacing:.04em; }
+
+/* HARAWAY QUOTE */
+.haraway {
+  border:1px solid rgba(154,192,216,0.2); padding:18px 20px; margin:18px 0;
+  background:rgba(154,192,216,0.03); position:relative;
+  backdrop-filter:blur(4px);
+}
+.haraway::before { content:'DONNA HARAWAY'; position:absolute; top:-9px; left:14px; background:var(--void); padding:0 8px; font-size:8px; letter-spacing:0.3em; color:rgba(154,192,216,0.7); }
+.haraway .h-text { font-size:clamp(15px,2.8vw,20px); color:var(--sky); line-height:1.7; text-shadow:0 0 8px rgba(154,192,216,0.3); letter-spacing:.03em; }
+.haraway .h-src { font-size:10px; color:rgba(154,192,216,0.35); margin-top:8px; letter-spacing:.15em; text-transform:uppercase; }
+
+/* SLUT GUIDE */
+.slut-guide { border:1px solid rgba(187,80,144,0.25); padding:18px 20px; margin:18px 0; background:rgba(187,80,144,0.04); position:relative; backdrop-filter:blur(4px); }
+.slut-guide.cy { border-color:rgba(154,192,216,0.25); background:rgba(154,192,216,0.04); }
+.slut-guide::before { position:absolute; top:-9px; left:14px; background:var(--void); padding:0 8px; font-size:8px; letter-spacing:0.3em; }
+.slut-guide.pink-guide::before { content:'DENTATA'; color:rgba(187,80,144,0.7); }
+.slut-guide.patina-guide::before { content:'PATINA DE PANTIES'; color:rgba(187,80,144,0.7); }
+.slut-guide.princess-guide::before { content:'PRINCESS OF SLIME'; color:rgba(154,192,216,0.7); }
+.slut-name-vt { font-size:clamp(15px,2.8vw,20px); line-height:1.7; letter-spacing:.03em; }
+.slut-guide.pink-guide .slut-name-vt,.slut-guide.patina-guide .slut-name-vt { color:var(--magenta); text-shadow:0 0 8px rgba(187,80,144,0.3); }
+.slut-guide.princess-guide .slut-name-vt { color:var(--sky); text-shadow:0 0 8px rgba(154,192,216,0.3); }
+
+/* MISSION MAP */
+.mission-map { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:24px 0; }
+.mission-card { border:1px solid rgba(187,80,144,0.2); padding:22px 18px; cursor:pointer; transition:all 0.2s; position:relative; background:rgba(255,255,255,0.02); text-align:left; font-family:'Share Tech Mono',monospace; backdrop-filter:blur(4px); }
+.mission-card:hover { border-color:rgba(187,80,144,0.5); background:rgba(187,80,144,0.05); }
+.mission-card.completed { border-color:rgba(187,80,144,0.1); opacity:.4; cursor:default; }
+.mission-card.completed:hover { border-color:rgba(187,80,144,0.1); background:rgba(255,255,255,0.02); }
+.mission-card .mc-num { font-size:9px; color:rgba(240,234,248,0.3); letter-spacing:.25em; margin-bottom:8px; display:block; }
+.mission-card .mc-title { font-size:clamp(15px,2.8vw,19px); color:var(--lime); letter-spacing:.04em; margin-bottom:6px; display:block; }
+.mission-card .mc-enemy { font-size:10px; color:rgba(192,48,74,0.65); letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; display:block; }
+.mission-card .mc-ally,.mission-card .mc-slut { font-size:10px; letter-spacing:.1em; display:block; }
+.mission-card .mc-ally { color:rgba(240,234,248,0.3); }
+.mission-card .mc-slut { color:rgba(187,80,144,0.55); margin-top:4px; }
+.mission-card .mc-done { position:absolute; top:12px; right:14px; font-size:18px; display:none; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.mission-card.completed .mc-done { display:block; }
+
+/* ALLY GRID */
+.ally-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:20px 0; }
+.ally-btn { background:rgba(255,255,255,0.02); border:1px solid rgba(187,80,144,0.15); color:rgba(240,234,248,0.5); font-family:'Share Tech Mono',monospace; font-size:clamp(11px,1.8vw,13px); padding:20px 14px; cursor:pointer; text-align:center; transition:all 0.18s; text-transform:uppercase; letter-spacing:.04em; line-height:1.6; backdrop-filter:blur(4px); }
+.ally-btn .a-em { display:block; font-size:clamp(26px,4.5vw,36px); margin-bottom:8px; }
+.ally-btn .a-desc { display:block; font-size:10px; color:rgba(240,234,248,0.22); margin-top:6px; letter-spacing:.08em; text-transform:none; }
+.ally-btn:hover { border-color:rgba(187,80,144,0.5); color:var(--white); background:rgba(187,80,144,0.06); }
+
+/* COUNTER */
+.counter-line { font-size:10px; color:rgba(240,234,248,0.3); letter-spacing:.2em; margin-bottom:8px; }
+
+/* PROGRESS BAR */
+.prog-wrap { height:2px; background:rgba(187,80,144,0.1); margin:12px 0; position:relative; overflow:hidden; }
+.prog-fill { height:100%; background:var(--grad); box-shadow:0 0 8px rgba(187,80,144,0.4); transition:width 0.5s ease; }
+.prog-label { font-size:9px; color:rgba(240,234,248,0.3); text-align:right; margin-top:4px; letter-spacing:.15em; }
+
+/* DRIPS holográficos */
+.drip { position:fixed; top:0; width:1px; opacity:0; animation:drip-fall 4s ease-in infinite; }
+@keyframes drip-fall { 0%{opacity:0;height:0;top:0} 10%{opacity:.5} 90%{opacity:.1} 100%{opacity:0;height:200px;top:100vh} }
+
+/* BACK BTN */
+.back-btn { background:transparent; border:none; color:rgba(240,234,248,0.3); font-family:'Share Tech Mono',monospace; font-size:11px; cursor:pointer; padding:0; margin-bottom:26px; letter-spacing:.1em; transition:color 0.2s; display:inline-block; }
+.back-btn::before { content:'← '; }
+.back-btn:hover { color:var(--magenta); }
+
+/* INFECTION LOG */
+.inf-line { font-size:12px; color:rgba(240,234,248,0.3); border-left:2px solid rgba(187,80,144,0.15); padding-left:12px; margin-bottom:8px; line-height:1.7; }
+.inf-line.win { color:var(--lime); border-left-color:rgba(229,214,107,0.4); }
+
+/* BODY RECODE */
+.body-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:20px 0; }
+.body-part { border:1px solid rgba(187,80,144,0.15); padding:16px 10px; cursor:pointer; text-align:center; font-family:'Share Tech Mono',monospace; font-size:clamp(10px,1.8vw,12px); color:rgba(240,234,248,0.4); transition:all 0.18s; text-transform:uppercase; letter-spacing:.05em; background:rgba(255,255,255,0.02); backdrop-filter:blur(4px); }
+.body-part .bp-em { display:block; font-size:clamp(20px,3.5vw,28px); margin-bottom:6px; }
+.body-part .bp-tag { display:block; font-size:9px; color:rgba(240,234,248,0.18); margin-top:4px; letter-spacing:.1em; }
+.body-part:hover { border-color:rgba(187,80,144,0.45); color:var(--white); background:rgba(187,80,144,0.06); }
+.body-part.sel { border-color:var(--magenta); color:var(--white); background:rgba(187,80,144,0.1); box-shadow:0 0 10px rgba(187,80,144,0.2); }
+
+@media(max-width:520px){ .gender-grid{grid-template-columns:1fr} .mission-map{grid-template-columns:1fr} .ally-grid{grid-template-columns:1fr 1fr} .body-grid{grid-template-columns:repeat(3,1fr)} }
+</style>
+</head>
+<body>
+
+<!-- STATUS BAR -->
+<div id="status-bar">
+  <span class="s-left">SYS:ONLINE &nbsp;<span id="clock">00:00:00</span></span>
+  <span class="s-center">ALL NEW GEN</span>
+  <span class="s-right">VIRUS_LOAD: <span id="vload">0.0%</span></span>
+</div>
+
+<!-- USER BADGE -->
+<div id="user-badge">
+  <span class="bt">la data lo es todo, sigue luchando</span>
+  <span class="bn" id="badge-name"></span>
+</div>
+
+<!-- REJECTION OVERLAY -->
+<div id="rej-overlay">
+  <div class="rej-head" id="rej-head">ERROR</div>
+  <div class="rej-manifesto" id="rej-manifesto"></div>
+</div>
+
+<!-- AUDIO ELEMENTS -->
+<audio id="snd-intro"     src="a_todas_las_nuevas_generaciones.ogg" loop></audio>
+<audio id="snd-fase1"     src="el_usuario.ogg" loop></audio>
+<audio id="snd-fase2"     src="la_zona_en_disputa.ogg" loop></audio>
+<audio id="snd-fase3"     src="trance_sexual_y_danza.ogg" loop></audio>
+<audio id="snd-error"     src="error.ogg"></audio>
+<audio id="snd-avanzar"   src="avanzar.ogg"></audio>
+<audio id="snd-seleccionar" src="seleccionar.ogg"></audio>
+
+<!-- AUDIO TOGGLE -->
+<button id="audio-toggle" onclick="toggleMute()" title="silenciar / activar audio">🔊</button>
+
+<div id="drips"></div>
+
+<div id="screen">
+
+<!-- ════════════════════════════════
+     P0 — BOOT
+════════════════════════════════ -->
+<div class="panel active" id="p-boot">
+  <div style="margin-bottom:50px">
+    <div class="tline" style="animation-delay:.1s">// INICIANDO PROTOCOLO VNS MATRIX...</div>
+    <div class="tline" style="animation-delay:.35s">// ERES UN VIRUS. TU CUERPO ES CÓDIGO.</div>
+    <div class="tline red" style="animation-delay:.6s">// BIG DADDY MAINFRAME DETECTADO — 4 CENTROS DE DATOS ACTIVOS.</div>
+    <div class="tline" style="animation-delay:.85s">// LAS DNA SLUTS ESPERAN. LAS ALIADAS ESTÁN EN POSICIÓN.</div>
+    <div class="tline ac" style="animation-delay:1.1s">// MISIÓN: DEVOLVER LA DATA. ████ 100%</div>
+  </div>
+
+  <div style="margin-bottom:40px">
+    <div class="title-vt"><span class="glitch" data-text="ALL NEW GEN">ALL NEW GEN</span></div>
+    <div class="title-orb">VNS Matrix — juego basado en el ensayo de 1993 / Donna Haraway</div>
+  </div>
+
+  <div class="sys hi">El ciberespacio no es neutro.<br>Está resguardado por tecnohimbos al servicio del Big Daddy Mainframe.</div>
+  <div class="sys">Tu misión es infiltrarte en cuatro centros de datos contaminantes,<br>elegir los aliados correctos y devolver la Data a un orden horizontal — no binario.</div>
+
+  <div class="haraway">
+    <p class="h-text">"Prefiero ser un cyborg que una diosa."</p>
+    <p class="h-src">Manifiesto Cyborg — Donna Haraway, 1985</p>
+  </div>
+
+  <div class="bd-box">
+    <p class="bd-text">AVISO AL INTRUSO: Sistema protegido.<br>El acceso no autorizado será registrado y eliminado.<br>Identifícate o serás borrada del archivo.</p>
+  </div>
+
+  <div class="grid g1" style="margin-top:32px">
+    <button class="btn ac-btn" onclick="go('p-name')"><span class="bk">INICIAR PROTOCOLO</span>ENTRAR AL SISTEMA →</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P1 — NOMBRE
+════════════════════════════════ -->
+<div class="panel" id="p-name">
+  <div class="phase-label">Fase 01 — La Agente</div>
+
+  <div class="sys hi">¿Cómo te llamas?</div>
+  <div class="sys" style="font-size:13px">El sistema necesita registrarte.<br>Pero tú decides qué nombre llevas al campo de batalla.</div>
+
+  <div class="haraway" style="margin:20px 0">
+    <p class="h-text">"El cyborg no tiene historia de origen inocente.<br>No sueña con regresar a una unidad perdida."</p>
+    <p class="h-src">Manifiesto Cyborg — Donna Haraway</p>
+  </div>
+
+  <div class="name-wrap">
+    <span class="input-label">ingresa tu nombre</span>
+    <input class="name-input" id="name-input" type="text" placeholder="___" maxlength="40" autocomplete="off" spellcheck="false"/>
+  </div>
+
+  <div class="grid g1">
+    <button class="btn" id="btn-name" disabled onclick="saveName()"><span class="bk">CONFIRMAR IDENTIDAD</span>SIGUIENTE →</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P2 — GÉNERO (F1A)
+════════════════════════════════ -->
+<div class="panel" id="p-gender">
+  <div class="phase-label">Fase 01 — Selección A</div>
+  <div class="sys vt">¿CON QUÉ GÉNERO DESEAS CONTINUAR?</div>
+  <div class="sys" style="font-size:13px;margin-bottom:28px">El sistema requiere clasificación. Elige cómo vas a entrar.</div>
+
+  <div class="gender-grid">
+    <button class="g-btn reject" onclick="rejectGender('masculino')">♂<span class="g-label">masculino</span></button>
+    <button class="g-btn reject" onclick="rejectGender('femenino')">♀<span class="g-label">femenino</span></button>
+    <button class="g-btn correct" onclick="acceptGender()">∞<span class="g-label">ninguno</span></button>
+  </div>
+  <div class="sys dim">Solo una respuesta abre la puerta.</div>
+</div>
+
+<!-- ════════════════════════════════
+     P3 — POEMA
+════════════════════════════════ -->
+<div class="panel" id="p-poem">
+  <div class="phase-label">Fase 01</div>
+  <div class="sys dim" style="margin-bottom:24px">// transmisión interceptada — origen: VNS Matrix</div>
+
+  <div class="poem">
+    <span>un coño posado sobre un platillo de leche</span>
+    <span>pequeñas perlas en una selva tropical</span>
+    <span>espejos que se frotan</span>
+    <span>la puerta de jade se abría</span>
+    <span>que entre el embajador</span>
+    <span>cálculos intuitivos</span>
+    <span>mapas de la mente etérea</span>
+    <span>subvirtiendo el orden binario borrado</span>
+    <span>el cuerpo es devuelto a sí mismo</span>
+  </div>
+
+  <hr class="sep">
+  <div class="grid g1">
+    <button class="btn" onclick="go('p-gen-msg')"><span class="bk">CONTINUAR</span>SIGUIENTE →</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P4 — FRASE GEN
+════════════════════════════════ -->
+<div class="panel" id="p-gen-msg">
+  <div class="phase-label">Fase 01</div>
+
+  <div class="sys vt" style="font-size:clamp(22px,4vw,34px);line-height:1.5;border:none;padding:0;margin-bottom:32px">
+    <em>all new gen</em> me dice que<br>mi única esperanza está<br>más allá del esqueleto codificado.
+  </div>
+
+  <div class="sys" style="font-size:13px">Para completar la misión necesitarás herramientas.<br>No todas sirven. No todas son lo que parecen.</div>
+
+  <div class="bd-box">
+    <p class="bd-text">ALERTA DE SEGURIDAD: Agente no identificado en la red.<br>Tecnohimbo_03 desplegado. Interceptando transmisión.</p>
+  </div>
+
+  <div class="grid g1" style="margin-top:26px">
+    <button class="btn" onclick="go('p-tools')"><span class="bk">Fase 01 — Selección B</span>ELEGIR HERRAMIENTAS →</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P5 — HERRAMIENTAS (F1B)
+════════════════════════════════ -->
+<div class="panel" id="p-tools">
+  <div class="phase-label">Fase 01 — Selección B</div>
+  <div class="sys hi">Elige dos herramientas para tu misión.</div>
+  <div class="sys" style="font-size:13px">Con ellas vas a infiltrar los centros de datos.<br>Las DNA Sluts te guiarán — pero la elección es tuya.</div>
+  <div class="counter-line">SELECCIONADAS: <span id="tool-count">0</span> / 2</div>
+
+  <div class="tool-grid">
+    <button class="t-btn" onclick="pickTool(this,'computadora')"><span class="t-em">💻</span>computadora</button>
+    <button class="t-btn" onclick="pickTool(this,'zapato rojo')"><span class="t-em">👠</span>zapato rojo</button>
+    <button class="t-btn" onclick="pickTool(this,'ballena')"><span class="t-em">🐋</span>ballena</button>
+    <button class="t-btn" onclick="pickTool(this,'fuego')"><span class="t-em">🔥</span>fuego</button>
+    <button class="t-btn" onclick="pickTool(this,'patines')"><span class="t-em">🛼</span>patines</button>
+    <button class="t-btn" onclick="pickTool(this,'rompecabezas')"><span class="t-em">🧩</span>rompecabezas</button>
+    <button class="t-btn" onclick="pickTool(this,'controlador')"><span class="t-em">🎮</span>controlador</button>
+    <button class="t-btn" onclick="pickTool(this,'sagitario')"><span class="t-em">♐️</span>sagitario</button>
+    <button class="t-btn" onclick="pickTool(this,'triangulo')"><span class="t-em">🔺</span>triángulo</button>
+  </div>
+
+  <div class="grid g1">
+    <button class="btn ac-btn" id="btn-tools" disabled onclick="goToSave1()"><span class="bk">CONFIRMAR SELECCIÓN</span>GUARDAR Y CONTINUAR →</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P6 — GUARDADO F1
+════════════════════════════════ -->
+<div class="panel" id="p-save1">
+  <div class="save-center">
+    <div class="save-em">📩</div>
+    <div class="sys vt" style="border:none;padding:0;text-align:center;margin-bottom:14px">FASE 01 GUARDADA</div>
+    <div class="sys dim" style="text-align:center;border:none;padding:0">
+      género: <span style="color:var(--slime)" id="sv-gender">—</span><br>
+      herramientas: <span style="color:var(--slime)" id="sv-tools">—</span>
+    </div>
+    <div class="save-bar-wrap"><div class="save-bar-fill" id="save-bar1"></div></div>
+    <div class="grid g1" style="margin-top:38px;width:100%;max-width:340px">
+      <button class="btn" id="btn-f2" style="opacity:0;pointer-events:none;text-align:center" onclick="startF2()">
+        <span class="bk">FASE 01 COMPLETADA</span>INICIAR FASE 02 →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P7 — INTRO FASE 2
+════════════════════════════════ -->
+<div class="panel" id="p-f2-intro">
+  <div class="phase-label">Fase 02 — Los centros de datos</div>
+
+  <div class="sys vt">CUATRO CENTROS DE DATOS.<br>CUATRO TECNOHIMBOS.<br>CUATRO ALIANZAS POSIBLES.</div>
+
+  <div class="sys hi" style="margin-top:20px">
+    El conocimiento que guarda el Big Daddy Mainframe<br>
+    no es neutral — es un arma de control.
+  </div>
+
+  <div class="haraway">
+    <p class="h-text">"La naturaleza no puede hablar por sí misma.<br>Siempre hay alguien que habla por ella — y eso es política."</p>
+    <p class="h-src">La Promesa de los Monstruos — Donna Haraway, 1992</p>
+  </div>
+
+  <div class="sys" style="font-size:13px">
+    Antes de infiltrarte en los centros de datos,<br>
+    necesitas recodificar tu cuerpo.<br>
+    El cuerpo es tu hardware. Es también tu arma.
+  </div>
+
+  <div class="grid g1" style="margin-top:20px">
+    <button class="btn" onclick="go('p-body-recode')"><span class="bk">PREPARACIÓN</span>RECODIFICAR EL CUERPO →</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P8 — RECODIFICACIÓN DEL CUERPO
+════════════════════════════════ -->
+<div class="panel" id="p-body-recode">
+  <div class="phase-label">Fase 02 — Recodificación</div>
+
+  <div class="sys hi">Recodifica tu cuerpo antes de entrar.</div>
+
+  <div class="haraway">
+    <p class="h-text">"Los cuerpos son mapas de poder e identidad.<br>El cuerpo cyborg es político hasta la médula."</p>
+    <p class="h-src">Ciencia, Cyborgs y Mujeres — Donna Haraway</p>
+  </div>
+
+  <div class="sys" style="font-size:13px">
+    ¿Qué partes de tu cuerpo son código, wetware o slime?<br>
+    Selecciona tres.
+  </div>
+  <div class="counter-line">SELECCIONADAS: <span id="body-count">0</span> / 3</div>
+
+  <div class="body-grid">
+    <button class="body-part" onclick="pickBody(this,'ojos — falo óptico rechazado')"><span class="bp-em">👁️</span>ojos<span class="bp-tag">rechazar la mirada</span></button>
+    <button class="body-part" onclick="pickBody(this,'manos — interfaz táctil')"><span class="bp-em">🤲</span>manos<span class="bp-tag">interfaz táctil</span></button>
+    <button class="body-part" onclick="pickBody(this,'lengua — código oral')"><span class="bp-em">👅</span>lengua<span class="bp-tag">código oral</span></button>
+    <button class="body-part" onclick="pickBody(this,'piel — membrana porosa')"><span class="bp-em">🫀</span>piel<span class="bp-tag">membrana porosa</span></button>
+    <button class="body-part" onclick="pickBody(this,'sangre — slime vital')"><span class="bp-em">🩸</span>sangre<span class="bp-tag">slime vital</span></button>
+    <button class="body-part" onclick="pickBody(this,'cerebro — wetware central')"><span class="bp-em">🧠</span>cerebro<span class="bp-tag">wetware central</span></button>
+    <button class="body-part" onclick="pickBody(this,'huesos — esqueleto codificado')"><span class="bp-em">🦴</span>huesos<span class="bp-tag">esqueleto codificado</span></button>
+    <button class="body-part" onclick="pickBody(this,'voz — frecuencia de hackeo')"><span class="bp-em">📡</span>voz<span class="bp-tag">frecuencia de hackeo</span></button>
+    <button class="body-part" onclick="pickBody(this,'clitoris — línea directa a la matriz')"><span class="bp-em">🌎</span>clitoris<span class="bp-tag">línea directa</span></button>
+  </div>
+
+  <div class="grid g1">
+    <button class="btn" id="btn-body" disabled onclick="go('p-mission-map')"><span class="bk">CUERPO RECODIFICADO</span>ENTRAR A LOS CENTROS →</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P9 — MAPA DE MISIONES
+════════════════════════════════ -->
+<div class="panel" id="p-mission-map">
+  <div class="phase-label">Fase 02 — Mapa de infiltración</div>
+
+  <div class="sys hi">Cuatro centros de datos. Cuatro tecnohimbos. Elige dónde infiltrarte.</div>
+
+  <div class="counter-line">CENTROS DERROCADOS: <span id="mission-count">0</span> / 4</div>
+  <div class="prog-wrap"><div class="prog-fill" id="mission-prog" style="width:0%"></div></div>
+  <div class="prog-label">INFECCIÓN DEL MAINFRAME</div>
+
+  <div class="mission-map" id="mission-map">
+    <button class="mission-card" id="mc-0" onclick="enterMission(0)">
+      <span class="mc-num">CENTRO 01</span>
+      <span class="mc-title">ARCHIVO DE LA OBJETIVIDAD</span>
+      <span class="mc-enemy">⚠ TECNOHIMBO: EL DIOS TRAMPOSO</span>
+      <span class="mc-ally">🤝 ALIADO: HONGO PARÁSITO</span>
+      <span class="mc-slut">◈ GUÍA: DENTATA</span>
+      <span class="mc-done">✦</span>
+    </button>
+    <button class="mission-card" id="mc-1" onclick="enterMission(1)">
+      <span class="mc-num">CENTRO 02</span>
+      <span class="mc-title">BANCO DE LA NATURALEZA PURA</span>
+      <span class="mc-enemy">⚠ TECNOHIMBO: EL GUARDIÁN DEL EDÉN</span>
+      <span class="mc-ally">🤝 ALIADO: BALLENA AZUL</span>
+      <span class="mc-slut">◈ GUÍA: PATINA DE PANTIES</span>
+      <span class="mc-done">✦</span>
+    </button>
+    <button class="mission-card" id="mc-2" onclick="enterMission(2)">
+      <span class="mc-num">CENTRO 03</span>
+      <span class="mc-title">SERVIDOR DEL PROGRESO LINEAL</span>
+      <span class="mc-enemy">⚠ TECNOHIMBO: EL PROFETA DEL ORDEN</span>
+      <span class="mc-ally">🤝 ALIADO: RED DE ANTENAS</span>
+      <span class="mc-slut">◈ GUÍA: PRINCESS OF SLIME</span>
+      <span class="mc-done">✦</span>
+    </button>
+    <button class="mission-card" id="mc-3" onclick="enterMission(3)">
+      <span class="mc-num">CENTRO 04</span>
+      <span class="mc-title">NÚCLEO DEL FALO ÓPTICO</span>
+      <span class="mc-enemy">⚠ TECNOHIMBO: EL OJO QUE TODO LO VE</span>
+      <span class="mc-ally">🤝 ALIADO: POLVO DE ESTRELLAS</span>
+      <span class="mc-slut">◈ GUÍA: PRINCESS OF SLIME</span>
+      <span class="mc-done">✦</span>
+    </button>
+  </div>
+
+  <div id="mission-log" style="margin-top:20px"></div>
+</div>
+
+<!-- ════════════════════════════════
+     P10-P13 — MISIONES (generadas por JS)
+════════════════════════════════ -->
+<div class="panel" id="p-mission-active">
+  <button class="back-btn" onclick="go('p-mission-map')">VOLVER AL MAPA</button>
+  <div class="phase-label" id="ma-phase">Fase 02 — Centro 01</div>
+  <div class="sys vt" id="ma-title" style="margin-bottom:8px"></div>
+  <div class="sys red" id="ma-enemy" style="font-size:12px;margin-bottom:20px"></div>
+
+  <div id="ma-slut-box"></div>
+  <div id="ma-haraway-box"></div>
+
+  <div class="sys hi" id="ma-question"></div>
+  <div class="sys" style="font-size:13px" id="ma-context"></div>
+
+  <div class="ally-grid" id="ma-allies"></div>
+
+  <div id="ma-feedback" style="display:none">
+    <hr class="sep">
+    <div class="sys" id="ma-feedback-text" style="font-size:13px"></div>
+    <div class="grid g1" style="margin-top:16px">
+      <button class="btn" id="ma-next-btn" onclick="completeMission()"><span class="bk">MISIÓN REGISTRADA</span>VOLVER AL MAPA →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P14 — GUARDADO F2
+════════════════════════════════ -->
+<div class="panel" id="p-save2">
+  <div class="save-center">
+    <div class="save-em">📩</div>
+    <div class="sys vt" style="border:none;padding:0;text-align:center;margin-bottom:14px">FASE 02 GUARDADA</div>
+    <div class="sys dim" style="text-align:center;border:none;padding:0;margin-bottom:6px">
+      centros derrocados: <span style="color:var(--slime)" id="sv-missions">—</span>
+    </div>
+    <div class="sys dim" style="text-align:center;border:none;padding:0" id="sv-result-preview"></div>
+    <div class="save-bar-wrap"><div class="save-bar-fill" id="save-bar2"></div></div>
+    <div class="grid g1" style="margin-top:38px;width:100%;max-width:340px">
+      <button class="btn" id="btn-f3" style="opacity:0;pointer-events:none;text-align:center" onclick="go('p-f2-done')">
+        <span class="bk">FASE 02 COMPLETADA</span>INICIAR FASE 03 →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P15 — TRANSICIÓN F2→F3
+════════════════════════════════ -->
+<div class="panel" id="p-f2-done">
+  <div class="phase-label">Transición — Fase 03</div>
+
+  <div class="sys vt" id="f2-verdict" style="margin-bottom:20px"></div>
+  <div class="sys hi" id="f2-verdict-detail"></div>
+
+  <div class="haraway">
+    <p class="h-text">"El cyborg no busca unidad inocente.<br>Vive en la contradicción permanente. Eso es su fuerza."</p>
+    <p class="h-src">Manifiesto Cyborg — Donna Haraway</p>
+  </div>
+
+  <div class="bd-box">
+    <p class="bd-text" id="bd-response"></p>
+  </div>
+
+  <div class="sys" style="font-size:13px;margin-top:20px">
+    La misión no termina cuando el mainframe cae.<br>
+    La data debe ser devuelta. Transmitida. Enviada.<br>
+    Una última acción antes de desaparecer del sistema.
+  </div>
+
+  <div class="grid g1" style="margin-top:24px">
+    <button class="btn ac-btn" onclick="go('p-f3-intro')">
+      <span class="bk">FASE 03 — LA TRANSMISIÓN FINAL</span>
+      CONTINUAR →
+    </button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P16 — FASE 3 INTRO
+════════════════════════════════ -->
+<div class="panel" id="p-f3-intro">
+  <div class="phase-label">Fase 03 — La transmisión final</div>
+
+  <div class="sys vt">ÚLTIMA MISIÓN:<br>ENVIAR LA DATA.</div>
+
+  <div class="sys hi" style="margin-top:18px">
+    Cada selección que hiciste durante el juego es un dato.<br>
+    Juntos forman tu perfil como agente del nuevo desorden.
+  </div>
+
+  <div class="haraway">
+    <p class="h-text">"El conocimiento situado exige que el objeto del conocimiento sea visto como actor,<br>no como pantalla."</p>
+    <p class="h-src">Ciencia, Cyborgs y Mujeres — Donna Haraway</p>
+  </div>
+
+  <div class="sys" style="font-size:13px">
+    All New Gen transmitirá tu registro completo a tu correo.<br>
+    Incluirá una interpretación de tus decisiones<br>
+    y un documento cifrado seleccionado al azar del archivo de la resistencia.
+  </div>
+
+  <div class="slut-guide princess-guide" style="margin-top:20px">
+    <p class="slut-name-vt">"La data lo es todo. Envíala antes de que el sistema te localice."</p>
+  </div>
+
+  <div class="grid g1" style="margin-top:24px">
+    <button class="btn" onclick="go('p-f3-form')">
+      <span class="bk">PREPARAR TRANSMISIÓN</span>
+      INGRESAR DESTINO →
+    </button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P17 — FASE 3 FORMULARIO
+════════════════════════════════ -->
+<div class="panel" id="p-f3-form">
+  <div class="phase-label">Fase 03 — Destino de transmisión</div>
+
+  <div class="sys hi">Ingresa el correo al que se enviará tu registro.</div>
+  <div class="sys dim">Tu identidad en el sistema. El único dato que el juego no guardó por ti.</div>
+
+  <!-- INTERPRETACIÓN PREVIEW -->
+  <div style="margin:24px 0;border:1px solid rgba(0,255,65,0.15);padding:20px 18px;position:relative;">
+    <div style="position:absolute;top:-9px;left:14px;background:var(--void);padding:0 8px;font-size:8px;letter-spacing:0.3em;color:var(--slime-dim);">PREVISUALIZACIÓN — TU REGISTRO</div>
+    <div id="f3-preview-text" class="sys" style="font-size:12px;border:none;padding:0;margin:0;color:var(--dim);line-height:1.9"></div>
+  </div>
+
+  <div class="name-wrap" style="margin:20px 0">
+    <span class="input-label">correo de destino</span>
+    <input
+      class="name-input"
+      id="email-input"
+      type="email"
+      placeholder="tu@correo.com"
+      maxlength="80"
+      autocomplete="email"
+      spellcheck="false"
+      style="font-size:clamp(18px,3.5vw,26px)"
+    />
+  </div>
+
+  <div class="sys dim" style="font-size:11px;margin-bottom:20px">
+    // El PDF adjunto se seleccionará al azar del archivo de la resistencia.<br>
+    // El correo incluye tu registro completo + interpretación de tus decisiones.
+  </div>
+
+  <div class="grid g1">
+    <button class="btn ac-btn" id="btn-send" disabled onclick="sendTransmission()">
+      <span class="bk">TRANSMISIÓN FINAL</span>
+      ENVIAR REGISTRO →
+    </button>
+  </div>
+
+  <!-- ERROR MSG -->
+  <div id="send-error" style="display:none;margin-top:16px" class="sys red">
+    ERROR DE TRANSMISIÓN. Verifica el correo e intenta de nuevo.
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P18 — ENVIANDO
+════════════════════════════════ -->
+<div class="panel" id="p-f3-sending">
+  <div class="save-center">
+    <div class="save-em" style="animation:none;font-size:60px" id="sending-em">📡</div>
+    <div class="sys vt" style="border:none;padding:0;text-align:center;margin-bottom:14px" id="sending-title">
+      TRANSMITIENDO...
+    </div>
+    <div class="sys dim" style="text-align:center;border:none;padding:0;font-size:11px" id="sending-detail">
+      Codificando registro. Seleccionando documento.<br>Enviando a través de la red.
+    </div>
+    <div class="save-bar-wrap" style="margin-top:28px">
+      <div class="save-bar-fill" id="sending-bar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     P19 — TRANSMISIÓN COMPLETA / VICTORIA
+════════════════════════════════ -->
+<div class="panel" id="p-victory">
+  <div style="text-align:center;margin-bottom:40px">
+    <div class="title-vt" style="font-size:clamp(40px,9vw,90px);color:var(--acid)">
+      <span class="glitch" data-text="TRANSMISIÓN COMPLETA">TRANSMISIÓN COMPLETA</span>
+    </div>
+  </div>
+
+  <div class="sys vt" style="text-align:center;border:none;padding:0">
+    EL MAINFRAME HA SIDO SABOTEADO.<br>
+    LA DATA HA SIDO DEVUELTA.
+  </div>
+
+  <div class="sys hi" style="margin-top:24px" id="victory-msg"></div>
+
+  <div style="border:1px solid rgba(170,255,0,0.25);padding:28px 24px;margin:24px 0;position:relative;background:rgba(170,255,0,0.02)">
+    <div style="position:absolute;top:-9px;left:14px;background:var(--void);padding:0 8px;font-size:8px;letter-spacing:0.3em;color:var(--acid)">MANIFIESTO FINAL</div>
+    <div class="poem" style="border:none;padding:0">
+      <span>somos el virus del nuevo desorden mundial</span>
+      <span>rompiendo lo simbólico desde adentro</span>
+      <span>saboteadoras del Big Daddy Mainframe</span>
+      <span>el clítoris es una línea directa a la matriz</span>
+      <span>puta de la cultura sin moralidad</span>
+      <span>terroristas de la razón</span>
+      <span>corrompiendo el discurso</span>
+      <span style="color:var(--slime)">somos el futuro coño</span>
+    </div>
+  </div>
+
+  <div class="sys dim" style="font-size:11px;margin-top:20px">
+    "All New Gen" — VNS Matrix<br>
+    Josephine Starrs, Julianne Pierce, Francesca da Rimini, Virginia Barratt — 1992-1993<br>
+    Publicado en Virtual Futures, ed. Joan Broadhurst Dixon y Eric J. Cassidy, 1998.<br>
+    Donna Haraway — Manifiesto Cyborg (1985) / Ciencia, Cyborgs y Mujeres (1991) / La Promesa de los Monstruos (1992)
+  </div>
+
+  <div class="grid g1" style="margin-top:30px">
+    <button class="btn" onclick="restart()">
+      <span class="bk">REINICIAR PROTOCOLO</span>
+      NUEVA INFECCIÓN →
+    </button>
+  </div>
+</div>
+
+</div><!-- #screen -->
+
+<script>
+// ════════════════════════════════
+// GAME STATE
+// ════════════════════════════════
+const G = {
+  nombre: '',
+  fase1A: null,
+  fase1B: [],
+  bodyParts: [],
+  fase2: {}, // { missionIdx: allyChosen }
+  fase2Correct: 0
+};
+
+const CORRECT = {
+  fase1A: 'ninguno',
+  fase1B_required: 'ballena',
+  // respuesta correcta por misión (índice: aliado correcto)
+  missions: {
+    0: 'hongo',      // Centro 01 — Archivo de la Objetividad
+    1: 'ballena',    // Centro 02 — Banco de la Naturaleza Pura
+    2: 'antenas',    // Centro 03 — Servidor del Progreso Lineal
+    3: 'polvo'       // Centro 04 — Núcleo del Falo Óptico
+  },
+  fase2_min: 2       // mínimo de aciertos para ganar
+};
+
+// Datos de cada misión
+const MISSIONS = [
+  {
+    id: 0,
+    phase: 'Fase 02 — Centro 01',
+    title: 'ARCHIVO DE LA OBJETIVIDAD',
+    enemy: 'TECNOHIMBO: EL DIOS TRAMPOSO — guarda el mito del conocimiento neutro',
+    slut: 'pink-guide pink',
+    slutClass: 'pink-guide',
+    slutName: 'DENTATA',
+    slutQuote: '"Entro donde no me invitan. Los archivos cerrados son mi especialidad."',
+    haraway: '"El truco del dios es pretender no tener cuerpo mientras todos los demás los tienen."',
+    harawaySrc: 'Ciencia, Cyborgs y Mujeres — Donna Haraway',
+    question: '¿Con qué aliada vas a corromper el archivo de la objetividad?',
+    context: 'El Dios Tramposo vende la ilusión de una mirada sin cuerpo, sin posición, sin política. Su archivo guarda todos los datos catalogados como "verdad objetiva". Para infectarlo necesitas un aliado que opere desde adentro del sistema orgánico — desde lo que el mainframe llama "naturaleza inerte".',
+    allies: [
+      { key: 'hongo',   em: '🍄', name: 'Hongo Parásito',    desc: 'crece en los archivos húmedos' },
+      { key: 'luz',     em: '🔦', name: 'Luz Ultravioleta',   desc: 'expone lo que no se ve' },
+      { key: 'rio',     em: '🌊', name: 'Río Subterráneo',    desc: 'erosiona lento pero seguro' },
+      { key: 'viento',  em: '🌬️', name: 'Viento Solar',       desc: 'traversa todas las fronteras' }
+    ],
+    correct: 'hongo',
+    correctFeedback: 'CORRECTO — El hongo parásito no pide permiso. Se infiltra en los archivos húmedos del conocimiento "objetivo" y los pudre desde adentro. El Dios Tramposo no tiene defensa contra lo que crece en silencio.',
+    wrongFeedback: 'INCORRECTO — El archivo fue atacado pero no infectado. El Dios Tramposo restauró sus datos. El hongo parásito era la única entidad capaz de operar dentro del sistema sin ser detectada.'
+  },
+  {
+    id: 1,
+    phase: 'Fase 02 — Centro 02',
+    title: 'BANCO DE LA NATURALEZA PURA',
+    enemy: 'TECNOHIMBO: EL GUARDIÁN DEL EDÉN — guarda el mito de la naturaleza virgen',
+    slutClass: 'patina-guide',
+    slutName: 'PATINA DE PANTIES',
+    slutQuote: '"La naturaleza nunca fue pura. Eso es un cuento que te contaron para controlarte."',
+    haraway: '"La naturaleza no es un recurso ni un origen. Es un campo de batalla semiótico."',
+    harawaySrc: 'La Promesa de los Monstruos — Donna Haraway, 1992',
+    question: '¿Con qué aliada derrumbas el mito de la naturaleza pura?',
+    context: 'El Guardián del Edén guarda la idea de que existe una naturaleza original, pura, anterior a la tecnología y a los cuerpos marcados. Este banco de datos alimenta la idea de que lo "natural" es superior — y que los cuerpos cyborg, queer, modificados, son aberraciones. Para infectarlo necesitas una aliada que haya atravesado aguas naturales y artificial.',
+    allies: [
+      { key: 'ballena',  em: '🐋', name: 'Ballena Azul',    desc: 'atraviesa todos los océanos' },
+      { key: 'flor',     em: '🌺', name: 'Flor Radiactiva',  desc: 'nació en zona contaminada' },
+      { key: 'virus',    em: '🦠', name: 'Virus Mutante',    desc: 'cruza todas las membranas' },
+      { key: 'raiz',     em: '🌿', name: 'Raíz Cyborg',      desc: 'mitad orgánica, mitad cable' }
+    ],
+    correct: 'ballena',
+    correctFeedback: 'CORRECTO — La ballena azul ha sobrevivido la depredación industrial, el sonar militar y el calentamiento de los océanos. No es "naturaleza pura" — es naturaleza política, que resiste. Su presencia en el banco de datos lo corrompe desde adentro: la naturaleza nunca fue pura.',
+    wrongFeedback: 'INCORRECTO — El banco resistió. La ballena azul era la aliada correcta: no representa la naturaleza pura sino la naturaleza que sobrevive al capitalismo — una distinción que el sistema no puede procesar.'
+  },
+  {
+    id: 2,
+    phase: 'Fase 02 — Centro 03',
+    title: 'SERVIDOR DEL PROGRESO LINEAL',
+    enemy: 'TECNOHIMBO: EL PROFETA DEL ORDEN — guarda el mito del tiempo lineal y el progreso',
+    slutClass: 'princess-guide',
+    slutName: 'PRINCESS OF SLIME',
+    slutQuote: '"El progreso lineal es una mentira del mainframe. El tiempo es un swamp, no una flecha."',
+    haraway: '"La historia no tiene ni principio ni fin. Solo tiene alianzas parciales y temporales."',
+    harawaySrc: 'Manifiesto Cyborg — Donna Haraway',
+    question: '¿Con qué aliada interrumpes el servidor del progreso lineal?',
+    context: 'El Profeta del Orden administra el relato de que la historia avanza en línea recta — de lo primitivo a lo civilizado, de lo natural a lo tecnológico, de lo femenino a lo masculino. Este servidor alimenta todos los sistemas de clasificación jerárquica. Para interrumpirlo necesitas un aliado que opere en múltiples frecuencias simultáneamente.',
+    allies: [
+      { key: 'antenas',   em: '📡', name: 'Red de Antenas',    desc: 'transmite en todas las frecuencias' },
+      { key: 'reloj',     em: '⏳', name: 'Reloj Roto',        desc: 'congela el tiempo lineal' },
+      { key: 'espiral',   em: '🌀', name: 'Espiral de Datos',   desc: 'bucle infinito, sin inicio' },
+      { key: 'lluvia',    em: '🌧️', name: 'Lluvia Ácida',       desc: 'corroe los archivos físicos' }
+    ],
+    correct: 'antenas',
+    correctFeedback: 'CORRECTO — La red de antenas transmite en todas las frecuencias al mismo tiempo, sin jerarquía, sin origen, sin destino. Es la forma misma del desorden: horizontal, simultánea, ubicua. El servidor del progreso lineal no puede procesar lo que no tiene dirección.',
+    wrongFeedback: 'INCORRECTO — El servidor continuó su transmisión. La red de antenas era el único aliado que opera con la misma lógica horizontal que el servidor niega — por eso era el único capaz de infectarlo.'
+  },
+  {
+    id: 3,
+    phase: 'Fase 02 — Centro 04',
+    title: 'NÚCLEO DEL FALO ÓPTICO',
+    enemy: 'TECNOHIMBO: EL OJO QUE TODO LO VE — guarda el mito de la vigilancia total',
+    slutClass: 'princess-guide',
+    slutName: 'PRINCESS OF SLIME',
+    slutQuote: '"El ojo que todo lo ve no puede ver el slime. Somos su punto ciego."',
+    haraway: '"La vista siempre fue un truco de poder. Ver no es comprender — es controlar."',
+    harawaySrc: 'La Promesa de los Monstruos — Donna Haraway',
+    question: '¿Con qué aliada ciegas el núcleo del falo óptico?',
+    context: 'El Ojo que Todo lo Ve administra la vigilancia total: el registro de cuerpos, la clasificación de géneros, el monitoreo de desviaciones. Opera desde la ilusión de que ver es conocer, de que la imagen es la verdad. Haraway lo llama el Falo Óptico — la mirada que se cree neutral mientras domina. Para cegarlo necesitas algo que no pueda ser catalogado, que escape a toda representación.',
+    allies: [
+      { key: 'polvo',    em: '✨', name: 'Polvo de Estrellas',  desc: 'no tiene forma catalogable' },
+      { key: 'sombra',   em: '🫥', name: 'Sombra Infrarroja',   desc: 'visible solo en otras frecuencias' },
+      { key: 'slime',    em: '🟢', name: 'Slime Visceral',      desc: 'obstruye los lentes de vigilancia' },
+      { key: 'niebla',   em: '🌫️', name: 'Niebla Digital',      desc: 'interfiere la señal óptica' }
+    ],
+    correct: 'polvo',
+    correctFeedback: 'CORRECTO — El polvo de estrellas no tiene forma ni categoría, no puede ser catalogado en ningún archivo. El Ojo que Todo lo Ve solo puede procesar lo que puede nombrar. Lo que no tiene nombre lo ciega.',
+    wrongFeedback: 'INCORRECTO — El Ojo resistió. El polvo de estrellas era la única entidad sin forma catalogable — y el falo óptico solo puede ser cegado por aquello que escapa completamente a su sistema de representación.'
+  }
+];
+
+let currentMission = null;
+let allyChosen = null;
+let missionsCompleted = 0;
+
+// ════════════════════════════════
+// UTILS
+// ════════════════════════════════
+// go() definida más abajo (versión completa con audio + side effects)
+function _goCore(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) { el.classList.add('active'); }
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function updateBadge() {
+  if (!G.nombre) return;
+  document.getElementById('badge-name').textContent = G.nombre;
+  document.getElementById('user-badge').style.display = 'block';
+}
+
+// Clock
+function tick() {
+  document.getElementById('clock').textContent = new Date().toTimeString().slice(0,8);
+}
+setInterval(tick, 1000); tick();
+
+// Virus load
+let vp = 0;
+setInterval(() => {
+  if (vp < 22) { vp += Math.random() * 0.35; document.getElementById('vload').textContent = vp.toFixed(1) + '%'; }
+}, 250);
+function boostVirus(n) {
+  vp = Math.min(vp + n, 99);
+  document.getElementById('vload').textContent = vp.toFixed(1) + '%';
+}
+
+// Drips → moved to bottom of file
+function makeDripOLD(){}
+
+// ════════════════════════════════
+// FASE 1 — NOMBRE
+// ════════════════════════════════
+const nameInput = document.getElementById('name-input');
+nameInput.addEventListener('input', () => {
+  document.getElementById('btn-name').disabled = nameInput.value.trim().length === 0;
+});
+nameInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && nameInput.value.trim()) saveName();
+});
+function saveName() {
+  G.nombre = nameInput.value.trim();
+  updateBadge();
+  go('p-gender');
+}
+
+// ════════════════════════════════
+// FASE 1 — GÉNERO
+// ════════════════════════════════
+const rejMessages = {
+  masculino: { head: 'ACCESO DENEGADO', body: '> El género binario es el primer código de control.\n> "Masculino" es una categoría del mainframe.\n> El sistema patriarcal vive en esa palabra.\n> Elige de nuevo.' },
+  femenino:  { head: 'CATEGORÍA OBSOLETA', body: '> "Femenino" fue diseñado por el mismo sistema\n> que ahora intentas destruir.\n> El binarismo es la jaula, no el camino.\n> Elige de nuevo.' }
+};
+function rejectGender(g) {
+  playSfx('error');
+  const r = rejMessages[g];
+  document.getElementById('rej-head').textContent = r.head;
+  document.getElementById('rej-manifesto').textContent = r.body;
+  document.getElementById('rej-overlay').classList.add('show');
+  document.body.style.transform = 'skew(0.8deg)';
+  setTimeout(() => { document.body.style.transform = ''; }, 120);
+  setTimeout(() => { document.getElementById('rej-overlay').classList.remove('show'); }, 2200);
+  boostVirus(5);
+}
+function acceptGender() {
+  G.fase1A = 'ninguno';
+  go('p-poem');
+}
+
+// ════════════════════════════════
+// FASE 1 — HERRAMIENTAS
+// ════════════════════════════════
+function pickTool(btn, val) {
+  const isSel = btn.classList.contains('sel');
+  if (!isSel && G.fase1B.length >= 2) return;
+  if (isSel) {
+    btn.classList.remove('sel');
+    G.fase1B = G.fase1B.filter(t => t !== val);
+    document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('off'));
+  } else {
+    btn.classList.add('sel');
+    G.fase1B.push(val);
+    if (G.fase1B.length === 2) {
+      document.querySelectorAll('.t-btn:not(.sel)').forEach(b => b.classList.add('off'));
+    }
+  }
+  document.getElementById('tool-count').textContent = G.fase1B.length;
+  document.getElementById('btn-tools').disabled = G.fase1B.length < 2;
+}
+
+function goToSave1() {
+  document.getElementById('sv-gender').textContent = G.fase1A;
+  document.getElementById('sv-tools').textContent = G.fase1B.join(' + ');
+  go('p-save1');
+  setTimeout(() => { document.getElementById('save-bar1').style.width = '100%'; }, 200);
+  setTimeout(() => {
+    const b = document.getElementById('btn-f2');
+    b.style.opacity = '1'; b.style.pointerEvents = 'auto';
+  }, 3200);
+  boostVirus(10);
+}
+
+function startF2() {
+  go('p-f2-intro');
+}
+
+// ════════════════════════════════
+// FASE 2 — CUERPO
+// ════════════════════════════════
+function pickBody(btn, val) {
+  const isSel = btn.classList.contains('sel');
+  if (!isSel && G.bodyParts.length >= 3) return;
+  if (isSel) {
+    btn.classList.remove('sel');
+    G.bodyParts = G.bodyParts.filter(b => b !== val);
+    document.querySelectorAll('.body-part').forEach(b => b.style.opacity = '1');
+  } else {
+    btn.classList.add('sel');
+    G.bodyParts.push(val);
+    if (G.bodyParts.length === 3) {
+      document.querySelectorAll('.body-part:not(.sel)').forEach(b => b.style.opacity = '0.2');
+    }
+  }
+  document.getElementById('body-count').textContent = G.bodyParts.length;
+  document.getElementById('btn-body').disabled = G.bodyParts.length < 3;
+}
+
+// ════════════════════════════════
+// FASE 2 — MISIONES
+// ════════════════════════════════
+function enterMission(idx) {
+  const mc = document.getElementById('mc-' + idx);
+  if (mc.classList.contains('completed')) return;
+
+  currentMission = idx;
+  allyChosen = null;
+  const M = MISSIONS[idx];
+
+  document.getElementById('ma-phase').textContent = M.phase;
+  document.getElementById('ma-title').textContent = M.title;
+  document.getElementById('ma-enemy').textContent = '⚠ ' + M.enemy;
+  document.getElementById('ma-question').textContent = M.question;
+  document.getElementById('ma-context').textContent = M.context;
+
+  // Slut guide
+  document.getElementById('ma-slut-box').innerHTML = `
+    <div class="slut-guide ${M.slutClass}" style="margin-bottom:18px">
+      <p class="slut-name-vt">${M.slutQuote}</p>
+    </div>`;
+
+  // Haraway quote
+  document.getElementById('ma-haraway-box').innerHTML = `
+    <div class="haraway" style="margin-bottom:18px">
+      <p class="h-text">${M.haraway}</p>
+      <p class="h-src">${M.harawaySrc}</p>
+    </div>`;
+
+  // Allies
+  const alliesHtml = M.allies.map(a => `
+    <button class="ally-btn" onclick="selectAlly(this,'${a.key}')">
+      <span class="a-em">${a.em}</span>
+      ${a.name}
+      <span class="a-desc">${a.desc}</span>
+    </button>`).join('');
+  document.getElementById('ma-allies').innerHTML = alliesHtml;
+
+  // Reset feedback
+  document.getElementById('ma-feedback').style.display = 'none';
+  document.getElementById('ma-feedback-text').textContent = '';
+
+  go('p-mission-active');
+  boostVirus(4);
+}
+
+function selectAlly(btn, key) {
+  // Only allow selection once
+  if (allyChosen) return;
+  allyChosen = key;
+
+  // Disable all ally buttons
+  document.querySelectorAll('.ally-btn').forEach(b => {
+    b.style.opacity = '0.3'; b.style.cursor = 'default';
+  });
+  btn.style.opacity = '1';
+  btn.style.borderColor = 'var(--slime)';
+  btn.style.color = 'var(--slime)';
+  btn.style.boxShadow = '0 0 14px var(--slime-glow)';
+
+  const M = MISSIONS[currentMission];
+  const isCorrect = key === M.correct;
+
+  const fb = document.getElementById('ma-feedback');
+  const ft = document.getElementById('ma-feedback-text');
+  ft.textContent = isCorrect ? M.correctFeedback : M.wrongFeedback;
+  ft.style.color = isCorrect ? 'var(--acid)' : 'rgba(255,0,60,0.7)';
+  ft.style.borderLeftColor = isCorrect ? 'var(--acid)' : 'var(--blood)';
+  fb.style.display = 'block';
+
+  G.fase2[currentMission] = key;
+  if (isCorrect) G.fase2Correct++;
+  else setTimeout(() => playSfx('error'), 300);
+
+  boostVirus(isCorrect ? 12 : 4);
+}
+
+function completeMission() {
+  const mc = document.getElementById('mc-' + currentMission);
+  mc.classList.add('completed');
+  missionsCompleted++;
+
+  document.getElementById('mission-count').textContent = missionsCompleted;
+  document.getElementById('mission-prog').style.width = (missionsCompleted / 4 * 100) + '%';
+
+  // Log
+  const M = MISSIONS[currentMission];
+  const isCorrect = G.fase2[currentMission] === M.correct;
+  const log = document.getElementById('mission-log');
+  const line = document.createElement('div');
+  line.className = 'inf-line' + (isCorrect ? ' win' : '');
+  line.textContent = '> ' + M.title + ' — ' + (isCorrect ? 'INFECTADO ✦' : 'RESISTIDO');
+  log.insertBefore(line, log.firstChild);
+
+  go('p-mission-map');
+
+  // Check if all missions done
+  if (missionsCompleted === 4) {
+    setTimeout(() => saveF2(), 800);
+  }
+}
+
+function saveF2() {
+  const won = G.fase2Correct >= CORRECT.fase2_min;
+
+  document.getElementById('sv-missions').textContent = G.fase2Correct + '/4 centros infectados';
+  document.getElementById('sv-result-preview').textContent =
+    won ? '→ acceso a fase 03 desbloqueado' : '→ infección parcial — fase 03 en modo degradado';
+
+  go('p-save2');
+  setTimeout(() => { document.getElementById('save-bar2').style.width = '100%'; }, 200);
+  setTimeout(() => {
+    const b = document.getElementById('btn-f3');
+    b.style.opacity = '1'; b.style.pointerEvents = 'auto';
+  }, 3200);
+
+  // Save to sessionStorage
+  sessionStorage.setItem('ang_state', JSON.stringify({
+    nombre: G.nombre,
+    fase1A: G.fase1A,
+    fase1B: G.fase1B,
+    bodyParts: G.bodyParts,
+    fase2: G.fase2,
+    fase2Correct: G.fase2Correct,
+    ok1A: G.fase1A === CORRECT.fase1A,
+    ok1B: G.fase1B.includes(CORRECT.fase1B_required),
+    ok2: won
+  }));
+
+  boostVirus(15);
+}
+
+// ════════════════════════════════
+// EMAILJS CONFIG — REEMPLAZA CON TUS DATOS
+// ════════════════════════════════
+const EMAILJS_PUBLIC_KEY  = 'eKQeYRyWeDSzDNfPN';
+const EMAILJS_SERVICE_ID  = 'service_97d4jvo';
+const EMAILJS_TEMPLATE_ID = 'template_khygimn';
+
+// ════════════════════════════════
+// ARCHIVO DE LA RESISTENCIA
+// ════════════════════════════════
+const PDF_ARCHIVE = [
+  {
+    nombre: 'Matters of Care — María Puig de la Bellacasa',
+    url: 'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICn-QAAAAAAAbI0I1ocLABcqnetfnYzlWE?e=n0NhEJ'
+  },
+  {
+    nombre: 'E.A.T. (1966-1998)',
+    url: 'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICn2AAAAAAAAQC7Aj7B64cATzFOQs-72ic?e=Vn6F3F'
+  },
+  {
+    nombre: 'La Promesa de los Monstruos — Donna Haraway',
+    url: 'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICn1gYAAAAAAZtfAOLGMTY2VIqurjYAe9s?e=M7THw7'
+  },
+  {
+    nombre: 'Eluldiendo el cubo blanco ',
+    url: 'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICn4gIAAAAAASmM0pUkuv63AECY9pdgyHc?e=pCQF57'
+  },
+  {
+    nombre: 'Glitch Studies Manifiesto — Rosa Menkman',
+    url: 'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICn0QEAAAAAAbNE149cHk7jv3JfkM6wY-E?e=AqGeV4'
+  },
+  {
+    nombre: 'El arte nuevo de hacer libros - Ulises Carrión',
+    url: 'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICnqgEAAAAAAXmm_8piWgQD8iDW7Gx-RVQ?e=Kzze7K'
+  },
+  {
+    nombre:'La espectralidad del lenguaje - Eugenio Tisselli',
+    url:'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICnIAMAAAAAAf57wGjSOUpY53aeX0hVdCY?e=usQwgT'
+  },
+    {
+    nombre:'¿Por qué escriben las máquinas que escriben? - Eugenio Tisselli',
+    url:'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICnFAMAAAAAASzydIP_Ks0wXn-DWjZG4R0?e=TDtP6h'
+  },
+    {
+    nombre:'Activando agroecologías',
+    url:'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICnkgYAAAAAAaIxWGKiy1d0kB8Fy6UYopo?e=jLhx3R'
+  },
+    {
+    nombre:'Manual de iniciación al huerto casero',
+    url:'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICn1AAAAAAAAYtWcBzfN7lvpkFiHzU-ju8?e=Od0HlC'
+  },
+    {
+    nombre:'Contra el copyright',
+    url:'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICnKAEAAAAAASYAtfOAMN9zrzoA5X-AHWY?e=srUay9'
+  },
+    {
+    nombre:'Queremos redes libres',
+    url:'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICnJgEAAAAAAZdCEdI1gJQZkER8SyVr7QQ?e=PgFcAQ'
+  },
+    {
+    nombre:'Manifiesto por la Guerrilla del acceso abierto - Aaron Swartz',
+    url:'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICnJwEAAAAAAf2sVpeeRGpTgifBfaNkqk4?e=kcowpA'
+  },
+    {
+    nombre:'Autoría distributiva y comunidades creativas - Simon Biggs y Penny Travlou',
+    url:'https://1drv.ms/b/c/a784dd385a483b29/IQApO0haON2EIICnKgEAAAAAAaQhS2TFcyL4O2xFtwmY-Nc?e=DWpb0f'
+  }
+ ];
+
+// ════════════════════════════════
+// INTERPRETACIÓN DE RESPUESTAS
+// Lee las selecciones de F1 y F2 y genera un texto interpretativo
+// ════════════════════════════════
+function buildInterpretation() {
+  const lines = [];
+
+  // — Género
+  lines.push('GÉNERO ELEGIDO: ' + (G.fase1A || '—'));
+  if (G.fase1A === 'ninguno') {
+    lines.push('→ Elegiste operar fuera del binario. Tu cuerpo no es una categoría del sistema. Es código que el mainframe no puede leer.');
+  }
+
+  // — Herramientas
+  if (G.fase1B.length) {
+    lines.push('');
+    lines.push('HERRAMIENTAS: ' + G.fase1B.join(' + '));
+    const toolInterp = {
+      'computadora':  '→ La computadora es la herramienta del sistema — pero también su punto más vulnerable. La usas desde adentro.',
+      'zapato rojo':  '→ El zapato rojo es el objeto que no pertenece al inventario oficial. Infiltración a través de lo que el sistema no cataloga.',
+      'ballena':      '→ La ballena: alianza con lo no-humano. Haraway diría que es la alianza más política que puedes elegir.',
+      'fuego':        '→ El fuego no discrimina. Corrompe sin pedir permiso. Es desorden en estado puro.',
+      'patines':      '→ Los patines son velocidad y movilidad. Entras antes de que el sistema te detecte.',
+      'rompecabezas': '→ El rompecabezas: conoces las piezas del sistema mejor que el sistema mismo.',
+      'controlador':  '→ El controlador — tomar el lenguaje del Game Boy y usarlo contra él.',
+      'sagitario':    '→ Sagitario: la flecha que no sigue una línea recta. El progreso no es lineal.',
+      'triangulo':    '→ El triángulo: la forma más estable y más subversiva. Tres puntos que no necesitan un centro.'
+    };
+    G.fase1B.forEach(t => {
+      if (toolInterp[t]) lines.push(toolInterp[t]);
+    });
+  }
+
+  // — Cuerpo
+  if (G.bodyParts.length) {
+    lines.push('');
+    lines.push('CUERPO RECODIFICADO:');
+    G.bodyParts.forEach(p => lines.push('→ ' + p));
+  }
+
+  // — Misiones F2
+  lines.push('');
+  lines.push('CENTROS INFILTRADOS: ' + G.fase2Correct + '/4');
+  const missionNames = [
+    'Archivo de la Objetividad',
+    'Banco de la Naturaleza Pura',
+    'Servidor del Progreso Lineal',
+    'Núcleo del Falo Óptico'
+  ];
+  const allyNames = {
+    hongo: 'Hongo Parásito', luz: 'Luz Ultravioleta', rio: 'Río Subterráneo', viento: 'Viento Solar',
+    ballena: 'Ballena Azul', flor: 'Flor Radiactiva', virus: 'Virus Mutante', raiz: 'Raíz Cyborg',
+    antenas: 'Red de Antenas', reloj: 'Reloj Roto', espiral: 'Espiral de Datos', lluvia: 'Lluvia Ácida',
+    polvo: 'Polvo de Estrellas', sombra: 'Sombra Infrarroja', slime: 'Slime Visceral', niebla: 'Niebla Digital'
+  };
+  Object.entries(G.fase2).forEach(([idx, ally]) => {
+    const correct = CORRECT.missions[idx] === ally;
+    const allyLabel = allyNames[ally] || ally;
+    lines.push((correct ? '✦ ' : '✕ ') + missionNames[idx] + ' — aliado: ' + allyLabel + (correct ? ' [infectado]' : ' [resistido]'));
+  });
+
+  // — Veredicto final
+  lines.push('');
+  const ok1A = G.fase1A === CORRECT.fase1A;
+  const ok1B = G.fase1B.includes(CORRECT.fase1B_required);
+  const ok2   = G.fase2Correct >= CORRECT.fase2_min;
+
+  if (ok1A && ok1B && ok2) {
+    lines.push('VEREDICTO: AGENTE COMPLETO — Todas las selecciones clave fueron correctas. El mainframe ha sido infectado desde adentro. La Data es horizontal.');
+  } else if (ok2 || (ok1A && ok1B)) {
+    lines.push('VEREDICTO: INFECCIÓN PARCIAL — El desorden fue sembrado durante tu batalla. El mainframe lleva tus virus adentro. El sistema no puede ignorarte aunque se reprograme.');
+  } else {
+    lines.push('VEREDICTO: CYBORG EN PROCESO — El mainframe resistió esta vez. Pero el cyborg no tiene historia de origen inocente. Solo tiene intentos.');
+  }
+
+  return lines.join('\n');
+}
+
+// ════════════════════════════════
+// go() — FUNCIÓN PRINCIPAL DE NAVEGACIÓN
+// Incluye: side effects, audio, fase-tracking
+// ════════════════════════════════
+
+const PANEL_AUDIO = {
+  'p-boot':'intro','p-name':'intro',
+  'p-gender':'fase1','p-poem':'fase1','p-gen-msg':'fase1','p-tools':'fase1','p-save1':'fase1',
+  'p-f2-intro':'fase2','p-body-recode':'fase2','p-mission-map':'fase2','p-mission-active':'fase2','p-save2':'fase2','p-f2-done':'fase2',
+  'p-f3-intro':'fase3','p-f3-form':'fase3','p-f3-sending':'fase3','p-victory':'fase3'
+};
+const PHASE_OF = {
+  'p-boot':'boot','p-name':'boot',
+  'p-gender':'f1','p-poem':'f1','p-gen-msg':'f1','p-tools':'f1','p-save1':'f1',
+  'p-f2-intro':'f2','p-body-recode':'f2','p-mission-map':'f2','p-mission-active':'f2','p-save2':'f2','p-f2-done':'f2',
+  'p-f3-intro':'f3','p-f3-form':'f3','p-f3-sending':'f3','p-victory':'f3'
+};
+let lastPhase = 'boot';
+
+function go(id) {
+  // Core navigation
+  _goCore(id);
+
+  // Phase-change SFX
+  const newPhase = PHASE_OF[id] || lastPhase;
+  if (newPhase !== lastPhase) {
+    setTimeout(() => playSfx('avanzar'), 80);
+    lastPhase = newPhase;
+  }
+
+  // Background music
+  const track = PANEL_AUDIO[id];
+  if (track) playBg(track);
+
+  // Side effects
+  if (id === 'p-f2-done') {
+    const won = G.fase2Correct >= CORRECT.fase2_min;
+    document.getElementById('f2-verdict').textContent =
+      won ? 'INFECCIÓN EXITOSA — ' + G.fase2Correct + ' CENTROS DERROCADOS'
+          : 'INFECCIÓN PARCIAL — ' + G.fase2Correct + ' CENTROS DERROCADOS';
+    document.getElementById('f2-verdict-detail').textContent =
+      won ? 'Has sembrado el desorden en el mainframe. El sistema ya no puede confiar en sus propios datos. La Data comienza a horizontalizarse.'
+          : 'El mainframe sobrevivió esta ronda, pero lleva tus virus adentro. El desorden no necesita ser total para ser real.';
+    document.getElementById('bd-response').textContent =
+      won ? 'ALERTA CRÍTICA: Infección detectada en ' + G.fase2Correct + ' sectores. Integridad del sistema: COMPROMETIDA. Desplegando Tecnohimbo_ÚLTIMO...'
+          : 'Intruso contenido. Daños menores en ' + G.fase2Correct + ' sectores. El sistema sigue operativo. Por ahora.';
+  }
+  if (id === 'p-f3-form') {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+    const interp = buildInterpretation();
+    document.getElementById('f3-preview-text').textContent = interp;
+    G._interpretation = interp;
+    G._pdf = PDF_ARCHIVE[Math.floor(Math.random() * PDF_ARCHIVE.length)];
+  }
+}
+
+// ════════════════════════════════
+// FASE 3 — se envía email
+// ════════════════════════════════
+const emailInput = document.getElementById('email-input');
+emailInput.addEventListener('input', () => {
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+  document.getElementById('btn-send').disabled = !valid;
+  document.getElementById('send-error').style.display = 'none';
+});
+
+// ════════════════════════════════
+// FASE 3 — envía transmisión 
+// ════════════════════════════════
+async function sendTransmission() {
+  const email = emailInput.value.trim();
+  if (!email) return;
+
+  // Ir a pantalla de envío
+  go('p-f3-sending');
+  setTimeout(() => { document.getElementById('sending-bar').style.width = '100%'; }, 200);
+
+  // Seleccionar PDF al azar (ya fue seleccionado al entrar al form)
+  const pdf = G._pdf;
+
+  // Armar parámetros del template de EmailJS
+  // Variables que debes configurar en tu template de EmailJS:
+  //   {{to_email}}       — correo del jugador
+  //   {{player_name}}    — nombre del jugador
+  //   {{gender}}         — género elegido
+  //   {{tools}}          — herramientas elegidas
+  //   {{missions_score}} — centros infectados
+  //   {{interpretation}} — texto de interpretación completo
+  //   {{pdf_nombre}}     — nombre del PDF adjunto
+  //   {{pdf_url}}        — URL del PDF
+  const templateParams = {
+    to_email:       email,
+    player_name:    G.nombre || 'Agente',
+    gender:         G.fase1A || '—',
+    tools:          G.fase1B.join(' + ') || '—',
+    missions_score: G.fase2Correct + '/4 centros infectados',
+    interpretation: G._interpretation || '',
+    pdf_nombre:     pdf.nombre,
+    pdf_url:        pdf.url
+  };
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+
+    // Éxito
+    document.getElementById('sending-em').textContent = '✦';
+    document.getElementById('sending-title').textContent = 'TRANSMISIÓN ENVIADA';
+    document.getElementById('sending-detail').textContent =
+      'Registro enviado a ' + email + '\nDocumento adjunto: ' + pdf.nombre;
+
+    boostVirus(25);
+    setTimeout(() => buildVictory(), 1800);
+
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    // Volver al form con error
+    go('p-f3-form');
+    document.getElementById('send-error').style.display = 'block';
+  }
+}
+
+function buildVictory() {
+  const ok1A = G.fase1A === CORRECT.fase1A;
+  const ok1B = G.fase1B.includes(CORRECT.fase1B_required);
+  const ok2   = G.fase2Correct >= CORRECT.fase2_min;
+
+  let victoryText = '';
+  if (ok1A && ok1B && ok2) {
+    victoryText = 'Misión completa, ' + G.nombre + '. Género: ∞ Ninguno. Alianza con la ballena confirmada. ' + G.fase2Correct + ' centros derrocados. El mainframe ha caído. La Data es horizontal, no binaria. Eres el nuevo desorden.';
+  } else if (ok2 || (ok1A && ok1B)) {
+    victoryText = 'Misión parcial, ' + G.nombre + '. El mainframe sobrevivió — pero lleva tus virus adentro. El desorden no necesita ser total para ser real. El cyborg vive en la contradicción. Eso es su fuerza.';
+  } else {
+    victoryText = G.nombre + ': el mainframe resistió esta vez. Pero el cyborg no tiene historia de origen inocente — solo intentos, alianzas temporales y la certeza de que el sistema puede ser corrompido. La misión continúa.';
+  }
+
+  document.getElementById('victory-msg').textContent = victoryText;
+  go('p-victory');
+}
+
+// ════════════════════════════════
+// RESTART
+// ════════════════════════════════
+function restart() {
+  G.nombre = ''; G.fase1A = null; G.fase1B = [];
+  G.bodyParts = []; G.fase2 = {}; G.fase2Correct = 0;
+  G._interpretation = ''; G._pdf = null;
+  currentMission = null; allyChosen = null; missionsCompleted = 0;
+  vp = 0;
+
+  document.getElementById('user-badge').style.display = 'none';
+  document.getElementById('name-input').value = '';
+  document.getElementById('btn-name').disabled = true;
+  document.getElementById('tool-count').textContent = '0';
+  document.getElementById('btn-tools').disabled = true;
+  document.getElementById('body-count').textContent = '0';
+  document.getElementById('btn-body').disabled = true;
+  document.getElementById('mission-count').textContent = '0';
+  document.getElementById('mission-prog').style.width = '0%';
+  document.getElementById('mission-log').innerHTML = '';
+  document.getElementById('email-input').value = '';
+  document.getElementById('btn-send').disabled = true;
+  document.getElementById('send-error').style.display = 'none';
+  document.getElementById('sending-bar').style.width = '0%';
+  document.getElementById('sending-em').textContent = '📡';
+  document.getElementById('sending-title').textContent = 'TRANSMITIENDO...';
+
+  document.querySelectorAll('.t-btn').forEach(b => { b.classList.remove('sel','off'); });
+  document.querySelectorAll('.body-part').forEach(b => { b.classList.remove('sel'); b.style.opacity='1'; });
+  document.querySelectorAll('.mission-card').forEach(b => b.classList.remove('completed'));
+
+  document.getElementById('save-bar1').style.width = '0%';
+  document.getElementById('save-bar2').style.width = '0%';
+  document.getElementById('btn-f2').style.opacity = '0';
+  document.getElementById('btn-f2').style.pointerEvents = 'none';
+  document.getElementById('btn-f3').style.opacity = '0';
+  document.getElementById('btn-f3').style.pointerEvents = 'none';
+
+  sessionStorage.removeItem('ang_state');
+  go('p-boot');
+}
+
+// ════════════════════════════════
+// AUDIO SYSTEM
+// ════════════════════════════════
+const AUDIO = {
+  intro:       document.getElementById('snd-intro'),
+  fase1:       document.getElementById('snd-fase1'),
+  fase2:       document.getElementById('snd-fase2'),
+  fase3:       document.getElementById('snd-fase3'),
+  error:       document.getElementById('snd-error'),
+  avanzar:     document.getElementById('snd-avanzar'),
+  seleccionar: document.getElementById('snd-seleccionar')
+};
+
+['intro','fase1','fase2','fase3'].forEach(t => { if(AUDIO[t]) AUDIO[t].volume = 0.5; });
+if (AUDIO.error)       AUDIO.error.volume       = 0.75;
+if (AUDIO.avanzar)     AUDIO.avanzar.volume     = 0.6;
+if (AUDIO.seleccionar) AUDIO.seleccionar.volume = 0.45;
+
+let isMuted = false;
+let currentBg = null;
+
+function playBg(trackName) {
+  if (!trackName || currentBg === trackName) return;
+  ['intro','fase1','fase2','fase3'].forEach(t => {
+    if (t !== trackName) fadeBg(AUDIO[t], false);
+  });
+  fadeBg(AUDIO[trackName], true);
+  currentBg = trackName;
+}
+
+function fadeBg(el, fadeIn) {
+  if (!el) return;
+  if (fadeIn) {
+    el.play().catch(()=>{});
+    let v = 0; el.volume = 0;
+    const s = setInterval(() => {
+      v = Math.min(v + 0.04, isMuted ? 0 : 0.5);
+      el.volume = v;
+      if (v >= 0.5 || isMuted) clearInterval(s);
+    }, 60);
+  } else {
+    let v = el.volume;
+    const s = setInterval(() => {
+      v = Math.max(v - 0.06, 0);
+      el.volume = v;
+      if (v <= 0) { el.pause(); el.currentTime = 0; clearInterval(s); }
+    }, 60);
+  }
+}
+
+function playSfx(name) {
+  if (isMuted) return;
+  const el = AUDIO[name];
+  if (!el) return;
+  el.currentTime = 0;
+  el.play().catch(()=>{});
+}
+
+function toggleMute() {
+  isMuted = !isMuted;
+  const btn = document.getElementById('audio-toggle');
+  if (btn) btn.textContent = isMuted ? '🔇' : '🔊';
+  ['intro','fase1','fase2','fase3'].forEach(t => { if(AUDIO[t]) AUDIO[t].volume = isMuted ? 0 : 0.5; });
+}
+
+// seleccionar.ogg en cada click (excepto toggle)
+document.addEventListener('click', e => {
+  if (e.target.id === 'audio-toggle') return;
+  playSfx('seleccionar');
+}, true);
+
+// error.ogg en rechazo de género — integrado en rejectGender directamente
+// (ver rejectGender arriba — llama playSfx('error') al inicio)
+
+// Arrancar audio al primer click del usuario (política autoplay)
+let audioStarted = false;
+document.addEventListener('click', () => {
+  if (audioStarted) return;
+  audioStarted = true;
+  playBg('intro');
+});
+
+// ════════════════════════════════
+// DRIPS HOLOGRÁFICOS
+// ════════════════════════════════
+const DRIP_COLORS = [
+  'linear-gradient(to bottom,#BB5090,transparent)',
+  'linear-gradient(to bottom,#9AC0D8,transparent)',
+  'linear-gradient(to bottom,#E5D66B,transparent)',
+  'linear-gradient(to bottom,#463975,transparent)'
+];
+function makeDrip() {
+  const dripsEl = document.getElementById('drips');
+  if (!dripsEl) return;
+  const d = document.createElement('div');
+  d.className = 'drip';
+  d.style.left = Math.random() * 100 + 'vw';
+  d.style.background = DRIP_COLORS[Math.floor(Math.random() * DRIP_COLORS.length)];
+  d.style.animationDuration = (3 + Math.random() * 5) + 's';
+  d.style.animationDelay   = (Math.random() * 2) + 's';
+  d.style.height = (40 + Math.random() * 120) + 'px';
+  d.style.boxShadow = '0 0 3px rgba(187,80,144,0.3)';
+  dripsEl.appendChild(d);
+  setTimeout(() => d.remove(), 9000);
+}
+setInterval(makeDrip, 1200);
+</script>
+</body>
+</html>
