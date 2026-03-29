@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEAL-AO — Licencia Editorial Abierta y Libre</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --violet:  #463975;
+  --magenta: #BB5090;
+  --sky:     #9ACDD8;
+  --lilac:   #D6B5C7;
+  --lime:    #E5D66B;
+  --blood:   #c0304a;
+  --void:    #0d0a14;
+  --white:   #FFFFFF;
+  --grad: linear-gradient(135deg, #463975 0%, #BB5090 35%, #9AC0D8 65%, #E5D66B 100%);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #98427b;
+  color: var(--white);
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* FONDO — pasto holográfico */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='200'%3E%3Cg fill='none' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath stroke='%2322553a' d='M10 200 Q8 160 12 130 Q15 105 8 80 Q4 60 10 40'/%3E%3Cpath stroke='%231a4a30' d='M10 200 Q12 165 9 135 Q6 110 11 85 Q14 65 9 42'/%3E%3Cpath stroke='%2330704e' d='M30 200 Q27 158 31 125 Q35 98 28 72 Q24 52 30 30'/%3E%3Cpath stroke='%23224a36' d='M30 200 Q33 162 29 128 Q26 102 32 76 Q35 56 29 32'/%3E%3Cpath stroke='%231e5c3c' d='M55 200 Q52 155 56 120 Q60 92 53 65 Q49 44 55 22'/%3E%3Cpath stroke='%2328684a' d='M55 200 Q58 160 54 122 Q51 95 57 68 Q60 48 54 24'/%3E%3Cpath stroke='%23194030' d='M80 200 Q77 158 81 124 Q85 97 78 70 Q74 50 80 28'/%3E%3Cpath stroke='%2322553a' d='M80 200 Q83 162 79 126 Q76 100 82 73 Q85 53 79 30'/%3E%3Cpath stroke='%232a6645' d='M105 200 Q102 156 106 121 Q110 93 103 66 Q99 45 105 23'/%3E%3Cpath stroke='%231c4a34' d='M105 200 Q108 160 104 123 Q101 96 107 69 Q110 49 104 26'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 200px;
+  background-repeat: repeat-x;
+  background-position: bottom 0 left 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  animation: grass-sway 8s ease-in-out infinite alternate,
+             grass-scroll 40s linear infinite;
+  transform-origin: bottom center;
+}
+@keyframes grass-sway {
+  0%   { transform: skewX(0deg) scaleX(1); }
+  25%  { transform: skewX(1.5deg) scaleX(1.01); }
+  50%  { transform: skewX(-1deg) scaleX(0.99); }
+  75%  { transform: skewX(2deg) scaleX(1.02); }
+  100% { transform: skewX(-0.5deg) scaleX(1); }
+}
+@keyframes grass-scroll {
+  0%   { background-position: bottom 0 left 0; }
+  100% { background-position: bottom 0 left -240px; }
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 100% 50% at 50% 100%, rgba(34,85,58,0.7) 0%, rgba(20,50,35,0.5) 30%, transparent 70%),
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(70,57,117,0.3) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(187,80,144,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 40%, rgba(0,0,0,0.65) 0%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+  animation: holo-shift 14s ease-in-out infinite alternate;
+}
+@keyframes holo-shift {
+  0%   { opacity:0.8; filter:hue-rotate(0deg); }
+  50%  { opacity:1;   filter:hue-rotate(15deg); }
+  100% { opacity:0.9; filter:hue-rotate(22deg); }
+}
+
+/* DRIPS */
+.drip {
+  position: fixed; top: 0; width: 1px; opacity: 0;
+  animation: drip-fall 4s ease-in infinite;
+  pointer-events: none; z-index: 2;
+}
+@keyframes drip-fall {
+  0%  { opacity:0; height:0; top:0; }
+  10% { opacity:.5; }
+  90% { opacity:.1; }
+  100%{ opacity:0; height:200px; top:100vh; }
+}
+
+/* STATUS BAR */
+#status-bar {
+  position: fixed; top: 0; left: 0; right: 0;
+  border-bottom: 1px solid rgba(187,80,144,0.25);
+  padding: 8px 20px;
+  font-size: 10px;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 1000; letter-spacing: 0.12em;
+  backdrop-filter: blur(10px);
+}
+.s-left  { color: var(--lime); font-size: 9px; }
+.s-center { color: var(--lime); letter-spacing: 0.4em; font-size: 11px; }
+.s-right { color: var(--lime); font-size: 9px; }
+
+/* SCREEN */
+#screen {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 80px 24px 80px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  gap: 0;
+}
+
+/* FADE IN */
+.screen-inner {
+  animation: fadeIn 0.6s ease;
+}
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(10px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* EYEBROW */
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(187,80,144,0.3), transparent);
+}
+
+/* LOGO AREA */
+.logo-area {
+  margin-bottom: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.logo-img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+  margin-bottom: 14px;
+}
+
+/* TITLE LEAL */
+.title-leal {
+  font-size: clamp(52px, 12vw, 96px);
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--lime);
+  text-shadow:
+    0 0 10px rgba(187,80,144,0.6),
+    0 0 40px rgba(154,192,216,0.4),
+    0 0 80px rgba(229,214,107,0.2);
+  animation: flicker 5s infinite;
+  margin-bottom: 6px;
+}
+@keyframes flicker {
+  0%,94%,100% { opacity:1; }
+  95% { opacity:.7; }
+  97% { opacity:1; }
+  98% { opacity:.5; }
+  99% { opacity:1; }
+}
+
+/* GLITCH */
+.glitch { position: relative; display: inline-block; }
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute; top:0; left:0; width:100%; height:100%;
+}
+.glitch::before {
+  color: var(--lilac);
+  animation: g1 3s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+.glitch::after {
+  color: var(--sky);
+  animation: g2 3s infinite;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+@keyframes g1 {
+  0%,90%,100%{transform:translate(-2px);opacity:0}
+  92%{transform:translate(-5px,2px);opacity:1}
+  94%{transform:translate(3px,-1px);opacity:1}
+  96%{transform:translate(-2px);opacity:0}
+}
+@keyframes g2 {
+  0%,88%,100%{transform:translate(2px);opacity:0}
+  90%{transform:translate(5px,-2px);opacity:1}
+  93%{transform:translate(-3px,1px);opacity:1}
+  95%{transform:translate(2px);opacity:0}
+}
+
+.title-sub {
+  font-size: clamp(9px, 1.8vw, 12px);
+  letter-spacing: 0.45em;
+  color: rgba(255,255,255,0.9);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* SEPARATOR */
+hr.sep {
+  border: none;
+  border-top: 1px solid rgba(187,80,144,0.18);
+  margin: 36px 0;
+}
+
+/* INTRO TEXT */
+.intro {
+  font-size: clamp(14px, 2.2vw, 17px);
+  line-height: 1.85;
+  color: var(--white);
+  border-left: 2px solid var(--magenta);
+  padding-left: 18px;
+  margin-bottom: 36px;
+  text-shadow: 0 0 12px rgba(187,80,144,0.2);
+}
+
+/* CONDITIONS BLOCK */
+.conditions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.condition-item {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  border: 1px solid rgba(187,80,144,0.18);
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: blur(4px);
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.condition-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 100%;
+  background: var(--grad);
+}
+.condition-item:hover {
+  border-color: rgba(187,80,144,0.4);
+  background: rgba(187,80,144,0.04);
+}
+
+.condition-num {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  color: var(--magenta);
+  min-width: 28px;
+  padding-top: 2px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.condition-text {
+  font-size: clamp(12px, 2vw, 14px);
+  line-height: 1.75;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.03em;
+}
+
+/* CONDITION COLORS */
+.condition-item:nth-child(1) { border-left-color: rgba(187,80,144,0.18); }
+.condition-item:nth-child(1) .condition-num { color: var(--magenta); }
+.condition-item:nth-child(2) { }
+.condition-item:nth-child(2) .condition-num { color: var(--sky); }
+.condition-item:nth-child(2)::before { background: var(--sky); opacity: 0.5; }
+.condition-item:nth-child(3) .condition-num { color: var(--blood); }
+.condition-item:nth-child(3)::before { background: var(--blood); opacity: 0.5; }
+.condition-item:nth-child(4) .condition-num { color: var(--lime); }
+.condition-item:nth-child(4)::before { background: var(--lime); opacity: 0.5; }
+.condition-item:nth-child(5) .condition-num { color: var(--lilac); }
+.condition-item:nth-child(5)::before { background: var(--lilac); opacity: 0.5; }
+
+/* FOOTER */
+.page-footer {
+  border-top: 1px solid rgba(187,80,144,0.18);
+  padding-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.footer-line {
+  font-size: 10px;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+.footer-codice {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-codice:hover { color: var(--magenta); }
+
+/* BACK LINK */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.3);
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+  transition: color 0.2s;
+}
+.back-link::before { content: '← '; }
+.back-link:hover { color: var(--magenta); }
+
+/* MOBILE */
+@media (max-width: 600px) {
+  #screen { padding: 70px 16px 50px; }
+  .title-leal { font-size: clamp(42px, 14vw, 70px); }
+  .condition-item { padding: 14px 14px 14px 18px; gap: 12px; }
+  .s-right { display: none; }
+  .logo-img { max-width: 280px; }
+}
+</style>
+</head>
+<body>
+
+<div id="drips"></div>
+
+<!-- STATUS BAR -->
+<div id="status-bar">
+  <span class="s-center">LEAL-AO</span>
+  <span class="s-right">LICENCIA LIBRE</span>
+</div>
+
+<div id="screen">
+  <div class="screen-inner">
+
+    <!-- BACK -->
+    <a class="back-link" href="a-todas-las-nuevas-generaciones.html">volver</a>
+
+    <!-- EYEBROW -->
+    <p class="eyebrow">Licencia Editorial Abierta y Libre</p>
+
+    <!-- LOGO + TÍTULO -->
+    <div class="logo-area">
+      <img class="logo-img" src="leal.svg" alt="LEAL — Licencia Editorial Abierta y Libre" />
+      <div class="title-leal">
+        <span class="glitch" data-text="LEAL-AO">LEAL-AO</span>
+      </div>
+      <p class="title-sub">Licencia Editorial Abierta y Libre — Atribución Obligatoria</p>
+    </div>
+
+    <hr class="sep">
+
+    <!-- INTRO -->
+    <p class="intro">
+      Con LEAL eres libre de usar, copiar, reeditar, modificar, distribuir o comercializar bajo las siguientes condiciones:
+    </p>
+
+    <!-- CONDITIONS -->
+    <div class="conditions">
+
+      <div class="condition-item">
+        <span class="condition-num">01</span>
+        <p class="condition-text">Los productos derivados o modificados han de heredar algún tipo de LEAL.</p>
+      </div>
+
+      <div class="condition-item">
+        <span class="condition-num">02</span>
+        <p class="condition-text">Los archivos editables y finales habrán de ser de acceso público.</p>
+      </div>
+
+      <div class="condition-item">
+        <span class="condition-num">03</span>
+        <p class="condition-text">El contenido no puede implicar difamación, explotación o vigilancia.</p>
+      </div>
+
+      <div class="condition-item">
+        <span class="condition-num">04</span>
+        <p class="condition-text">La atribución de los colaboradores de la edición previa es obligatoria.</p>
+      </div>
+
+      <div class="condition-item">
+        <span class="condition-num">05</span>
+        <p class="condition-text">Los productos derivados o modificados han de tener distinto nombre.</p>
+      </div>
+
+    </div>
+
+    <hr class="sep">
+
+    <!-- FOOTER -->
+    <div class="page-footer">
+      <p class="footer-line">
+        Esta pieza fue desarrollada por Abigail Fuentes.<br>
+        Piezas sonoras pertenecen a Leonardo Rangel.
+      </p>
+      <a class="footer-codice" href="https://www.instagram.com/ccodic_e/" target="_blank">
+        CÓDICE — Creación e investigación cultural
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// DRIPS
+const DRIP_COLORS = [
+  'linear-gradient(to bottom,#BB5090,transparent)',
+  'linear-gradient(to bottom,#9ACDD8,transparent)',
+  'linear-gradient(to bottom,#E5D66B,transparent)',
+  'linear-gradient(to bottom,#463975,transparent)'
+];
+function makeDrip() {
+  const el = document.getElementById('drips');
+  if (!el) return;
+  const d = document.createElement('div');
+  d.className = 'drip';
+  d.style.left = Math.random() * 100 + 'vw';
+  d.style.background = DRIP_COLORS[Math.floor(Math.random() * DRIP_COLORS.length)];
+  d.style.animationDuration = (3 + Math.random() * 5) + 's';
+  d.style.animationDelay   = (Math.random() * 2) + 's';
+  d.style.height = (40 + Math.random() * 120) + 'px';
+  el.appendChild(d);
+  setTimeout(() => d.remove(), 9000);
+}
+setInterval(makeDrip, 1200);
+</script>
+</body>
+</html>
