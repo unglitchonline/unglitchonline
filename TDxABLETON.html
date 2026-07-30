@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="unglitchonline">
+  <link href="styles/style_main.css" rel="stylesheet" type="text/css">
+  <title>Confirmación Taller: TouchDesigner meets Ableton</title>
+  <style>
+    /* :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --border-color: #30363d;
+      --text-main: #c9d1d9;
+      --text-heading: #f0f6fc;
+      --accent-green: #238636;
+      --accent-green-hover: #2ea043;
+      --accent-red: #da3633;
+      --accent-red-hover: #f85149;
+      --accent-blue: #1f6beb;
+      --accent-blue-hover: #388bfd;
+    } */
+
+    body {
+      /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; */
+      /* background-color: var(--bg-color); */
+      /* color: var(--text-main); */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .card {
+      /* background-color: var(--card-bg); */
+      /* border: 1px solid var(--border-color); */
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 480px;
+      width: 100%;
+      /* box-shadow: 0 10px 25px rgba(0,0,0,0.5); */
+    }
+
+    .tag {
+      display: inline-block;
+      /* background-color: rgba(56, 139, 253, 0.15); */
+      /* color: #58a6ff; */
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    h2 {
+      /* color: var(--text-heading); */
+      margin: 0 0 8px 0;
+      font-size: 24px;
+    }
+
+    p.subtitle {
+      /* color: #8b949e; */
+      margin: 0 0 24px 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      /* color: var(--text-heading); */
+    }
+
+    input[type="email"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      /* background-color: #0d1117; */
+      /* color: var(--text-heading); */
+      font-size: 15px;
+      box-sizing: border-box;
+      /* transition: border-color 0.2s; */
+    }
+
+    input[type="email"]:focus {
+      /* outline: none; */
+      /* border-color: #58a6ff; */
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px 16px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      /* cursor: pointer; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.2s, opacity 0.2s;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-confirm {
+      /* background-color: var(--accent-green); */
+      /* color: #ffffff; */
+    }
+    .btn-confirm:hover:not(:disabled) {
+      /* background-color: var(--accent-green-hover); */
+    }
+
+    .btn-decline {
+      /* background-color: transparent; */
+      /* border: 1px solid var(--border-color); */
+      /* color: #f85149; */
+    }
+    .btn-decline:hover:not(:disabled) {
+      /* background-color: rgba(248, 81, 73, 0.1); */
+      /* border-color: var(--accent-red-hover); */
+    }
+
+    .btn-drive {
+      /* background-color: var(--accent-blue); */
+      /* color: #ffffff; */
+      margin-top: 18px;
+    }
+    .btn-drive:hover:not(:disabled) {
+      /* background-color: var(--accent-blue-hover); */
+    }
+
+    .status-msg {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      display: none;
+    }
+    .status-msg.error {
+      display: block;
+      /* background-color: rgba(248, 81, 73, 0.15); */
+      /* color: #f85149; */
+      border: 1px solid rgba(248, 81, 73, 0.4);
+    }
+    .status-msg.success {
+      display: block;
+      /* background-color: rgba(46, 160, 67, 0.15); */
+      /* color: #3fb950; */
+      border: 1px solid rgba(46, 160, 67, 0.4);
+    }
+    .status-msg.info {
+      display: block;
+      /* background-color: rgba(56, 139, 253, 0.15); */
+      /* color: #58a6ff; */
+      border: 1px solid rgba(56, 139, 253, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <span class="tag">Taller Gratuito</span>
+  <h2>TouchDesigner meets Ableton</h2>
+  <p class="subtitle">Confirma tu asistencia antes del viernes 31 de julio a las 10:00 hrs (CDMX).</p>
+
+  <div class="form-group">
+    <label for="emailInput">Ingresa el mismo correo electrónico que registraste en el formulario:</label>
+    <input type="email" id="emailInput" placeholder="tu.correo@ejemplo.com" required>
+  </div>
+
+  <div id="statusMsg" class="status-msg"></div>
+
+  <button id="btnConfirm" class="btn btn-confirm" onclick="procesarRespuesta('confirmar')">
+    ✓ Confirmar mi asistencia
+  </button>
+
+  <button id="btnDecline" class="btn btn-decline" onclick="procesarRespuesta('declinar')">
+    ✕ No podré asistir
+  </button>
+
+  <button id="btnDrive" class="btn btn-drive" onclick="procesarRespuesta('drive')">
+    📁 He confirmado, deseo recibir el material descargable
+  </button>
+</div>
+
+<script>
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyIjqtjNcxNZbS-RoB4fzL601jCYSg3wOb7M5S5w_egmPQsy2F4A1EiINfYlesr1WFTDg/exec"; 
+  const CORREO_ORGANIZADOR = "abigailfuentes@codic-e.org";
+  const ENLACE_DRIVE_MATERIALES = "https://drive.google.com/drive/folders/TU_CARPETA_AQUI";
+
+  function mostrarMensaje(texto, tipo) {
+    const msgBox = document.getElementById("statusMsg");
+    msgBox.innerText = texto;
+    msgBox.className = "status-msg " + tipo;
+  }
+
+  function setCargando(cargando) {
+    const btns = document.querySelectorAll("button");
+    btns.forEach(b => b.disabled = cargando);
+  }
+
+  async function validarCorreoEnGoogleSheet(email) {
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("TU_URL_DE_GOOGLE_APPS_SCRIPT")) {
+      mostrarMensaje("Configura la URL de tu Google Apps Script en el código HTML.", "error");
+      return null;
+    }
+
+    mostrarMensaje("Validando correo en la lista de invitadxs...", "info");
+    setCargando(true);
+
+    try {
+      const response = await fetch(`${APPS_SCRIPT_URL}?email=${encodeURIComponent(email)}`);
+      const data = await response.json();
+      setCargando(false);
+
+      if (data.registrado) {
+        mostrarMensaje(`¡Hola ${data.nombre}! Correo verificado con éxito.`, "success");
+        return data;
+      } else {
+        mostrarMensaje("Este correo no se encuentra en la lista de personas registradas.", "error");
+        return null;
+      }
+    } catch (error) {
+      setCargando(false);
+      mostrarMensaje("Error al conectar con la base de datos de Google Sheets. Revisa la consola.", "error");
+      console.error(error);
+      return null;
+    }
+  }
+
+  async function procesarRespuesta(accion) {
+    const email = document.getElementById("emailInput").value.trim().toLowerCase();
+
+    if (!email) {
+      mostrarMensaje("Por favor ingresa tu correo electrónico registrado.", "error");
+      return;
+    }
+
+    const usuario = await validarCorreoEnGoogleSheet(email);
+    if (!usuario) return;
+
+    if (accion === 'confirmar') {
+      const asunto = encodeURIComponent("Confirmación de asistencia - Taller TouchDesigner meets Ableton");
+      const cuerpo = encodeURIComponent(
+        `Hola @cyborgfeminista,
+
+` +
+        `Confirmo mi asistencia al taller "TouchDesigner meets Ableton".
+
+` +
+        `Nombre: ${usuario.nombre}
+` +
+        `Correo: ${usuario.email}
+
+` +
+        `¡Nos vemos en el taller!`
+      );
+      window.location.href = `mailto:${CORREO_ORGANIZADOR}?subject=${asunto}&body=${cuerpo}`;
+    } 
+    else if (accion === 'declinar') {
+      const asunto = encodeURIComponent("Cancelación de asistencia - Taller TouchDesigner meets Ableton");
+      const cuerpo = encodeURIComponent(
+        `Hola @cyborgfeminista,
+
+` +
+        `Lamento informar que NO podré asistir al taller "TouchDesigner meets Ableton".
+
+` +
+        `Nombre: ${usuario.nombre}
+` +
+        `Correo: ${usuario.email}
+
+` +
+        `Gracias y espero poder sumarme en una próxima oportunidad.`
+      );
+      window.location.href = `mailto:${CORREO_ORGANIZADOR}?subject=${asunto}&body=${cuerpo}`;
+    } 
+    else if (accion === 'drive') {
+      window.open(ENLACE_DRIVE_MATERIALES, "_blank");
+    }
+  }
+</script>
+
+</body>
+</html>
