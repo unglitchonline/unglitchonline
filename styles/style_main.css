@@ -73,11 +73,11 @@ body {
 @media (max-width: 768px) {
       body {
             background-attachment: fixed;
-            background-size: cover;
+            /* background-size: cover; */
             background-position: center;
             -webkit-background-attachment: fixed;
             -webkit-background-size: cover;
-            -webkit-background-position: center;
+            -webkit-background-position: center; 
       }
 }
 
