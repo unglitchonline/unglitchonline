@@ -513,9 +513,9 @@
                 state.velocity = 0;
                 state.renderedVelocity = 0;
 
-                if (e.pointerId !== undefined && container.setPointerCapture) {
-                    container.setPointerCapture(e.pointerId);
-                }
+                // if (e.pointerId !== undefined && container.setPointerCapture) {
+                //     container.setPointerCapture(e.pointerId);
+                // }
 
                 container.style.cursor = 'grabbing';
                 startAnimation();
@@ -553,9 +553,9 @@
                 if (state.pointerId !== (e.pointerId !== undefined ? e.pointerId : 'touch')) return;
 
                 state.isDragging = false;
-                if (e.pointerId !== undefined && container.releasePointerCapture) {
-                    container.releasePointerCapture(e.pointerId);
-                }
+                // if (e.pointerId !== undefined && container.releasePointerCapture) {
+                //     container.releasePointerCapture(e.pointerId);
+                // }
                 container.style.cursor = 'grab';
 
                 if (CONFIG.autoPlay) {
