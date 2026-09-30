@@ -72,12 +72,13 @@ body {
 
 @media (max-width: 768px) {
       body {
+            background-image: url("https://www.unglitchonline.xyz/docs/img/microsoft-design-mobile.png");
             background-attachment: fixed;
             /* background-size: cover; */
-            background-position: center;
-            -webkit-background-attachment: fixed;
-            -webkit-background-size: cover;
-            -webkit-background-position: center; 
+            /* background-position: center; */
+            /* -webkit-background-attachment: fixed; */
+            /* -webkit-background-size: cover; */
+            /* -webkit-background-position: center;  */
       }
 }
 
