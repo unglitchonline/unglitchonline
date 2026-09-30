@@ -70,7 +70,6 @@ body {
       margin: 0;
 }
 
-/* Fijar la imagen de fondo en móvil y permitir que el texto se mueva delante */
 @media (max-width: 768px) {
       body {
             background-attachment: fixed;
