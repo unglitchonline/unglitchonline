@@ -71,15 +71,15 @@ body {
 }
 
 @media (max-width: 768px) {
-      body {
-            background-image: url("https://www.unglitchonline.xyz/docs/img/microsoft-design-mobile.png");
-            background-attachment: fixed;
-            /* background-size: cover; */
-            /* background-position: center; */
-            /* -webkit-background-attachment: fixed; */
-            /* -webkit-background-size: cover; */
-            /* -webkit-background-position: center;  */
-      }
+  body {
+    background-image: url("https://www.unglitchonline.xyz/docs/img/microsoft-design-mobile.png");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    /* background-attachment: scroll; */
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
 }
 
 .header {
