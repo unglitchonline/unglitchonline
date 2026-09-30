@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <meta name="author" content="unglitchonline">
+    <title>/touchdesigner</title>
+    <link href="styles/style_main.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="docs/img/af.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1,
+        h2,
+        h3 {
+            text-align: left;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            display: block;
+        }
+
+        .content a {
+            position: relative;
+            z-index: 2;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            height: 560px;
+            border-radius: 32px;
+            overflow: hidden;
+            touch-action: pan-y;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            cursor: grab;
+        }
+
+        .carousel-container:active {
+            cursor: grabbing;
+        }
+
+        .carousel-scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 1800px;
+            transform-style: preserve-3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-card {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 300px;
+            height: 380px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 12px 28px #ffffff;
+            will-change: transform, filter, opacity;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .carousel-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .card-caption {
+            flex: 0 0 auto;
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            line-height: 1.25;
+            text-align: center;
+            color: rgba(0, 0, 0, 0.45);
+            background: #ffffff;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .info-badge {
+            position: absolute;
+            bottom: 20px;
+            right: 24px;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.3);
+            background: #ffffff;
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 40px;
+            pointer-events: none;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        @media (max-width: 640px) {
+            .carousel-container {
+                height: 440px;
+                border-radius: 20px;
+            }
+
+            .carousel-card {
+                width: 220px;
+                height: 290px;
+            }
+
+            .card-caption {
+                padding: 9px 12px;
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .carousel-card {
+                width: 260px;
+                height: 340px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="carousel-container" id="carousel" role="region" aria-label="Carrusel 3D infinito" tabindex="0">
+        <div class="carousel-scene" id="scene"></div>
+        <!-- <div class="info-badge">⟳ arrastra · auto</div> -->
+    </div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            const CONFIG = {
+                cardWidth: 300,
+                cardHeight: 380,
+                radius: 20,
+                blurAmount: 8,
+                dragSensitivity: 1,
+                autoPlay: true,
+                autoPlaySpeed: 28,
+                autoPlayDirection: 'Forward',
+                perspective: 1800,
+                sideRotation: 14,
+                sideTilt: 6,
+                overlap: 300,
+                maxMomentum: 1400,
+            };
+
+            const ITEMS = [{
+                imageUrl: 'https://framerusercontent.com/images/f9RiWoNpmlCMqVRIHz8l8wYfeI.jpg',
+                title: 'Título de la imagen 1',
+                link: 'descargas/imagen-1.jpg',
+                download: 'imagen-1.jpg'
+            }, {
+                imageUrl: 'https://framerusercontent.com/images/2uTNEj5aTl2K3NJaEFWMbnrA.jpg',
+                title: 'Título de la imagen 2',
+                link: 'descargas/imagen-2.jpg',
+                download: 'imagen-2.jpg'
+            }, {
+                imageUrl: 'https://framerusercontent.com/images/aNsAT3jCvt4zglbWCUoFe33Q.jpg',
+                title: 'Título de la imagen 3',
+                link: 'descargas/imagen-3.jpg',
+                download: 'imagen-3.jpg'
+            }, {
+                imageUrl: 'https://framerusercontent.com/images/GfGkADagM4KEibNcIiRUWlfrR0.jpg',
+                title: 'Título de la imagen 4',
+                link: 'descargas/imagen-4.jpg',
+                download: 'imagen-4.jpg'
+            }, {
+                imageUrl: 'https://framerusercontent.com/images/KurKUbSLj8u7ktJI3FHktafBlWg.jpeg',
+                title: 'Título de la imagen 5',
+                link: 'descargas/imagen-5.jpg',
+                download: 'imagen-5.jpg'
+            }];
+
+            const container = document.getElementById('carousel');
+            const scene = document.getElementById('scene');
+
+            const state = {
+                offset: 0,
+                targetOffset: 0,
+                velocity: 0,
+                renderedOffset: 0,
+                renderedVelocity: 0,
+                isDragging: false,
+                pointerId: null,
+                lastX: 0,
+                lastTime: 0,
+                dragMoved: false,
+                animating: false,
+                rafId: null,
+                items: ITEMS,
+                cardStep: 0,
+                cycle: 0,
+                autoPlayActive: CONFIG.autoPlay,
+                autoPlayDirectionFactor: CONFIG.autoPlayDirection === 'Forward' ? -1 : 1,
+                cards: [],
+                imageElements: [],
+                captionElements: [],
+                assignmentCache: [],
+            };
+
+            function toSignedWrap(value, cycle) {
+                if (cycle <= 0) return 0;
+                const wrapped = ((((value + cycle / 2) % cycle) + cycle) % cycle) - cycle / 2;
+                return wrapped;
+            }
+
+            function smoothstep(edge0, edge1, x) {
+                if (edge0 === edge1) return x < edge0 ? 0 : 1;
+                const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+                return t * t * (3 - 2 * t);
+            }
+
+            function initCards() {
+                const numSlots = 5;
+                const fragment = document.createDocumentFragment();
+                state.cards = [];
+                state.imageElements = [];
+                state.captionElements = [];
+                state.assignmentCache = new Array(numSlots).fill(null);
+
+                const cardWidth = CONFIG.cardWidth;
+                const overlap = CONFIG.overlap;
+                state.cardStep = Math.max(70, cardWidth - overlap);
+                state.cycle = state.items.length * state.cardStep;
+
+                for (let slot = 0; slot < numSlots; slot++) {
+                    const card = document.createElement('a');
+                    card.className = 'carousel-card';
+                    card.setAttribute('draggable', 'false');
+                    card.style.width = cardWidth + 'px';
+                    card.style.minWidth = cardWidth + 'px';
+                    card.style.height = CONFIG.cardHeight + 'px';
+                    card.style.borderRadius = CONFIG.radius + 'px';
+                    card.style.background = '#ffffff';
+                    card.style.display = 'flex';
+                    card.style.flexDirection = 'column';
+                    card.style.overflow = 'hidden';
+                    card.style.textDecoration = 'none';
+                    card.style.color = 'inherit';
+                    card.style.position = 'absolute';
+                    card.style.left = '50%';
+                    card.style.top = '50%';
+                    card.style.transformStyle = 'preserve-3d';
+                    card.style.willChange = 'transform, filter, opacity';
+                    card.style.backfaceVisibility = 'hidden';
+
+                    // --- Imagen ---
+                    const img = document.createElement('img');
+                    img.draggable = false;
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.flex = '1 1 auto';
+                    img.style.minHeight = '0';
+                    img.style.objectFit = 'cover';
+                    img.style.display = 'block';
+                    img.style.pointerEvents = 'none';
+                    img.style.userSelect = 'none';
+                    img.style.webkitUserSelect = 'none';
+                    img.loading = 'eager';
+                    img.decoding = 'async';
+                    img.alt = '';
+
+                    const caption = document.createElement('span');
+                    caption.className = 'card-caption';
+                    caption.style.display = 'none';
+
+                    card.appendChild(img);
+                    card.appendChild(caption);
+                    fragment.appendChild(card);
+
+                    state.cards.push(card);
+                    state.imageElements.push(img);
+                    state.captionElements.push(caption);
+                }
+
+                scene.appendChild(fragment);
+
+                applyFrameStyles(state.offset);
+            }
+
+            function applyFrameStyles(offset) {
+                const items = state.items;
+                const count = items.length;
+                if (count === 0) return;
+
+                const cardStep = state.cardStep;
+                const cycle = state.cycle;
+                const signed = toSignedWrap(offset, cycle);
+                const activeFloatIndex = -signed / cardStep;
+                const nearestCenter = Math.round(activeFloatIndex);
+
+                const numSlots = state.cards.length;
+
+                for (let slot = 0; slot < numSlots; slot++) {
+                    const card = state.cards[slot];
+                    const img = state.imageElements[slot];
+                    const caption = state.captionElements[slot];
+                    if (!card || !img) continue;
+
+                    const virtualIndex = nearestCenter + (slot - 2);
+                    const wrappedItemIndex = ((virtualIndex % count) + count) % count;
+                    const item = items[wrappedItemIndex];
+                    const rawDistance = virtualIndex - activeFloatIndex;
+                    const absDistance = Math.abs(rawDistance);
+                    const clampedDistance = Math.min(absDistance, 2.25);
+                    const direction = rawDistance === 0 ? 0 : (rawDistance > 0 ? 1 : -1);
+                    const eased = Math.min(1, clampedDistance / 2);
+                    const depthEase = Math.pow(eased, 0.9);
+                    const translateX = rawDistance * cardStep;
+                    const rotateY = -direction * depthEase * CONFIG.sideRotation;
+                    const rotateZ = direction * depthEase * CONFIG.sideTilt;
+                    const scale = 1 - depthEase * 0.24;
+                    const translateZ = 110 - depthEase * 160;
+                    const zIndex = 1000 - Math.round(clampedDistance * 100);
+
+                    const fadeStartDistance = 1.35;
+                    const fadeEndDistance = 2.85;
+                    const edgeOpacity = Math.max(0, Math.min(1,
+                        1 - smoothstep(fadeStartDistance, fadeEndDistance, absDistance)
+                    ));
+
+                    const blurDepth = smoothstep(0.35, 2.25, absDistance);
+                    const blurPx = CONFIG.blurAmount <= 0 ? 0 : CONFIG.blurAmount * blurDepth;
+
+                    const shadowEase = smoothstep(0, 1.5, absDistance);
+                    const shadowYOffset = 20 - shadowEase * 8;
+                    const shadowBlur = 40 - shadowEase * 12;
+                    const shadowAlpha = 0.16 - shadowEase * 0.05;
+
+                    card.style.zIndex = zIndex;
+                    card.style.opacity = edgeOpacity;
+                    card.style.transform =
+                        `translate3d(calc(-50% + ${translateX}px), -50%, ${translateZ}px) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
+                    card.style.filter = blurPx > 0 ? `blur(${blurPx}px)` : 'none';
+                    card.style.boxShadow =
+                        `0 ${shadowYOffset}px ${shadowBlur}px rgba(0,0,0,${Math.max(0.08, shadowAlpha)})`;
+
+                    const src = item.imageUrl || '';
+                    const title = (typeof item.title === 'string') ? item.title.trim() : '';
+                    const alt = item.alt || title || `Imagen del carrusel ${wrappedItemIndex + 1}`;
+                    const link = (typeof item.link === 'string') ? item.link.trim() : '';
+                    const downloadName = (typeof item.download === 'string') ? item.download.trim() : '';
+
+                    const cache = state.assignmentCache[slot];
+                    if (!cache || cache.itemIndex !== wrappedItemIndex || cache.src !== src || cache.alt !== alt ||
+                        cache.link !== link || cache.download !== downloadName) {
+                        img.src = src;
+                        img.alt = alt;
+                        state.assignmentCache[slot] = { itemIndex: wrappedItemIndex, src, alt, link, download: downloadName };
+                    }
+
+                    if (caption) {
+                        if (caption.textContent !== title) caption.textContent = title;
+                        caption.style.display = title ? 'block' : 'none';
+                    }
+
+                    if (link) {
+                        card.href = link;
+                        if (downloadName) {
+                            card.setAttribute('download', downloadName);
+                        } else {
+                            card.removeAttribute('download');
+                        }
+                        card.setAttribute('aria-label', title ? `Descargar: ${title}` : `Descargar: ${alt}`);
+                        card.removeAttribute('tabindex');
+                    } else {
+                        card.removeAttribute('href');
+                        card.removeAttribute('download');
+                        card.removeAttribute('aria-label');
+                        card.setAttribute('tabindex', '-1');
+                    }
+                }
+            }
+
+            function animationStep(timestamp) {
+                if (!state.animating) {
+                    state.rafId = null;
+                    return;
+                }
+
+                const prevTime = state.lastFrameTime || 0;
+                const dt = prevTime > 0 ? Math.min(Math.max((timestamp - prevTime) / 1000, 1 / 240), 1 / 30) : 1 / 60;
+                state.lastFrameTime = timestamp;
+
+                let target = state.targetOffset;
+                let rendered = state.renderedOffset;
+                let renderedVelocity = state.renderedVelocity;
+
+                if (state.autoPlayActive && !state.isDragging) {
+                    target += state.autoPlayDirectionFactor * CONFIG.autoPlaySpeed * dt;
+                }
+
+                target += state.velocity * dt;
+                state.velocity *= Math.pow(0.94, dt * 60);
+                if (Math.abs(state.velocity) < 0.2) state.velocity = 0;
+
+                const stiffness = state.isDragging ? 240 : 170;
+                const damping = state.isDragging ? 30 : 24;
+                const displacement = target - rendered;
+                const acceleration = displacement * stiffness - renderedVelocity * damping;
+                renderedVelocity += acceleration * dt;
+                rendered += renderedVelocity * dt;
+
+                state.targetOffset = target;
+                state.renderedOffset = rendered;
+                state.renderedVelocity = renderedVelocity;
+
+                applyFrameStyles(rendered);
+
+                const remaining = Math.abs(state.targetOffset - state.renderedOffset);
+                const velRemaining = Math.abs(state.renderedVelocity);
+                const shouldContinue = (state.isDragging ||
+                    remaining > 0.015 ||
+                    velRemaining > 0.015 ||
+                    Math.abs(state.velocity) > 0.015 ||
+                    state.autoPlayActive);
+
+                state.animating = shouldContinue;
+
+                if (shouldContinue) {
+                    state.rafId = requestAnimationFrame(animationStep);
+                } else {
+                    state.rafId = null;
+                }
+            }
+
+            function startAnimation() {
+                if (state.rafId !== null) return;
+                state.animating = true;
+                state.lastFrameTime = 0;
+                state.rafId = requestAnimationFrame(animationStep);
+            }
+
+            function stopAnimation() {
+                if (state.rafId !== null) {
+                    cancelAnimationFrame(state.rafId);
+                    state.rafId = null;
+                }
+                state.animating = false;
+            }
+
+            function onPointerDown(e) {
+                if (e.button !== undefined && e.button !== 0) return; // solo botón izquierdo
+                const pointer = e.pointerId !== undefined ? e : e.touches ? e.touches[0] : e;
+                if (!pointer) return;
+
+                state.isDragging = true;
+                state.dragMoved = false;
+                state.pointerId = e.pointerId !== undefined ? e.pointerId : 'touch';
+                state.lastX = pointer.clientX;
+                state.lastTime = performance.now();
+                state.targetOffset = state.renderedOffset;
+                state.velocity = 0;
+                state.renderedVelocity = 0;
+
+                if (e.pointerId !== undefined && container.setPointerCapture) {
+                    container.setPointerCapture(e.pointerId);
+                }
+
+                container.style.cursor = 'grabbing';
+                startAnimation();
+            }
+
+            function onPointerMove(e) {
+                if (!state.isDragging) return;
+                const pointer = e.pointerId !== undefined ? e : e.touches ? e.touches[0] : null;
+                if (!pointer) return;
+                if (state.pointerId !== (e.pointerId !== undefined ? e.pointerId : 'touch')) return;
+
+                const dx = pointer.clientX - state.lastX;
+                if (!state.dragMoved && Math.abs(dx) > 3) {
+                    state.dragMoved = true;
+                }
+                const now = performance.now();
+                const dt = Math.max((now - state.lastTime) / 1000, 0.001);
+                state.lastX = pointer.clientX;
+                state.lastTime = now;
+
+                const scaledDx = dx * CONFIG.dragSensitivity;
+                const nextTarget = state.targetOffset + scaledDx;
+                state.targetOffset = nextTarget;
+
+                const instantaneousVelocity = scaledDx / dt;
+                const clampedVelocity = Math.max(-CONFIG.maxMomentum, Math.min(CONFIG.maxMomentum, instantaneousVelocity));
+                const smoothing = 1 - Math.exp(-20 * dt);
+                state.velocity = state.velocity + (clampedVelocity - state.velocity) * smoothing;
+
+                if (state.rafId === null) startAnimation();
+            }
+
+            function onPointerUp(e) {
+                if (!state.isDragging) return;
+                if (state.pointerId !== (e.pointerId !== undefined ? e.pointerId : 'touch')) return;
+
+                state.isDragging = false;
+                if (e.pointerId !== undefined && container.releasePointerCapture) {
+                    container.releasePointerCapture(e.pointerId);
+                }
+                container.style.cursor = 'grab';
+
+                if (CONFIG.autoPlay) {
+                    state.autoPlayActive = true;
+                }
+
+                if (state.rafId === null) startAnimation();
+            }
+
+            function onPointerCancel(e) {
+                if (state.isDragging) {
+                    onPointerUp(e);
+                }
+            }
+
+            function onPointerLeave(e) {
+                if (state.isDragging && state.pointerId === (e.pointerId !== undefined ? e.pointerId : 'touch')) {
+                    onPointerUp(e);
+                }
+            }
+
+            // Si el usuario arrastró, no se debe abrir/descargar el archivo al soltar
+            function onClick(e) {
+                if (state.dragMoved) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            }
+
+            function onKeyDown(e) {
+                if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    const direction = e.key === 'ArrowRight' ? -1 : 1;
+                    const step = state.cardStep;
+                    const next = state.targetOffset + direction * step;
+                    state.targetOffset = next;
+                    state.velocity = 0;
+                    if (state.rafId === null) startAnimation();
+                }
+            }
+
+            function setupEvents() {
+                container.addEventListener('pointerdown', onPointerDown);
+                container.addEventListener('pointermove', onPointerMove);
+                container.addEventListener('pointerup', onPointerUp);
+                container.addEventListener('pointercancel', onPointerCancel);
+                container.addEventListener('pointerleave', onPointerLeave);
+
+                container.addEventListener('click', onClick, true);
+
+                container.addEventListener('keydown', onKeyDown);
+
+                container.addEventListener('dragstart', (e) => e.preventDefault());
+            }
+
+            function init() {
+                initCards();
+                setupEvents();
+
+                state.renderedOffset = 0;
+                state.targetOffset = 0;
+                state.velocity = 0;
+                state.renderedVelocity = 0;
+                state.autoPlayActive = CONFIG.autoPlay;
+
+                applyFrameStyles(0);
+
+                if (CONFIG.autoPlay) {
+                    startAnimation();
+                }
+
+                if (!CONFIG.autoPlay) {
+                    const badge = document.querySelector('.info-badge');
+                    if (badge) badge.textContent = '⟳ arrastra';
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+        })();
+    </script>
+
+</body>
+
+</html>

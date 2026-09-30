@@ -1,32 +1,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Inconsolata:wght@200..900&display=swap');
-@-webkit-keyframes AnimationName {
-      0%{background-position:0% 37%}
-      50%{background-position:100% 64%}
-      100%{background-position:0% 37%}
-    }
-    @-moz-keyframes AnimationName {
-      0%{background-position:0% 37%}
-      50%{background-position:100% 64%}
-      100%{background-position:0% 37%}
-    }
-    @keyframes AnimationName {
-      0%{background-position:0% 37%}
-      50%{background-position:100% 64%}
-      100%{background-position:0% 37%}
+
+/* @-webkit-keyframes AnimationName {
+      0% {
+            background-position: 0% 37%
+      }
+
+      50% {
+            background-position: 100% 64%
+      }
+
+      100% {
+            background-position: 0% 37%
+      }
 }
+
+@-moz-keyframes AnimationName {
+      0% {
+            background-position: 0% 37%
+      }
+
+      50% {
+            background-position: 100% 64%
+      }
+
+      100% {
+            background-position: 0% 37%
+      }
+}
+
+@keyframes AnimationName {
+      0% {
+            background-position: 0% 37%
+      }
+
+      50% {
+            background-position: 100% 64%
+      }
+
+      100% {
+            background-position: 0% 37%
+      }
+} */
+
 body {
-      background: linear-gradient(100deg, #ea698b, #ffd6ff, #d55d92, #c05299, #e7c6ff, #ac46a1, #973aa8, #822faf, #c05299, #6d23b6, #6411ad, #dc93f6, #571089, #973aa8, #47126b);
+      /* background: linear-gradient(100deg, #ea698b, #ffd6ff, #d55d92, #c05299, #e7c6ff, #ac46a1, #973aa8, #822faf, #c05299, #6d23b6, #6411ad, #dc93f6, #571089, #973aa8, #47126b);
       background-size: 2600% 2600%;
       background-position: 200%
       background-attachment:
       -webkit-animation: AnimationName 30s ease infinite;
       -moz-animation: AnimationName 30s ease infinite;
-      animation: AnimationName 30s ease infinite;
+      animation: AnimationName 30s ease infinite;*/
       font-family: 'Anonymous Pro', monospace;
       color: whitesmoke;
       text-align: center;
-      cursor:crosshair;
+      cursor: crosshair;
       padding: 10px;
+      background-image: url("/docs/img/microsoft-design.webp");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+      margin: 0;
 }
 
 .header {
@@ -47,38 +82,57 @@ body {
 }
 
 @keyframes cambioDeColor {
-      0% { color: black; }
-      25% { color: #ffd6ff; }
-      50% { color: #47126b; }
-      75% { color: palevioletred; }.
-      100% { color: whitesmoke; }
+      0% {
+            color: black;
+      }
+
+      25% {
+            color: #ffd6ff;
+      }
+
+      50% {
+            color: #47126b;
+      }
+
+      75% {
+            color: palevioletred;
+      }
+
+      . 100% {
+            color: whitesmoke;
+      }
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
       text-align: center;
 }
 
-.new{
+.new {
       font-size: medium;
       animation: cambioDeColor 2s infinite;
 }
+
 p {
-      font-size:medium;
+      font-size: medium;
       color: whitesmoke;
 }
 
-a:link, a:visited {
+a:link,
+a:visited {
       color: white;
-      cursor:crosshair;
+      cursor: crosshair;
       text-decoration: none;
 }
 
-a:hover, a:active {
+a:hover,
+a:active {
       font-family: 'Inconsolata', monospace;
-      color:deeppink;
-      text-decoration:none;
+      color: deeppink;
+      text-decoration: none;
       /* padding: 2px 10px 0; */
-      font-size:150%
+      font-size: 150%
 }
 
 #container {
@@ -86,35 +140,35 @@ a:hover, a:active {
 }
 
 span#namezzz {
-      float:left;
-      color:white;
+      float: left;
+      color: white;
 }
 
 #generated {
-      display:block;
-      margin:0 auto;
-      text-align:center;
+      display: block;
+      margin: 0 auto;
+      text-align: center;
       font-size: 150%;
       width: 100%;
-      color:white;
+      color: white;
       margin-top: 200px;
       margin-bottom: 200px;
-      position:static;
+      position: static;
       background-image: url("https://media1.giphy.com/media/xTiTnBDM8bHWQHCOxW/giphy.gif?cid=ecf05e47lbdbghp81q3jsiw5yluqj1saazkt5ctgl4xxmgpt&rid=giphy.gif");
       background-position: center;
-      background-size: cover;  
+      background-size: cover;
 }
 
 #remember {
-      display:block;
-      margin:0 auto;
-      text-align:center;
+      display: block;
+      margin: 0 auto;
+      text-align: center;
       font-size: 150%;
       width: 100%;
-      color:white;
+      color: white;
       margin-top: 200px;
       margin-bottom: 200px;
-      position:static;
+      position: static;
       background-image: url("https://media1.giphy.com/media/xTiTnBDM8bHWQHCOxW/giphy.gif?cid=ecf05e47lbdbghp81q3jsiw5yluqj1saazkt5ctgl4xxmgpt&rid=giphy.gif");
       background-position: center;
       background-size: cover;
@@ -122,19 +176,20 @@ span#namezzz {
 
 button {
       font-family: 'Fira Mono', monospace;
-      display: block; position:static;
+      display: block;
+      position: static;
       margin: 50px auto 50px auto;
       padding: 10px 25px;
       font-size: 20px;
       background: white;
-      border:none;
+      border: none;
 }
 
 button:hover {
       font-family: 'Fira Mono', monospace;
-      background-color:  #FB6ECC;
+      background-color: #FB6ECC;
 }
 
 button:focus {
-      outline:none;
+      outline: none;
 }
