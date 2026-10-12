@@ -74,11 +74,11 @@ body {
   body {
     background-image: url("https://www.unglitchonline.xyz/docs/img/microsoft-design-mobile.png");
     background-size:cover;
-    background-position:center center;
+    background-position:center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    min-height: 100vh;
-    min-height: 100dvh;
+    /* min-height: 100vh;
+    min-height: 100dvh; */
   }
 }
 
