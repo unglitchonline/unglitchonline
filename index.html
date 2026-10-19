@@ -87,29 +87,6 @@
     <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://unglitchonline.tumblr.com/">sensación de nube con un rayito 🌩️</a></p>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="epub.html">textos en .epub</a></p>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://1drv.ms/f/c/a784dd385a483b29/IgApO0haON2EIICnpgAAAAAAAeHlPI2JZvY0RJL1Uy3ogv4?e=aEnghS">biblioteca (onedrive link)</a></p>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <!-- <p><a href="prueba.html">🦋</a></p> -->
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
   </div>
 
   <script>
@@ -191,7 +168,6 @@
         document.addEventListener('mousemove', onMove);
         document.addEventListener('touchmove', function (e) { onMove(e); }, { passive: true });
         document.addEventListener('mouseleave', function () { pointer.active = false; });
-        // También cuando el mouse sale de la ventana
         document.addEventListener('mouseout', function (e) {
           if (e.relatedTarget === null) {
             pointer.active = false;
@@ -202,7 +178,6 @@
       function render() {
         ctx.clearRect(0, 0, w, h);
 
-        // inactividad
         if (!pointer.active && w > 0 && !REDUCED) {
           auto.t += 0.018;
           var ax = w * (0.5 + 0.32 * Math.cos(auto.t * 0.9));
