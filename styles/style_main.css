@@ -61,7 +61,7 @@ body {
       padding: 10px;
 
       /* el otro bg */
-      background-image: url("/docs/img/microsoft-design.webp");
+      background-image: url("docs/img/microsoft-design.webp");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
