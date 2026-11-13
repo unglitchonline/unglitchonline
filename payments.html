@@ -4,31 +4,10 @@
     <meta http-equiv="content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="unglitchonline">
-    <title>/payments</title>
+    <title>/pagos</title>
     <link rel="shortcut icon" href="docs/img/af.png">
+    <link href="styles/style_main.css" rel="stylesheet" type="text/css">
     <style>
-        /* General Styles */
-        body {
-            font-family: 'Anonymous Pro', monospace;
-            color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(120deg, #ea698b, #ffd6ff, #d55d92, #c05299, #e7c6ff, #ac46a1, #973aa8, #822faf, #c05299, #6d23b6, #6411ad, #dc93f6, #571089, #973aa8, #47126b);
-            background-size: 2600% 2600%;
-            animation: gradientBG 30s ease infinite;
-            text-align: center;
-            line-height: 1.6;
-        }
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        h1 {
-            margin-top: 20px;
-            font-size: 2.5rem;
-            color: rgba(0, 0, 0, 0.6);
-        }
         .info-container {
             background: rgba(0, 0, 0, 0.6);
             border-radius: 10px;
@@ -39,30 +18,8 @@
             width: 85%;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        strong {
-            font-weight: bold;
-            color: #ffd6ff;
-        }
-        span {
-            font-family: 'Fira Mono', monospace;
-            font-size: 1.1rem;
-        }
         button {
-            background-color: #6d23b6;
-            color: #fff;
-            border: none;
-            padding: 8px 15px;
-            font-size: 14px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #ea698b;
-        }
-        button:focus {
-            outline: none;
+            position: left;
         }
         .success-message {
             display: none;
@@ -76,7 +33,7 @@
 <body>
     <h1>Información para Pagos por SPEI</h1>
     <div class="info-container">
-        <p><strong>Institución:</strong> <span id="banco">STP</span></p>
+        <p>Institución: <span id="banco">STP</span></p>
         <button onclick="copiarTexto('banco')">Copiar</button>
         <p><strong>Nombre:</strong> <span id="nombre">Nadia Abigail Fuentes Pompa</span></p>
         <button onclick="copiarTexto('nombre')">Copiar</button>
