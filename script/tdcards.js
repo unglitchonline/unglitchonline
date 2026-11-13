@@ -1,0 +1,450 @@
+(function () {
+    'use strict';
+
+    const CONFIG = {
+        cardWidth: 300,
+        cardHeight: 380,
+        radius: 20,
+        blurAmount: 8,
+        dragSensitivity: 1,
+        autoPlay: true,
+        autoPlaySpeed: 15,
+        autoPlayDirection: 'Forward',
+        perspective: 1800,
+        sideRotation: 14,
+        sideTilt: 6,
+        overlap: 300,
+        maxMomentum: 1400,
+    };
+
+    const ITEMS = [{
+        imageUrl: 'https://www.unglitchonline.xyz/docs/img/compulsion_de_repeticion.webp',
+        title: 'compulsión de repetición',
+        link: 'https://www.unglitchonline.xyz/docs/toe/compulsion_de_repeticion.zip',
+        download: 'https://www.unglitchonline.xyz/docs/toe/compulsion_de_repeticion.zip'
+    }, {
+        imageUrl: 'https://www.unglitchonline.xyz/docs/img/tracking.webp',
+        title: 'tracking',
+        link: 'https://www.unglitchonline.xyz/docs/toe/tracking.zip',
+        download: 'https://www.unglitchonline.xyz/docs/toe/tracking.zip'
+    }, {
+        imageUrl: 'https://www.unglitchonline.xyz/docs/img/antigala.webp',
+        title: 'antigala',
+        link: 'https://www.unglitchonline.xyz/docs/toe/antigala.zip',
+        download: 'https://www.unglitchonline.xyz/docs/toe/antigala.zip'
+    }, {
+        imageUrl: 'https://www.unglitchonline.xyz/docs/img/fiac.webp',
+        title: 'fiac 2024',
+        link: 'https://www.unglitchonline.xyz/docs/toe/fiac.zip',
+        download: 'https://www.unglitchonline.xyz/docs/toe/fiac.zip'
+    }];
+
+    const container = document.getElementById('carousel');
+    const scene = document.getElementById('scene');
+
+    const state = {
+        offset: 0,
+        targetOffset: 0,
+        velocity: 0,
+        renderedOffset: 0,
+        renderedVelocity: 0,
+        isDragging: false,
+        pointerId: null,
+        lastX: 0,
+        lastTime: 0,
+        dragMoved: false,
+        animating: false,
+        rafId: null,
+        items: ITEMS,
+        cardStep: 0,
+        cycle: 0,
+        autoPlayActive: CONFIG.autoPlay,
+        autoPlayDirectionFactor: CONFIG.autoPlayDirection === 'Forward' ? -1 : 1,
+        cards: [],
+        imageElements: [],
+        captionElements: [],
+        assignmentCache: [],
+    };
+
+    function toSignedWrap(value, cycle) {
+        if (cycle <= 0) return 0;
+        const wrapped = ((((value + cycle / 2) % cycle) + cycle) % cycle) - cycle / 2;
+        return wrapped;
+    }
+
+    function smoothstep(edge0, edge1, x) {
+        if (edge0 === edge1) return x < edge0 ? 0 : 1;
+        const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+        return t * t * (3 - 2 * t);
+    }
+
+    function initCards() {
+        const numSlots = 5;
+        const fragment = document.createDocumentFragment();
+        state.cards = [];
+        state.imageElements = [];
+        state.captionElements = [];
+        state.assignmentCache = new Array(numSlots).fill(null);
+
+        const cardWidth = CONFIG.cardWidth;
+        const overlap = CONFIG.overlap;
+        state.cardStep = Math.max(70, cardWidth - overlap);
+        state.cycle = state.items.length * state.cardStep;
+
+        for (let slot = 0; slot < numSlots; slot++) {
+            const card = document.createElement('a');
+            card.className = 'carousel-card';
+            card.setAttribute('draggable', 'false');
+            card.style.width = cardWidth + 'px';
+            card.style.minWidth = cardWidth + 'px';
+            card.style.height = CONFIG.cardHeight + 'px';
+            card.style.borderRadius = CONFIG.radius + 'px';
+            card.style.background = '#ffffff';
+            card.style.display = 'flex';
+            card.style.flexDirection = 'column';
+            card.style.overflow = 'hidden';
+            card.style.textDecoration = 'none';
+            card.style.color = 'inherit';
+            card.style.position = 'absolute';
+            card.style.left = '50%';
+            card.style.top = '50%';
+            card.style.transformStyle = 'preserve-3d';
+            card.style.willChange = 'transform, filter, opacity';
+            card.style.backfaceVisibility = 'hidden';
+
+            // --- Imagen ---
+            const img = document.createElement('img');
+            img.draggable = false;
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.flex = '1 1 auto';
+            img.style.minHeight = '0';
+            img.style.objectFit = 'cover';
+            img.style.display = 'block';
+            img.style.pointerEvents = 'none';
+            img.style.userSelect = 'none';
+            img.style.webkitUserSelect = 'none';
+            img.loading = 'eager';
+            img.decoding = 'async';
+            img.alt = '';
+
+            const caption = document.createElement('span');
+            caption.className = 'card-caption';
+            caption.style.display = 'none';
+
+            card.appendChild(img);
+            card.appendChild(caption);
+            fragment.appendChild(card);
+
+            state.cards.push(card);
+            state.imageElements.push(img);
+            state.captionElements.push(caption);
+        }
+
+        scene.appendChild(fragment);
+
+        applyFrameStyles(state.offset);
+    }
+
+    function applyFrameStyles(offset) {
+        const items = state.items;
+        const count = items.length;
+        if (count === 0) return;
+
+        const cardStep = state.cardStep;
+        const cycle = state.cycle;
+        const signed = toSignedWrap(offset, cycle);
+        const activeFloatIndex = -signed / cardStep;
+        const nearestCenter = Math.round(activeFloatIndex);
+
+        const numSlots = state.cards.length;
+
+        for (let slot = 0; slot < numSlots; slot++) {
+            const card = state.cards[slot];
+            const img = state.imageElements[slot];
+            const caption = state.captionElements[slot];
+            if (!card || !img) continue;
+
+            const virtualIndex = nearestCenter + (slot - 2);
+            const wrappedItemIndex = ((virtualIndex % count) + count) % count;
+            const item = items[wrappedItemIndex];
+            const rawDistance = virtualIndex - activeFloatIndex;
+            const absDistance = Math.abs(rawDistance);
+            const clampedDistance = Math.min(absDistance, 2.25);
+            const direction = rawDistance === 0 ? 0 : (rawDistance > 0 ? 1 : -1);
+            const eased = Math.min(1, clampedDistance / 2);
+            const depthEase = Math.pow(eased, 0.9);
+            const translateX = rawDistance * cardStep;
+            const rotateY = -direction * depthEase * CONFIG.sideRotation;
+            const rotateZ = direction * depthEase * CONFIG.sideTilt;
+            const scale = 1 - depthEase * 0.24;
+            const translateZ = 110 - depthEase * 160;
+            const zIndex = 1000 - Math.round(clampedDistance * 100);
+
+            const fadeStartDistance = 1.35;
+            const fadeEndDistance = 2.85;
+            const edgeOpacity = Math.max(0, Math.min(1,
+                1 - smoothstep(fadeStartDistance, fadeEndDistance, absDistance)
+            ));
+
+            const blurDepth = smoothstep(0.35, 2.25, absDistance);
+            const blurPx = CONFIG.blurAmount <= 0 ? 0 : CONFIG.blurAmount * blurDepth;
+
+            const shadowEase = smoothstep(0, 1.5, absDistance);
+            const shadowYOffset = 20 - shadowEase * 8;
+            const shadowBlur = 40 - shadowEase * 12;
+            const shadowAlpha = 0.16 - shadowEase * 0.05;
+
+            card.style.zIndex = zIndex;
+            card.style.opacity = edgeOpacity;
+            card.style.transform =
+                `translate3d(calc(-50% + ${translateX}px), -50%, ${translateZ}px) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
+            card.style.filter = blurPx > 0 ? `blur(${blurPx}px)` : 'none';
+            card.style.boxShadow =
+                `0 ${shadowYOffset}px ${shadowBlur}px rgba(0,0,0,${Math.max(0.08, shadowAlpha)})`;
+
+            const src = item.imageUrl || '';
+            const title = (typeof item.title === 'string') ? item.title.trim() : '';
+            const alt = item.alt || title || `Imagen del carrusel ${wrappedItemIndex + 1}`;
+            const link = (typeof item.link === 'string') ? item.link.trim() : '';
+            const downloadName = (typeof item.download === 'string') ? item.download.trim() : '';
+
+            const cache = state.assignmentCache[slot];
+            if (!cache || cache.itemIndex !== wrappedItemIndex || cache.src !== src || cache.alt !== alt ||
+                cache.link !== link || cache.download !== downloadName) {
+                img.src = src;
+                img.alt = alt;
+                state.assignmentCache[slot] = { itemIndex: wrappedItemIndex, src, alt, link, download: downloadName };
+            }
+
+            if (caption) {
+                if (caption.textContent !== title) caption.textContent = title;
+                caption.style.display = title ? 'block' : 'none';
+            }
+
+            if (link) {
+                card.href = link;
+                if (downloadName) {
+                    card.setAttribute('download', downloadName);
+                } else {
+                    card.removeAttribute('download');
+                }
+                card.setAttribute('aria-label', title ? `Descargar: ${title}` : `Descargar: ${alt}`);
+                card.removeAttribute('tabindex');
+            } else {
+                card.removeAttribute('href');
+                card.removeAttribute('download');
+                card.removeAttribute('aria-label');
+                card.setAttribute('tabindex', '-1');
+            }
+        }
+    }
+
+    function animationStep(timestamp) {
+        if (!state.animating) {
+            state.rafId = null;
+            return;
+        }
+
+        const prevTime = state.lastFrameTime || 0;
+        const dt = prevTime > 0 ? Math.min(Math.max((timestamp - prevTime) / 1000, 1 / 240), 1 / 30) : 1 / 60;
+        state.lastFrameTime = timestamp;
+
+        let target = state.targetOffset;
+        let rendered = state.renderedOffset;
+        let renderedVelocity = state.renderedVelocity;
+
+        if (state.autoPlayActive && !state.isDragging) {
+            target += state.autoPlayDirectionFactor * CONFIG.autoPlaySpeed * dt;
+        }
+
+        target += state.velocity * dt;
+        state.velocity *= Math.pow(0.94, dt * 60);
+        if (Math.abs(state.velocity) < 0.2) state.velocity = 0;
+
+        const stiffness = state.isDragging ? 240 : 170;
+        const damping = state.isDragging ? 30 : 24;
+        const displacement = target - rendered;
+        const acceleration = displacement * stiffness - renderedVelocity * damping;
+        renderedVelocity += acceleration * dt;
+        rendered += renderedVelocity * dt;
+
+        state.targetOffset = target;
+        state.renderedOffset = rendered;
+        state.renderedVelocity = renderedVelocity;
+
+        applyFrameStyles(rendered);
+
+        const remaining = Math.abs(state.targetOffset - state.renderedOffset);
+        const velRemaining = Math.abs(state.renderedVelocity);
+        const shouldContinue = (state.isDragging ||
+            remaining > 0.015 ||
+            velRemaining > 0.015 ||
+            Math.abs(state.velocity) > 0.015 ||
+            state.autoPlayActive);
+
+        state.animating = shouldContinue;
+
+        if (shouldContinue) {
+            state.rafId = requestAnimationFrame(animationStep);
+        } else {
+            state.rafId = null;
+        }
+    }
+
+    function startAnimation() {
+        if (state.rafId !== null) return;
+        state.animating = true;
+        state.lastFrameTime = 0;
+        state.rafId = requestAnimationFrame(animationStep);
+    }
+
+    function stopAnimation() {
+        if (state.rafId !== null) {
+            cancelAnimationFrame(state.rafId);
+            state.rafId = null;
+        }
+        state.animating = false;
+    }
+
+    function onPointerDown(e) {
+        if (e.button !== undefined && e.button !== 0) return; // solo botón izquierdo
+        const pointer = e.pointerId !== undefined ? e : e.touches ? e.touches[0] : e;
+        if (!pointer) return;
+
+        state.isDragging = true;
+        state.dragMoved = false;
+        state.pointerId = e.pointerId !== undefined ? e.pointerId : 'touch';
+        state.lastX = pointer.clientX;
+        state.lastTime = performance.now();
+        state.targetOffset = state.renderedOffset;
+        state.velocity = 0;
+        state.renderedVelocity = 0;
+
+        // if (e.pointerId !== undefined && container.setPointerCapture) {
+        //     container.setPointerCapture(e.pointerId);
+        // }
+
+        container.style.cursor = 'grabbing';
+        startAnimation();
+    }
+
+    function onPointerMove(e) {
+        if (!state.isDragging) return;
+        const pointer = e.pointerId !== undefined ? e : e.touches ? e.touches[0] : null;
+        if (!pointer) return;
+        if (state.pointerId !== (e.pointerId !== undefined ? e.pointerId : 'touch')) return;
+
+        const dx = pointer.clientX - state.lastX;
+        if (!state.dragMoved && Math.abs(dx) > 3) {
+            state.dragMoved = true;
+        }
+        const now = performance.now();
+        const dt = Math.max((now - state.lastTime) / 1000, 0.001);
+        state.lastX = pointer.clientX;
+        state.lastTime = now;
+
+        const scaledDx = dx * CONFIG.dragSensitivity;
+        const nextTarget = state.targetOffset + scaledDx;
+        state.targetOffset = nextTarget;
+
+        const instantaneousVelocity = scaledDx / dt;
+        const clampedVelocity = Math.max(-CONFIG.maxMomentum, Math.min(CONFIG.maxMomentum, instantaneousVelocity));
+        const smoothing = 1 - Math.exp(-20 * dt);
+        state.velocity = state.velocity + (clampedVelocity - state.velocity) * smoothing;
+
+        if (state.rafId === null) startAnimation();
+    }
+
+    function onPointerUp(e) {
+        if (!state.isDragging) return;
+        if (state.pointerId !== (e.pointerId !== undefined ? e.pointerId : 'touch')) return;
+
+        state.isDragging = false;
+        // if (e.pointerId !== undefined && container.releasePointerCapture) {
+        //     container.releasePointerCapture(e.pointerId);
+        // }
+        container.style.cursor = 'grab';
+
+        if (CONFIG.autoPlay) {
+            state.autoPlayActive = true;
+        }
+
+        if (state.rafId === null) startAnimation();
+    }
+
+    function onPointerCancel(e) {
+        if (state.isDragging) {
+            onPointerUp(e);
+        }
+    }
+
+    function onPointerLeave(e) {
+        if (state.isDragging && state.pointerId === (e.pointerId !== undefined ? e.pointerId : 'touch')) {
+            onPointerUp(e);
+        }
+    }
+
+    // Si el usuario arrastró, no se debe abrir/descargar el archivo al soltar
+    function onClick(e) {
+        if (state.dragMoved) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }
+
+    function onKeyDown(e) {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            e.preventDefault();
+            const direction = e.key === 'ArrowRight' ? -1 : 1;
+            const step = state.cardStep;
+            const next = state.targetOffset + direction * step;
+            state.targetOffset = next;
+            state.velocity = 0;
+            if (state.rafId === null) startAnimation();
+        }
+    }
+
+    function setupEvents() {
+        container.addEventListener('pointerdown', onPointerDown);
+        container.addEventListener('pointermove', onPointerMove);
+        container.addEventListener('pointerup', onPointerUp);
+        container.addEventListener('pointercancel', onPointerCancel);
+        container.addEventListener('pointerleave', onPointerLeave);
+
+        container.addEventListener('click', onClick, true);
+
+        container.addEventListener('keydown', onKeyDown);
+
+        container.addEventListener('dragstart', (e) => e.preventDefault());
+    }
+
+    function init() {
+        initCards();
+        setupEvents();
+
+        state.renderedOffset = 0;
+        state.targetOffset = 0;
+        state.velocity = 0;
+        state.renderedVelocity = 0;
+        state.autoPlayActive = CONFIG.autoPlay;
+
+        applyFrameStyles(0);
+
+        if (CONFIG.autoPlay) {
+            startAnimation();
+        }
+
+        if (!CONFIG.autoPlay) {
+            const badge = document.querySelector('.info-badge');
+            if (badge) badge.textContent = '⟳ arrastra';
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+})();

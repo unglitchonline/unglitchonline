@@ -1,0 +1,160 @@
+    (function () {
+      "use strict";
+
+      var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      var canvas = document.getElementById('bg-canvas');
+      var ctx = canvas.getContext('2d');
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = 0,
+        h = 0;
+
+      function resize() {
+        w = Math.max(1, Math.round(window.innerWidth));
+        h = Math.max(1, Math.round(window.innerHeight));
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      var COLORS = ["#7c5cff", "#22d3ee", "#ff5ca8"];
+      var MAX = 120;
+      var particles = [];
+      var pointer = { x: 0, y: 0, active: false };
+      var auto = { t: Math.random() * 1000 };
+
+      var SPRITE = 64;
+      var sprites = COLORS.map(function (c) {
+        var s = document.createElement('canvas');
+        s.width = s.height = SPRITE * 2;
+        var sc = s.getContext('2d');
+        var g = sc.createRadialGradient(SPRITE, SPRITE, 0, SPRITE, SPRITE, SPRITE);
+        g.addColorStop(0, c);
+        g.addColorStop(1, "rgba(0,0,0,0)");
+        sc.fillStyle = g;
+        sc.beginPath();
+        sc.arc(SPRITE, SPRITE, SPRITE, 0, Math.PI * 2);
+        sc.fill();
+        return s;
+      });
+
+      function emit(x, y, n) {
+        for (var i = 0; i < n; i++) {
+          particles.push({
+            x: x,
+            y: y,
+            vx: (Math.random() - 0.5) * 1.6,
+            vy: (Math.random() - 0.5) * 1.6,
+            life: 1,
+            decay: 0.012 + Math.random() * 0.02,
+            r: 1.5 + Math.random() * 3.5,
+            ci: (Math.random() * COLORS.length) | 0
+          });
+        }
+        if (particles.length > MAX) particles.splice(0, particles.length - MAX);
+      }
+
+      function getPointerPos(e) {
+        var pt = e.touches ? e.touches[0] : e;
+        return { x: pt.clientX, y: pt.clientY };
+      }
+
+      function onMove(e) {
+        var pos = getPointerPos(e);
+        pointer.x = pos.x;
+        pointer.y = pos.y;
+        if (!pointer.active) {
+          pointer.active = true;
+        }
+        emit(pointer.x, pointer.y, 3);
+      }
+
+      if (!REDUCED) {
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('touchmove', function (e) { onMove(e); }, { passive: true });
+        document.addEventListener('mouseleave', function () { pointer.active = false; });
+        document.addEventListener('mouseout', function (e) {
+          if (e.relatedTarget === null) {
+            pointer.active = false;
+          }
+        });
+      }
+
+      function render() {
+        ctx.clearRect(0, 0, w, h);
+
+        if (!pointer.active && w > 0 && !REDUCED) {
+          auto.t += 0.018;
+          var ax = w * (0.5 + 0.32 * Math.cos(auto.t * 0.9));
+          var ay = h * (0.5 + 0.3 * Math.sin(auto.t * 1.3));
+          emit(ax, ay, 2);
+        }
+
+        ctx.globalCompositeOperation = "lighter";
+        for (var i = particles.length - 1; i >= 0; i--) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vx *= 0.96;
+          p.vy *= 0.96;
+          p.vy += 0.015;
+          p.life -= p.decay;
+          if (p.life <= 0) {
+            particles.splice(i, 1);
+            continue;
+          }
+          ctx.globalAlpha = p.life;
+          var rad = p.r * 3,
+            d = rad * 2;
+          ctx.drawImage(sprites[p.ci], p.x - rad, p.y - rad, d, d);
+        }
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = "source-over";
+      }
+
+      function runLoop() {
+        if (REDUCED) {
+          ctx.clearRect(0, 0, w, h);
+          ctx.globalCompositeOperation = "lighter";
+          for (var k = 0; k < 40; k++) {
+            var px = w / 2 + (Math.random() - 0.5) * w * 0.5;
+            var py = h / 2 + (Math.random() - 0.5) * h * 0.5;
+            var rr = 4 + Math.random() * 8;
+            ctx.globalAlpha = 0.5;
+            ctx.drawImage(sprites[k % 3], px - rr, py - rr, rr * 2, rr * 2);
+          }
+          ctx.globalCompositeOperation = "source-over";
+          return;
+        }
+
+        var running = false,
+          id = 0;
+
+        function loop() {
+          render();
+          id = requestAnimationFrame(loop);
+        }
+
+        function start() {
+          if (running || document.hidden) return;
+          running = true;
+          id = requestAnimationFrame(loop);
+        }
+
+        function stop() {
+          running = false;
+          cancelAnimationFrame(id);
+        }
+
+        document.addEventListener('visibilitychange', function () {
+          document.hidden ? stop() : start();
+        });
+
+        start();
+      }
+
+      runLoop();
+    })();
