@@ -18,25 +18,25 @@
     };
 
     const ITEMS = [{
-        imageUrl: 'https://www.unglitchonline.xyz/docs/img/compulsion_de_repeticion.webp',
+        imageUrl: 'docs/img/compulsion_de_repeticion.webp',
         title: 'compulsión de repetición',
-        link: 'https://www.unglitchonline.xyz/docs/toe/compulsion_de_repeticion.zip',
-        download: 'https://www.unglitchonline.xyz/docs/toe/compulsion_de_repeticion.zip'
+        link: 'http://www.unglitchonline.qd.je/docs/toe/compulsion_de_repeticion.zip',
+        download: 'docs/toe/compulsion_de_repeticion.zip'
     }, {
-        imageUrl: 'https://www.unglitchonline.xyz/docs/img/tracking.webp',
+        imageUrl: 'docs/img/tracking.webp',
         title: 'tracking',
-        link: 'https://www.unglitchonline.xyz/docs/toe/tracking.zip',
-        download: 'https://www.unglitchonline.xyz/docs/toe/tracking.zip'
+        link: 'http://www.unglitchonline.qd.je/docs/toe/tracking.zip',
+        download: 'docs/toe/tracking.zip'
     }, {
-        imageUrl: 'https://www.unglitchonline.xyz/docs/img/antigala.webp',
+        imageUrl: 'docs/img/antigala.webp',
         title: 'antigala',
-        link: 'https://www.unglitchonline.xyz/docs/toe/antigala.zip',
-        download: 'https://www.unglitchonline.xyz/docs/toe/antigala.zip'
+        link: 'http://www.unglitchonline.qd.je/docs/toe/antigala.zip',
+        download: 'docs/toe/antigala.zip'
     }, {
-        imageUrl: 'https://www.unglitchonline.xyz/docs/img/fiac.webp',
+        imageUrl: 'docs/img/fiac.webp',
         title: 'fiac 2024',
-        link: 'https://www.unglitchonline.xyz/docs/toe/fiac.zip',
-        download: 'https://www.unglitchonline.xyz/docs/toe/fiac.zip'
+        link: 'http://www.unglitchonline.qd.je/docs/toe/fiac.zip',
+        download: 'docs/toe/fiac.zip'
     }];
 
     const container = document.getElementById('carousel');
@@ -321,10 +321,6 @@
         state.velocity = 0;
         state.renderedVelocity = 0;
 
-        // if (e.pointerId !== undefined && container.setPointerCapture) {
-        //     container.setPointerCapture(e.pointerId);
-        // }
-
         container.style.cursor = 'grabbing';
         startAnimation();
     }
@@ -361,9 +357,6 @@
         if (state.pointerId !== (e.pointerId !== undefined ? e.pointerId : 'touch')) return;
 
         state.isDragging = false;
-        // if (e.pointerId !== undefined && container.releasePointerCapture) {
-        //     container.releasePointerCapture(e.pointerId);
-        // }
         container.style.cursor = 'grab';
 
         if (CONFIG.autoPlay) {
@@ -385,7 +378,6 @@
         }
     }
 
-    // Si el usuario arrastró, no se debe abrir/descargar el archivo al soltar
     function onClick(e) {
         if (state.dragMoved) {
             e.preventDefault();
